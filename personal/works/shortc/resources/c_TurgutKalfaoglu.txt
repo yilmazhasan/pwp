@@ -1,0 +1,4335 @@
+C-Dili  0. Konu                                 Baski Tarihi: 28/ 3/89
+                                                Son editleme: 15/10/90
+                       CORONADO ENTERPRISES
+                             C TUTOR
+
+KIMIN ICIN?
+
+C dili, ogrenmesi basit bir dil degildir. Bu nedenle hicbir bilgisayar
+dili bilmeyenlere, bu kitabi tavsiye etmiyorum. Sayet BASIC
+biliyorsaniz, cok iyi. Pascal, COBOL, FORTRAN, harika. Biraz MS-DOS
+bilmenizde de fayda var. Fakat C dilini ogrenmek icin DOS eksperi
+olmaniz gerekmez.
+
+
+NASIL?
+
+Ilk once, bu kitabin sonu .TXT ile biten kutuklerini, bir yaziciya
+yollayin. Bu sayede, ekranda derlenecek programi incelerken, elinizde
+metini okuyabilirsiniz. Bu kitapta konularin icine serpistirilmis
+ornekler bulacaksiniz. Bircok yerde, bu ornegin hangi kutukte bulundugu
+belirtilecektir. Ornegi inceledikten sonra, derleyiciniz ile kutugu
+derleyip, sonuclari incelemenizde fayda vardir.
+
+
+HANGI DERLEYICI?
+
+Herhangi bir C derleyicisini kullanabilirsiniz. Hatta, bedavaya
+dagitilan SMALL-C derleyicisini, Software Sandwich sirketinden temin
+edebilirsiniz. Daha fazla bilgi icin lutfen DERLEYICI.TXT isimli kutuge
+bakin.
+
+PARASAL
+
+Bu kitap, Coronado Enterprises sirketi tarafindan, kullanici destekli
+olarak sunulmus bir elektronik-kitabin tercumesidir. Turkcesi, Turgut
+Kalfaoglu tarafindan hazirlanmistir. Kendisi, yani ben, bu tercumeye ek
+olarak buyuk miktarda yaziyi da, kendi deneyimimden katmistir. Bu
+tercume de, kullanici-destekli olarak Turk bilgisayar piyasasina
+verilmistir. Bu kitap, bedava degildir. Sayet bu kitabi kullanip, size
+birseyler ogrettigine karar verirseniz, yaklasik $20 dolar karsilik bir
+bagisin adresime gonderilmesini rica ederim.
+
+
+Turgut Kalfaoglu              Earn/Bitnet adresi:  TURGUT@TREARN
+1378 Sok. 8/10
+Izmir 35210
+Turkiye
+
+Bagis aldigim taktirde, bu tip yayinlari surdurecegim. Lutfen
+kullanici-destekli fikrini destekleyin, ve icine bakamadan aldiginiz
+pahali kitaplari, ve programlari fes edebilecek bu metodu surdurmeme
+yardimci olun.
+
+HAKLAR
+
+Bu kitabin her hakki Turgut Kalfaoglu ve Coronado Enterprises inc. e
+aittir. Bu kitabi istediginiz gibi degistirebilirsiniz, fakat baskalarina
+vereceginiz zaman, orjinal hali ile dagitmaniz gerekmektedir.
+
+ONERILER, EKLER
+
+Bu kitabin bir sonraki 'baskisi' icin sayet onerileriniz var ise, bilmek
+isterim. Lutfen adresime eklenmesini istediginiz malzemeyi gonderiniz. 5
+1/4 lik disket halinde gondermenizi tercih ederim. Tesekkurler!
+
+C Dili - 1. Konu
+
+C NEDIR ?
+C programlama dili, Dennis Ritchie tarafindan Bell laboratuarlarinda
+yaratilmistir. PDP-11 ile Unix altinda calismak icin yaratilmis olmasina
+ragmen, ilgi uzerine MS-DOS altinda calisacak hale getirilmistir.
+Basitligi, olusan kodun kucuklugu, ve her cesit programlamada
+kullanilabilmesi, C yi populer bir dil yapmistir.
+
+C, cok kestirme olmasi nedeni ile, yeni bilgisayarlara baslayanlar icin
+ogrenmesi zordur. Bir programci, C ile ust seviyelerden, assebly'ye
+yaklasan alt seviyelere kadar programlama yapabilir. C nin sagladigi bu
+rahatligin yaninda, tehlikeleride de vardir. Ornegin, makineyi
+kilitleyebilecek bir program yazmak, Pascal yada BASIC de yazmaktan cok
+daha kolaydir. Bir Pascal derleyicisinin fark edip uyaracagi bir hatayi, C
+derleyicileri fark etmeyebilir. C de, kendi basinizasiniz..
+
+NIYE C?
+
+Bu gun IBM-PC icin yazilan piyasadaki yeni programlarin yuzde 75'i, C ile
+yaziliyor. MicroSoft, Macro Assembler 4.0 i cikardiktan sonra, onu C ile
+yazdiklarini acikladi. Herhalde icinde birkac assembler rutin vardir ama,
+cogunlugu C ile yazilmistir.
+
+C, bir komite degilde, bir kisi tarafindan yazilmis oldugundan, cok
+kullanisli bir lisandir, fakat cok iyi tanimlanmamistir. C icin bir
+standart yoktur, ama ANSI grubu, bu konuda calismaktadir. Isin ilgincligi,
+bir standart olmamasina ragmen, degisiklikleri cok azdir. Halbuki iyi
+tanimi olan Pascal dilinin, derleyicileri birbirinden cok farklidir, ve
+bir Pascal programini bir bilgisayardan digerine gecirmek zordur..
+
+C nin Tasinabilirlik referanslari iyi olmasina ragmen, derleyiciler
+arasinda farkliliklar vardir. Bu degisiklikler genellikle BIOS
+fonksiyonlari gibi standart olmayan seyler kullanildiginda kendini
+gosterir.
+
+
+TANIMLAYICI ISIMLERI
+
+Fonksiyon ve degisken isimleri, harfler ve rakkamlardan olusabilir. Ilk
+harf ya bir harf yada alt-cizgi karakteri olmak zorundadir. geri kalanlar
+ise, harf, rakkam yada alt cizgi olabilir. Iki nokta onemlidir:
+
+(1) Buyuk ve kucuk harfler farklidir. Bir programda "ISIM", "iSiM" ve
+"isim", degisik tanimlayicilardir.
+
+(2) C'de, en fazla sekiz karakter onemlidir. Bir tanimlayici 8 karakterden
+uzun olabilir, fakat ilk sekizi sayilir. Bu derleyiciniz icin boyle
+olmayabilir. 
+
+DERLEYICI
+
+Bu derste bircok ornek program sunacagim. Bunlari istediginiz herhangi bir
+derleyici ile derleyebilirsiniz, fakat kullanim kolayligi bakimindan
+QuickC derleyicisini tercih etmenizi tavsiye ederim.
+
+C Dili - 2. Konu
+
+ILK C PROGRAMINIZ
+
+En basit C programi:
+
+main()
+{
+}
+
+Bu bir programdir, ve bunu kisaltmanin, basitlestirmenin bir yolu yoktur.
+Isin kotu tarafi, bu program birsey yapmaz. Buradaki en onemli kelime,
+main() sozcugudur. Her programda olmasi gereken bu sozcuk, daha sonra
+gorecegimiz gibi, ilk satirda olmak zorunda degildir, fakat bir giris
+noktasi saglamasi nedeni ile gereklidir. Bunu takiben, iki tane parantez
+vardir. Bunlar da, main'in bir fonksiyon oldugunu belirtir. (Bir
+fonksiyonun tam olarak nelerden olustugunu daha sonra gorecegiz)
+Programin kendisi ise, iki kume isareti arasinda yer alir.
+
+BIRSEYLER YAPAN BIR PROGRAM:
+
+Daha ilginc bir program:
+
+main()
+{
+	printf("Bu bir satirlik yazidir.");
+}
+
+Bu programin, ayni diger program gibi, main, ve kume isaretleri vardir.
+Icinde yer alan fonksiyonun, bir satiri ekrana getirmesi icin, satiri " "
+isaretleri arasina aliyoruz. Ayrica fonksiyonun parametresi oldugunu
+belirtmek icin de, cevresine parantez koyuyoruz.
+
+Satirin sonundaki noktali virgule dikkatinizi cekerim: Bir satirin
+bittigini derleyiciye bildirmek icin, C dilinde ; noktali virgul
+kullanilir. 
+
+DAHA COK SEY YAZAN BIR PROGRAM
+
+main()
+{
+	printf("Bu bir satirlik yazidir.\n");
+	printf("Bu bir baska ");
+	printf(" satirdir.\n");
+	printf("Bu ucuncu satirdir.\n");
+}
+
+
+Bu programda, 4 tane islenecek komut vardir. Satirlar bu sirada islenir.
+Ilk satirin sonundaki tuhaf ters bolu isareti, ondan sonra gelecek
+karakterin bir kontrol karakteri oldugunu belirtiyor. Bu durumda n harfi,
+yeni bir satir istegini belirtir. Yani, cursor, ekranin sol basina, ve bir
+satir asagiya kayar. Katarin herhangi bir yerinde yeni bir satir isteyince,
+"\n" komutunu verebilirsiniz. Hatta bir kelimenin ortasina bile koyup,
+kelimeyi iki satira bolebilirsiniz. 
+
+Ilk komut, metini ekrana yazar, ve bir satir asagi iner. Ikinci komut,
+yazdiktan sonra, yeni satir yapmadan, ucuncu komutun icindekileri ekrana
+yazar. Bu komutun sonunda, yeni satira gecilir. Dorduncu komut ise, ucuncu
+satiri yazar, ve bir return karakteri sunar.
+
+
+RAKAMLAR YAZALIM
+
+main()
+{
+	int index;
+	
+	index = 13;
+	printf("Indexin degeri simdi %d\n",index);
+	index = 27;
+	printf("Indexin degeri simdi %d\n",index);
+	index = 10;
+	printf("Indexin degeri simdi %d\n",index);
+}
+
+Bu programda ise, ilk defa olarak bir degisken kullaniyoruz. main() ve {
+isaretlerine artik alismis olmalisiniz. Bunun altinda "int index" diye bir
+satir yer aliyor. Bu satir, "index" isimli bir tamsayi degiskenini
+tanimliyor. Cogu mikrobilgisayarlar icin, 'int' tipi bir degiskenin
+alabilecegi degerler, -32768 ila 32767 dir.  'index' ismi ise,
+TANIMLAYICILAR da bahsettigimiz kurallara uyan herhangi birsey olabilir.
+Bu satirin sonunda da, satirin bittigini belirten ; noktali virgul yer
+alir. 
+
+Bir satirda birden fazla tam sayi tanimlanabilir, fakat henuz biz bununla
+ortaligi karistirmayacagiz.
+
+Programi incelerken, uc tane atama satiri oldugunu, ve bu satirlarin
+altinda da degerlerin yazildigini goruyoruz. Once 13 atanir, ve ekrana
+yazilir, sonra 27 ve 10.
+
+RAKAMLARI NASIL YAZARIZ
+
+Sozumuze sadik kalmak icin, tekrar printf komutuna donelim, ve nasil
+calistigini gorelim. Gordugunuz gibi, butun satirlar, birbiri ile ayni, ve
+diger orneklerden farki, icindeki % isareti. Bu harf, printf'e ekrana
+yazmayi durdurup, ozel birsey yapmasini soyler. % isaretinden sonra gelen
+harf, d, bir tamsayi yazilacagini belirtir. Bundan sonra, yeni satira
+geciren tanidik \n isaretini goruyoruz. 
+
+Den-denler arasinda kalan butun harfler, printf komutu ile ekrana
+cikacaklari tanimlar. Bundan sonraki virgul ve "index" sozcugu yer alir.
+printf komutu buradan degiskenin degerlerini okur. Daha fazla %d ekleyerek
+,ve bunlari yine virgul ile birbirine ekleyerek, birden fazla degiskenin
+de bu komut ile goruntulenmesini saglayabiliriz. Hatirlamaniz gereken
+onemli bir nokta, saha tanimlayici %d ile gecirdiginiz degisken miktari,
+ayni kalmalidir, yoksa bir runtime hatasi verir. 
+
+BILGI SATIRLARI NASIL EKLENIR
+
+/* Bu satiri, derleyici kullanmaz */
+
+main()	/* Bir satir daha */
+{	
+	printf("Bilgi satirlarinin nasil eklenecegini ");
+						/* Bilgi satirlari, 
+						bir satirdan uzun olabilir.
+						*/
+	printf("goruyoruz.\n");
+}
+
+/* Ve programin sonu... */
+
+
+
+Programa aciklik katmak icin, eklenebilecek bilgiler, derleyici tarafindan
+uzerinden atlanir. Lutfen yukaridaki programi, iyi bir ornek olarak
+almayin. Son derece daginik bir sekilde katilmis bilgi satirlari, sadece
+kullanimini gostermek amaci iledir. Bilgi satirlari, /*  isaretleri ile
+baslar, ve */ isareti ile sona erir. 
+
+Dikkat etmeniz gereken bir nokta, birkac satirdan olusan bilgi
+satirlarinda bulunan program komutlarinin, isleme konmayacagidir.
+
+Bilgi satirlari, programin nasil calistigini gostermesi bakimindan cok
+onemlidir. Yazdiginiz bir programin, bir baskasi tarafindan okunabilmesi,
+yada siz nasil calistigini unuttuktan sonra hatirlayabilmeniz icin, mumkun
+oldugu kadar cok bilgi satiri eklemekte fayda vardir. 
+
+Bazi derleyiciler ic ice bilgi satirlarini kabul ederler, fakat genelde,
+ic ice bilgi satirlari kabul edilmez.
+
+IYI SAYFA DIZIMI
+
+Yazdiginiz bir program, kolay anlasilir olmalidir. Bunun icin, duzgun bir
+sekilde programlamak cok onemlidir. C derleyicileri, komutlar arasindaki
+bosluklari goz onune almaz, ve bu nedenle de programlariniza aciklik
+katmak icin, dilediginiz gibi bosluk ve bos satir birakabilirsiniz. 
+
+Su iki programi karsilastiralim:
+
+main() /* Program buradan basliyor */
+{
+	printf("iyi yazis,");
+	printf            ("programin anlasilmasini kolaylastirir\n");
+}
+
+ve:
+
+main() /* Program buradan basliyor */ {printf("iyi yazis,"); printf
+("programin anlasilmasini kolaylastirir\n");}
+
+
+Odev:
+
+1. Ekrana kendi isminizi yazacak bir program yazin.
+2. Programa ayri satirlarda, iki "printf" satiri daha ekleyerek,
+adresinizi ve telefon numaranizi da yazdirin.
+
+C Dili -  3. Konu
+
+'WHILE' DONGUSU
+
+C dilinde, bircok tip dongu vardir. While dongusu, herhangi bir test,
+dogru kaldigi surece, bir program parcasini tekrarlar. Bu testin sonucu
+yalnis cikarsa, while dongusu sona erer, ve program normal akisina devam
+eder. 
+
+main()	/* while dongusunun bir ornegi */
+{
+	int count;
+	
+	count = 0;
+	while (count<6)
+	{
+		printf("count'un degeri: %d oldu. ",count);
+		count = count + 1;
+	}
+}
+
+Bu programda, count isimli bir degiskeni tanimliyoruz, ve sifira
+esitliyoruz. while dongusunun kullanimi, gorundugu gibi, 'while' sozcugu,
+ve parantez icinde bir test'den olusur.  Parantezlerin icindeki deyim
+dogru kaldigi surece, bu program tekrarlar. Bu programda, degiskenin
+degeri teker teker arttirildigindan, eninde sonunda degeri altiya
+varacaktir, ve bu durumda program donguden cikacaktir. 
+
+Parantezlerin icinde yer alan deyimleri, bundan sonraki konuda
+isleyecegiz. O zamana kadar, bunlarin dusundugunuz seyleri yaptigini kabul
+ediniz. 
+
+Birkac onemli nokta: 
+
+  1. Sayet 'count' un baslangic degeri 5 den buyuk birseye atanmis olsa
+  idi, dongunun icindekiler hic yapilmayacakti.  
+  2. Eger 'count = count + 1' komutu ile degerini bir arttirmasa idik, bu
+  program hic durmazdi.  
+  3. Son olarak, eger dongude tek bir komut varsa, kume isaretlerine gerek
+  yoktur.
+
+
+DO-WHILE DONGUSU
+
+Buna benzeyen bir baska komut ise, 'do-while' komutudur. Su program, daha
+once gordugumuz programa cok benzer:
+
+main()	/* Do-While dongusu ornegi */
+{
+	int i;
+	
+	i=0;
+	do
+	{
+		printf("I nin degeri simdi: %d oldu.\n",i);
+		i = i + 1;
+	} while (i<5);
+}
+
+Yegane farkin, dongunun bir 'do' komutu ile yapilmasi ve denkligin
+kontrolunun sona birakilmasidir. Bu durumda, parantezlerin arasinda deyim
+dogru kaldigi surece, dongu tekrarlanir. 
+
+Burada onemli noktalar: Kontrol, dongunun sonunda yapildigindan, kume
+isaretlerinin arasindaki deyimler daima en az bir kere islenir. Ayrica
+yine, sayet i nin degeri degismez ise, program donguden cikmaz. Son
+olarak, sayet dongunun icinde bir tek komut varsa, kume isaretlerine gerek
+yoktur. 
+
+Ayrica, dilediginiz miktarda donguyu ic ice de koymaniz mumkundur.
+
+FOR DONGUSU
+
+For dongusu, yeni birsey degildir. Sadece, 'while' dongusunun bir baska
+seklidir:
+
+main()	/* Bir for dongusu */
+{
+	int index;
+	
+	for(index=0;index<6;index = index + 1)
+		printf("index'in degeri simdi %d oldu.\n",index);
+}
+
+'For' dongusu, uc parcadan olusmustur. Her kesim birbirinden ; ile
+ayrilir. Ilk kesimi, baslangic kesimi (initalization) dir. Burada bulunan
+islemler, dongu baslamadan once, ve bir kere yapilir. Aslinda buraya
+yazilacak seyler icin bir sinir yoktur, fakat basit tutmakta fayda vardir.
+Bu kesime birden fazla islem yazilabilir, bunlari da birbirinden ','
+virgul ile ayirmak gerekir. 
+
+Ikinci kesimde, "index<6" diyen parcada, bu dongunun her turunda kontrol
+edilmesi gereken deyim yer alir. Bu deyim dogru oldugu surece, dongu devam
+eder. Dogru yada yalnis sonuc veren herhangi bir deyim, bu kesimde yer
+alabilir. 
+
+Ucuncu kesimde yer alan islemler ise, yine dongunun her turunda yapilir,
+fakat isleme baslamasi, dongunun icinde yer alan komutlarin islenmesinden
+sonra yapilir. 
+
+'For' komutundan sonra, ya tek bir komut gelir, yada kume isaretleri
+icinde, bir komut bloku.. C de hemen heryerde, tek bir komut yerine, bir
+komut bloku koymaniz mumkundur. 
+
+
+IF KOMUTU
+
+/* Bu, if-else komutunun bir ornegidir */
+
+main()
+{
+	int data;
+	
+	for (data=0;data<10;data = data + 1)
+	{
+		if (data==2)
+			printf("Data simdi %d ye esit.\n",data);
+		
+		if (data<5)
+			printf("Data simdi %d. Bu da, 5 den azdir. \n",data);
+		else
+			printf("Data simdi %d. Bu da, 4 den buyuktur.\n",data);
+	}
+}
+
+Bu programda, ilk once, icinde iki tane if komutu olan bir for dongusu
+gorunuyor. Bu dongunun on kere tekrarlanacagi, acik bir sekilde goruluyor.
+
+Ilk if satirina bakin: "if" kelimesi ile basliyor, ve sonra bir parantez
+icinde, sarti goruluyor. Sayet bu parantezin icindeki islemin sonucu dogru
+(evet) ise, if'den hemen sonra gelen satir islenir. Sayet cevap yalnis
+ise, if'den sonra gelen komut, atlanir. Burada da, tek bir komut, kume
+isaretleri ile, bir komut bloku haline getirilebilir.
+
+Burada data==2 islemi, data degiskeninin degerinin ikiye esit olup
+olmadigini kontrol eder. (Sayet data = 2 olsa idi, tumuyle ayri birsey
+gerceklesirdi.) 
+
+IF-ELSE
+
+Ikinci "if", yine birincisine benziyor. Fakat, ek olarak "else" isimli bir
+kesimi de iceriyor. Bu da, sayet parantezlerin icindeki islem dogru (EVET)
+sonuc verirse, "if" den sonra gelen satir islenecektir, sayet yalnis
+(HAYIR) sonucu verirse, "else" den sonra gelen komut islenecektir. Bu
+nedenle, iki satirdan biri muhakkak islenecektir. 
+
+BREAK ve CONTINUE 
+
+main()
+{
+	int xx;
+	
+	for (xx=5;xx<15; xx=xx+1)
+	{
+		if (xx==8)
+			break;
+		printf("Break dongusunun icinde, xx in degeri simdi %d\n",xx);
+	}
+	
+	for (xx=5;xx<15;xx=xx+1)
+	{
+		if (xx==8)
+			continue;
+		printf("Continue dongusunun icinde, xx in degeri simdi %d\n",xx);
+	}
+}
+
+
+Bu programda gordugunuz gibi, sayet xx in degeri 8 e esit ise, break
+isimli komutu cagiran bir if komutu goruyorsunuz. Break komutu, bizi
+donguden cikarip, programi dongunun hemen altindaki satirdan devam
+etmesini saglar. 
+
+Bu komut, ornegin dongunun icinde hesaplanan bir degere gore, donguden
+cikmak istediginizde cok ise yarar. Ornekte, xx in degeri sekize ulasinca,
+program donguden cikar, ve ekrana yazilmis en son deger, yedi olur.
+
+Programin ikinci parcasindaki dongude ise, Continue komutunu goruyoruz.
+Burada ise, deger 8 e ulasinca, program donguden cikmaz, fakat program
+dongunun en son satirina atlayip, aradaki printf satirini islemez.
+
+ SWITCH
+
+main()
+{
+	int kamyon;
+	
+	for (kamyon = 3;kamyon<13;kamyon = kamyon + 1)
+	{
+		switch (kamyon)
+		{
+			case 3:	printf("Degeri simdi uc.\n");
+					break;
+			case 4: printf("Degeri simdi dort.\n");
+					break;
+			case 5:
+			case 6:
+			case 7:
+			case 8:	printf("Degeri simdi 5 le 8 arasinda.\n");
+					break;
+			case 11:printf("Degeri simdi onbir.\n");
+					break;
+			default:printf("Tanimsiz degerlerden biri.\n");
+					break;
+		}
+	}
+}
+
+Simdiye kadar gordugumuz en buyuk komut olan "switch", aslinda kullanimi
+kolaydir. Ilk once, "switch" kelimesi ile baslar. Bunun arkasindan,
+parantez icinde bir deyim gelir. Bundan sonra, dilediginiz kadar 'case'
+komutlari, kume isaretleri arasinda yer alir. Her degeri sembolize eden
+'case' satirlari, degiskenin degeri, iki nokta ust uste, ve bununla ilgili
+komutlardan olusur. 
+
+Bizim ornegimizde, "kamyon" degiskeninin degeri 3 oldugunda, printf
+satiri, 'Degeri simdi uc' satirinin ekrana yazilmasini, saglar. Daha sonra
+yer alan 'break' komutu ise, switch in icinde yer alan diger komutlari
+islenmeden, switch den cikilmasini saglar. 
+
+Bir giris noktasi bulunduktan sonra, satirlar bir 'break' komutuna
+rastlayincaya kadar, yada switch'in son kume isaretine varincaya
+kadar komutlar siradan islenir. 
+
+"Kamyon" un degeri 5 e esit ise, program, case 5,6,7 den gecerek 8'de
+bulunan printf ve break komutlarini isler. Break komutu da, programi son
+kume isaretine getirir.  Sayet degiskenin bir degerine karsilik gelen bir
+case yoksa, 'default:' isimli secenek secilir. 
+
+GOTO KOMUTU
+
+main()
+{
+	goto leave
+	printf("Bu satir hic yazilmayacak.\n");
+leave:
+}
+
+
+Goto komutunu kullanmak icin, "goto" isminin yanina, atlamak istediginiz
+yerin sembolik ismini yazmaniz yeterlidir. "goto" ile bir dongunun icine
+atlamaniza izin yoktur, fakat bir dongunun disina atlayabilirsiniz. Ayrica
+bir fonksiyondan otekine de "goto" ile gecemezsiniz. 
+
+Bazi kimseler, goto nun hicbir yerde kullanilmamasi gerektigini
+belirtiyorlar. Sayet, goto kullanimi ile, diger metodlara gore daha anlasilir
+bir program olusacaksa, goto yu kullanmaktan cekinmeyin.
+
+SONUNDA - ISE YARAYAN BIR PROGRAM
+
+main()	/* Santigrad'dan Fahrenheite */
+{
+	int count;	/* for degiskeni */
+	int fahr;	/* fahrenheit degerini tutar */
+	int cen;	/* Santigrat degerini tutar */
+	
+	printf("Santigrad -> Fahrenheit karsilik tablosu\n\n");
+	
+	for (count=-2;count<=12;count=count+1)
+	{
+		cen = 10 * count;
+		fahr = 32 + (cen * 9) / 5;
+		printf(" C = %4d  F = %4d  ",cen,fahr);
+		if (cen == 0)
+			printf(" Suyun donma noktasi");
+		if (cen == 100)
+			printf(" Suyun kaynama noktasi");
+		printf("\n");
+	}
+}
+
+Bu program, santigrad ve fahrenheit derecelerin tablosunu yaratmaktadir.
+Birden fazla degisken kullanilan ilk programimizdir bu.  Degisken
+taniminda, uc ayri satir kullanilmasi sayesinde, degiskenlerin yanina ne
+ise yaradiklarini da yazabiliriz.
+
+Odev:
+
+1.	Isminizi ekrana 10 kere yazan bir program yaziniz. Bu programi 3 kere
+	yaziniz. Her seferinde ayri bir dongu metodu kullanarak..
+2.	Birden ona kadar sayan ve bu degerleri her satira bir tane olmak uzere
+	ekranda gosteren bir program yazin. Bu deger 3 e ve 7 ye esit olunca,
+	dilediginiz bir mesaji yazsin.
+
+C dili - 4. Konu
+
+TAM SAYI ATAMA
+
+TAMSAYI.C:
+================================================================
+main()
+{
+	int a,b,c;
+	
+	a = 12;
+	b = 3;
+
+	c = a+b;
+	c = a-b;
+	c = a*b;
+	c = a/b;
+	c = a%b;
+
+	c = 12*a+b/2-a*b*2/(a*c+b*2);
+
+	a = a + 1;	/* arttirma islemleri */
+	b = b * 5;
+	
+	a = b = c = 20;	/* Coklu atamalar */
+	a = b = c = 12*13/4;
+}
+================================================================
+
+Bu programda uc tam sayi degiskeni tanimliyoruz (a,b,c), ve bunlara
+degerler atiyoruz. Ilk iki satirda a ve b ye sayisal degerler veriyoruz.
+Daha sonraki dort satirda, basit islemler goruyorsunuz. 
+
+Besinci satirda ise, modulo operatorunu goruyorsunuz. Modulo, iki degisken
+birbirine bolundugunde, kalan degeri verir. Modulo, sadece integer ve char
+degisken tipleri ile kullanilabilir. 
+
+Daha sonra gelen iki arttirma islemleri ise, bu sekilde derleyici
+tarafindan kabul edilir, fakat bunlari yazmanin daha kestirme bir sekli
+vardir - bunu daha sonra gorecegiz. 
+
+Son iki satira gelince, bunlar cok tuhaf gorunebilir goze. C derleyicisi,
+atama satirlarini, sagdan sola dogru okur. Bunun sayesinde, coklu atamalar
+gibi, cok faydali islemler yapilabilir. Bu ornekte, derleyici, yirmiyi
+alip, c ye atiyor. Sola dogru devam ederken, b yi gorup, en son elde
+edilen sonucu (20) b ye atiyor. Ayni sekilde a ya da, b nin degeri
+veriliyor. 
+
+Bu programi derleyip, calistirmak son derece SIKICI olabilir. Bu programin
+hicbir ciktisi yoktur. Dilerseniz, ogrendiginiz printf fonksiyonu ile,
+programin yaptiklarini daha yakindan inceleyebilirsiniz.
+
+C de veri tanimlari, program bloku icinde, islenecek komutlardan once
+gelir. Sayet tanimlari programin ortasina yerlestirmeye calisirsaniz,
+derleyici bir hata verecektir.
+
+VERI TIPLERI
+
+main()
+{
+	int a,b,c;		/* -32767 den 32767 ye - tamsayi olarak */
+	char x,y,z;		/* 0 dan 255 e - tamsayi olarak */
+	float num,toy,thing;	/* 10e-38 den 10e+38 e - ondalikli olarak */
+	
+	a = b = c = -27;
+	x = y = z = 'A';
+	num = toy = thing = 3.6792;
+	
+	a = y;		/* a nin degeri simdi 65 (karakter A) */
+	x = b;		/* x simdi tuhaf bir sayi olacak */
+	num = b; 		/* num simdi -27.00 olacak */
+	a = toy		/* a simdi 3 olacak */
+}
+
+Gordugunuz gibi, birkac integer daha tanimladik. Fakat, bundan baska, iki
+yeni tip daha kattik. "Char" ve "float". 
+
+"Char" tipi, nerdeyse integer ile ayni manada. Fakat, sadece 0 ila 255
+arasindaki sayilari alabilir, ve genellikle hafizada bir bytelik bir yerde
+saklanir. Bu tip veri, genellikle kelime katarlari saklamak icin
+kullanilir. 
+
+DATA TIPLERININ KARISTIRILMASI
+
+Bu anda, C nin "int" ve "char" i nasil kullandigini gormenin tam zamani. C
+deki "int" tipi ile calisan cogu fonksiyonlar, karakter tip veri ile de
+ayni sekilde calisabilir, cunku karakter tipi, bir cins integer'dir.
+"char" ve "int" tiplerini neredeyse istediginiz gibi karistirmak
+mumkundur. Derleyicinin akli karismaz, ama sizin karisabilir. Bunun icin
+dogru tip veriyi kullanmakta fayda vardir.
+
+FLOAT
+
+Ikinci yeni tip veri, "float" tipidir. Kayar nokta da denilen bu tipin
+sinirlari cok genistir. Cogu bilgisayarlarda, float tipi 10e-38 den 10e+38
+e kadardir. 
+
+YENI VERI TIPLERINI NASIL KULLANALIM
+
+Bu programin ilk uc satirinda, dokuz tane degiskene deger ataniyor. 
+
+* Daha once gordugumuz gibi, "char" tipi, aslinda bir "integer" tipi
+oldugundan, bir "char" in "int" e cevrilmesinde hicbir sorun yoktur.
+* Fakat, bir integer'i "char" a cevirmek icin, bir standart yoktur. Bu
+nedenle, sayet tamsayi degiskeninin degeri, "char" sahasindan buyukse,
+cikan sonuc cok sasirtici olabilir. 
+* Ucuncu satirda ise, bir tamsayiyi, "float" a atiyoruz. Bu durumda,
+derleyici, bu ceviriyi bizim icin yapar. 
+* Fakat tersini yapmak ise, biraz daha karisiktir. Derleyici sayet varsa,
+degiskenin ondalik degerini ne yapacagina karar vermek zorundadir.
+Genellikle de, ondalik kesimi gozardi eder.
+
+Bu programin da hicbir ciktisi yok. Hem zaten karakter ve float tiplerinin
+nasil ekrana yazilabilecegini gormedik.. Bundan sonraki programa kadar
+sabir.. 
+
+COKVERI.C:
+================================================================
+
+main()
+{
+	int a;              /* basit tamsayi tipi              */
+	long int b;         /* uzun tamsayi tipi               */
+	short int c;        /* kisa tamsayi tipi               */
+	unsigned int d;     /* isaretsiz (+ - siz) tamsayi     */
+	char e;             /* karakter tipi                   */
+	float f;            /* kayar nokta tipi                */
+	double g;           /* cift hassasiyet kayar nokta     */
+ 
+	a = 1023;
+	b = 2222;
+	c = 123;
+	d = 1234;
+	e = 'X';
+	f = 3.14159;
+	g = 3.1415926535898;
+ 
+	printf("a = %d\n",a);      /* desimal               */
+	printf("a = %o\n",a);      /* oktal                 */
+	printf("a = %x\n",a);      /* heksadesimal          */
+	printf("b = %ld\n",b);     /* uzun desimal          */
+	printf("c = %d\n",c);      /* kisa desimal          */
+	printf("d = %u\n",d);      /* isaretsiz             */
+	printf("e = %c\n",e);      /* karakter              */
+	printf("f = %f\n",f);      /* kayar nokta           */
+	printf("g = %f\n",g);      /* cift hassasiyet k.n   */
+	printf("\n");
+	printf("a = %d\n",a);      /* basit 'int' cikti          */
+	printf("a = %7d\n",a);     /* 7 uzunlukta bir saha kullan*/
+	printf("a = %-7d\n",a);    /* sola dayali 7 lik saha     */
+	printf("\n");
+	printf("f = %f\n",f);      /* basit kayan nokta     */
+	printf("f = %12f\n",f);    /* 12 lik bir saha kullan*/
+	printf("f = %12.3f\n",f);  /* noktadan sonra 3 hane */
+	printf("f = %12.5f\n",f);  /* noktadan sonra 5 hane */
+	printf("f = %-12.5f\n",f); /* sola yapisik 12 hane  */
+}
+
+================================================================
+
+Bu program, C dilinde bulunan butun standart basit veri tiplerini
+kapsiyor. Baska tiplerde var, fakat bunlar basit tiplerin bir araya
+gelmesi ile olusurlar. Bunlardan daha sonra bahsedecegiz.
+
+Programi inceleyin. Ilk once basit 'int', sonra 'long int' ve 'short int'
+gorunuyor. 'unsigned' tipi, yine integer kadar bir sahada saklanir, fakat
+arti yada eksi isareti tasimadigindan, genellikle siniri 0 - 65535 dir.
+(Sayet long, short, yada unsigned deyimi kullanilmissa, sonuna 'int'
+yazilmasi gereksizdir.) 
+
+Daha once char ve float u gormustuk. Bunlar disinda kalan 'double' tipi,
+'float' a nazaran daha buyuk bir sahada saklanir, ve daha hassas sonuclar
+verebilir. 
+
+Cogu derleyicilerin matematik fonksiyonlari, float tipini kullanmaz,
+double tipini kullanir. Bu nedenle verdiginiz float degeri, size
+transparan olarak double'a cevirir. 
+
+PRINTF'IN CEVIRIM KARAKTERLERI
+
+Printf fonksiyonunda kullanilan karakterler sunlardir:
+
+	d	desimal
+	o	oktal
+	x	heksadesimal
+	u	unsigned (isaretsiz)
+	c 	karakter
+	s	string (karakter katari)
+	f	float (kayar nokta)
+	
+Bu harfler, bir yuzde isaretinden sonra kullanirlar. Bu iki harf arasina
+sunlar ilave edilebilir:
+
+	-	sahasinin icinde sola dayanmis 
+	(n)	minimum saha uzunlugunu belirler
+	.	n ile m yi birbirinden ayirir
+	(m)	float tipi icin noktadan sonraki hane sayisi
+	l	'long' tipi oldugunu belirtmek icin
+	
+Bu programi derleyip sonuclarini inceleyin. Dilediginiz gibi degistirerek,
+sonuclari inceleyin.
+
+MANTIKSAL KARSILASTIRMALAR
+
+KARSILAS.C:
+================================================================
+
+
+main()  /* Bir suru karsilastirma */
+{
+int x = 11,y = 11,z = 11;
+char a = 40,b = 40,c = 40;
+float r = 12.987,s = 12.987,t = 12.987;
+ 
+                         /* Birinci grup */
+ 
+   if (x == y) z = -13;   /* z = -13 olacak                */
+   if (x > z)  a = 'A';   /* a = 65  olacak                */
+   if (!(x > z)) a = 'B'; /* bu hicbir sey yapmayacak */
+   if (b <= c) r = 0.0;   /* r = 0.0 olacak                */
+   if (r != s) t = c/2;   /* t = 20  olacak                */
+ 
+                    /* Ikinci grup   */
+ 
+   if (x = (r != s)) z = 1000; /* x pozitif olacak, ve
+                             z = 1000 olacak       */
+   if (x = y) z = 222;   /* bu, x = y, and z = 222 yapar */
+   if (x != 0) z = 333;  /* z = 333 olacak   */
+   if (x) z = 444;       /* z = 444 olacak */
+ 
+                    /* Ucuncu grup */
+ 
+   x = y = z = 77;
+   if ((x == y) && (x == 77)) z = 33; /* z = 33 olur   */
+   if ((x > y) || (z > 12))   z = 22; /* z = 22 olacak */
+   if (x && y && z) z = 11;           /* z = 11 olur   */
+   if ((x = 1) && (y = 2) && (z = 3)) r = 12.00; /* Bu ise,
+				 x = 1, y = 2, z = 3, r = 12.00 yapar */
+   if ((x == 2) && (y = 3) && (z = 4)) r = 14.56; /* Birsey degistiremez */
+ 
+ 
+                    /* Dorducu grup */
+ 
+if (x == x); z = 27.345;  /* z daima deger degistirir */
+if (x != x)  z = 27.345;  /* Hicbirsey degismez    */
+if (x = 0)   z = 27.345;  /* x = 0 olur, z degismez */
+ 
+}
+
+================================================================
+
+	Karsilas.C isimli programa lutfen bakin. Ilk basinda dokuz tane
+degisken hazirliyoruz. Daha once yapmadigimiz sekilde, bunlari hem
+tanimlayip, hem ilk degerlerini veriyoruz. 
+
+Gordugunuz gibi if ile komutlar arasinda bir satir birakmamiz gerekmiyor.
+Programin daha okunabilir olmasi icin arada satir birakmak sart degildir.
+
+Birinci gruptaki karsilastirmalar, iki degiskeni karsilastirdiklari icin,
+en basit olanlari. Ilk satirda, x in y ye esit olup olmadigina bakiyoruz.
+Burada iki esit isareti yerine (==) tek esit de kullanilabilirdi, fakat
+manasi degisirdi.  
+
+Ucuncu satirda, NOT isaretini goruyorsunuz. Bu unlem isareti, herhangi bir
+karsilastirmanin sonucunu degistirmek icin kullanilabilir.
+
+DAHA ZOR KARSILASTIRMALAR
+
+
+Ikinci grupta yer alan karsilastirmalar daha zor. Ilk once parantezler
+arasinda tuhaf bir ifade yer aliyor.. Bunu anlamak icin C dilindeki
+'EVET' ve 'HAYIR' kavramlarini bilmemiz gerekiyor. C de 'HAYIR', 0
+degerindedir. 'EVET' ise, sifirdan degisik herhangi birseydir. Bir
+EVET/HAYIR testinin sonucu herhangi bir integer yada karakter
+degiskenine atanabilir.
+
+Ilk ornege bakin: r!=s deyimi, r nin degeri 0.0 a atandigindan, 'EVET'
+bir sonuc verecektir. Bu sonuc, sifirdan degisik bir rakam, ve herhalde 1
+olacaktir. Olusan bu sonuc, x degiskenine atanir. Sayet x den sonra iki
+esit isareti olsa idi (x == (r!=s) gibi)  bu durumda bu 1 degeri, x ile
+karsilastirilirdi. Fakat tek bir isaret oldugundan, r ile s yi
+karsilastirmanin sonucu, x e atanir. Ayrica bu atama isleminin sonucu da
+sifirdan degisik oldugundan, z de 1000 e esitlenir.
+
+Ikinci ornekte ise, x degiskeni, y nin degerini alir, cunku arada tek esit
+isareti vardir. Ayrica sonuc 11 oldugundan, z de 222 ye esitlenir.
+
+Ikinci grubun ucuncusunde, x i sifira karsilastiriyoruz. Sayet sonuc
+'EVET' ise, yani x sifir degilse, z ye 333 degerini atiyoruz. Bu grubun
+en son orneginde ise, sayet x in degeri sifir degil ise, z ye 444
+atiyoruz. Yani ucuncu ve dorduncu ornekler, birbirine esdirler. 
+
+Ucuncu gruptaki karsilastirmalar, yeni deyimler sunuyor. Yani 'AND' ve
+'OR' deyimleri. Ilk once 3 degiskene de 77 degerini atiyoruz ki, islemlere
+bilinen degerlerle basliyabilelim.  Buradaki ilk ornekte, yeni kontrol
+isaretimiz '&&' i goruyoruz. Bu satirin okunusu ise:
+'Sayet x, y ye esit ise, vede x, 77 ye esit ise, z nin degerini 33 yap.'
+Yani, AND operandi icin, iki taraftaki islemlerin EVET (TRUE) sonuc
+vermesi gereklidir.
+
+Bundan sonraki ornek ise, '||' (OR) isaretini gosteriyor. Bu satir ise, 
+'Sayet x, y den buyuk ise, YADA z, 12 den buyuk ise, z nin degerini 22 yap.'
+z nin degeri 12 den buyuk oldugu icin, x in y den buyuk olup olmamasi
+onemli degildir. Cunku OR operandi icin ikisinden birinin EVET olmasi
+yeterlidir. 
+
+Bircok kisimdan olusan bir mantiksal karsilastirma yaparken, karsilastirma
+soldan saga dogru yapilir, ve sonuc garantilendiginde, bu satirin
+islenmesi durur. Mesela, bir AND karsilastirmasinda, sayet AND in sol
+tarafindaki islem HAYIR (FALSE) sonuc verirse, sag tarafindaki islem
+yapilmaz. Yada, bir OR isleminde, sol tarafindaki islem EVET (TRUE) sonuc
+verirse, islemin OR dan sonrasina bakilmaz.
+
+OPERANDLARIN ISLEM SIRASI
+
+Hangi operand ilk once islenir? Bu konuda bircok kural vardir, ve
+derleyicinin kitabini bunlari uzun uzun anlatir. Fakat, benim tavsiyem,
+bunlarla ugrasmak yerine, once islenmesini istediginiz kisimin cevresine
+parantez koymanizdir. 
+
+Ucuncu gruptaki orneklere devam ederek, dorduncu ornekte, uc tane basit
+degiskenin birbiri ile AND edildigini goruyoruz. Ucunun de degerleri
+sifirdan degisik oldugundan, sonuc EVET oluyor, ve z nin degeri 11 e
+esitlenir. 
+
+Bundan sonraki ornekte ise, uc tane atama islemi gorunuyor. Sayet daha
+onceki ornekleri anladiysaniz, bu 'if' komutunun dort tane degeri
+degistirdigini gorebilirsiniz. 
+
+BIR HILE 
+
+Ucuncu grubun en son orneginde ise, bir hile var. Ilk once, (x==2) nin
+HAYIR la sonuc verdigini goruyoruz. Ve daha once gordugumuz gibi, C dili,
+sonuctan emin oluncaya kadar if komutunu isler. Yani, hepsi AND oldugu
+icin, vede ilk ifade HAYIR (FALSE) oldugu icin, islemi o noktada keser,
+ve y,z ve r nin degerleri degismez.
+
+Dorduncu gruptaki orneklerin hicbiri calismaz. Bu grup, basinizi derde
+sokabilecek komutlardir. ilk ornekte, x == x komutu daima dogrudur, fakat
+hemen arkasindan gelen noktali virgul yuzunden, bundan sonra gelen
+z=27.345 komutu ayri bir komut olarak her zaman islenir. 
+
+ikincisi daha kolay - x daima x e esit olacagindan, denklem daima yalnis
+olacaktir. Son olarak, x e sifir degeri atanir, ve parantezin sonucu sifir
+oldugundan, z ye atama yapilmaz.
+
+C NIN CABUK TARAFLARI
+
+C de 3 tane, bakinca hicbir seye benzemeyen, fakat programlarken hiz
+saglayan kestirme yol vardir. Bu metodlar iyi C programcilari tarafindan
+cok SIK kullanildigindan, ogrenmenizde fayda vardir. 
+
+KESTIRME.C:
+================================================================
+
+main()
+{
+int x = 0,y = 2,z = 1025;
+float a = 0.0,b = 3.14159,c = -37.234;
+
+                                              /* Arttirma     */
+   x = x + 1;       /* Bu x i bir arttirir */
+   x++;             /* Bu da..           */
+   ++x;             /*        Bu da..    */
+   z = y++;         /* z = 2, y = 3 */
+   z = ++y;         /* z = 4, y = 4 */
+
+                                              /* Azaltma      */
+   y = y - 1;       /* Bu y nin degerini bir azaltir */
+   y--;             /* Bu da..           */
+   --y;             /*          Buddah.. */
+   y = 3;
+   z = y--;         /* z = 3, y = 2 */
+   z = --y;         /* z = 1, y = 1 */
+
+                                       /* aritmetik islemler */
+   a = a + 12;      /* a ya 12 eklemek        */
+   a += 12;         /* 12 daha eklemek..      */
+   a *= 3.2;        /* a yi 3.2 ile carpmak     */
+   a -= b;          /* b yi a dan cikarmak     */
+   a /= 10.0;       /* a yi ona bolmek        */
+
+                                   /* sartli islemler        */
+   a = (b >= 3.0 ? 2.0 : 10.5 );     /* Bu islem.......     */
+
+   if (b >= 3.0)                     /* ve bu islemler..    */
+      a = 2.0;                       /* birbiri ile aynidir */
+   else                              /* ve ayni sonucu      */
+      a = 10.5;                      /* saglarlar.          */
+
+   c = (a > b?a:b);        /* c, a yada b nin max ini alir  */
+   c = (a > b?b:a);        /* c, a yada b nin min ini alir. */
+}
+================================================================
+
+KESTIRME.C ye bakin. Bu programda, ilk komutta, x in degeri bir tane
+arttiriliyor. Ikinci ve ucuncu komutlar da ayni seyi yaparlar. Yani, iki
+tane arti isareti, degiskenin degerini bir arttirir. Ayrica, sayet ++
+isareti degiskenin onunde ise, degisken kullanilmadan once degeri
+arttirilir, sayet ++ isareti degiskenin arkasinda (saginda) ise,
+kullanildiktan sonra degeri arttirilir. 
+
+Dorduncu komutta ise, y nin degeri, z ye atanir, ve daha sonra da y nin
+degeri bir arttirilir. Bundan sonraki komutta ise, y nin degeri ilk once
+arttirilir, daha sonra bu deger z ye verilir.
+
+Ikinci grupta, azaltici operatorleri goruyoruz. Ayni arttirici operatorler
+gibi, bu gruptaki ornekler de bir oncekiler ile aynidir. 
+
+Ucuncu grupta, aritmetik kestirme metodlari goruyoruz. ilk ornekte, a ya
+12 eklenir. Bunun altindaki satirda ise, tekrar ayni sey yapilir. Yani, +=
+operatoru, soldaki degiskene, sag tarafin sonucunun eklenecegini belirtir.
+Yine ayni sekilde, bu is carpma, cikarma, ve bolme islemleri icin de
+yapilabilir. 
+
+Dorduncu grupta ise, a ya, karmasik bir degerin atandigini goruyoruz.
+Bunun hemen altindaki if... satirlari ise, bu tek satir ile es anlamdadir.
+Bu karsilastirma operatoru, uc parcadan olusmustur. Bu parcalar
+birbirinden soru, ve iki nokta isaretleri ile ayrilirlar. Ilk once soru
+isaretinden onceki kisim degerlendirilir, sonuc EVET cikar ise, soru
+isaretinden hemen sonraki deger, dondurulur, sayet sonuc HAYIR cikar ise,
+iki nokta isaretinden sonraki deger dondurulur. 
+
+Bundan sonra ise, bu karsilastirma operatorunun c ye atama yapmakta
+kullanildigini goruyoruz. Ilk once, a ile b nin hangisinin degeri buyukse,
+o degere c ye atanir, ve ikincide ise, hangisi daha kucuk ise, o c ye
+atanir. 
+
+ODEV:
+
+1. Birden onikiye sayacak bir program yazin. Bu program, sayarken
+rakamlari ve bu rakamlarin karelerini ekrana yazsin.
+
+	1	1
+	2	4
+	3	9   gibi..
+	
+2. Birden onikiye sayan programi biraz degistirerek, sayimi yazan, ve 1 in
+inversini, bes haneli alan bir program yazin. Yani:
+
+	1	1.00000
+	2	 .50000
+	3	 .33333
+	4	 .25000 gibi..
+	
+3. Birden yuze kadar sayan, fakat 32 ila 39 arasindaki degerleri yazan bir
+program yazin. Her satira bir rakam yazilsin..
+
+<EOF>
+C dili - 5. Konu
+
+
+Fonksiyonlar ve degiskenler
+
+KARETOPL.C:
+================================================================
+
+int toplam; /* Global degisken      */
+
+main()
+{
+int index;
+
+   baslik();        /* Baslik isimli fonksiyonu cagirir     */
+
+   for (index = 1;index <= 7;index++)
+     kare(index); /* Bu, kare fonksiyonunu cagirir.  */
+
+   bitis();        /* Bu da, bitis isimli fonksiyonu cagirir */
+}
+
+baslik()        /* Bu fonksiyonun tanimidir                 */
+{
+   toplam = 0;     /* "Toplam" isimli degiskene 0 degeri atanir.. */
+   printf("Bu, kare programinin basligidir\n\n");
+}
+
+kare(rakam)   /* Bu, kare fonksiyonunun baslangicidir */
+int rakam;
+{
+int karesi;				/* Yerel degisken tanimlaniyor */
+
+   karesi = rakam * rakam ;  /* Karesini olusturuyor. */
+   toplam += karesi;		/* Bulunan deger, toplama ekleniyor */
+   printf("%d nin karesi %d dir.\n",rakam,karesi);
+}
+
+bitis()   /* Bitis fonksiyonu tanimlaniyor.  */
+{
+   printf("\nKarelerin toplami: %d dir..\n",toplam);
+}
+================================================================
+
+
+KARETOPL.C isimli programa bir bakin. Bu program, fonksiyonlu ilk
+programimiz. Goreceginiz gibi C de fonksiyon tanimlamak o kadar kolaydir
+ki, programlarin fonksiyonlara parcalanmasi neredeyse istemeden olur.
+Aslinda, biz fonksiyonlari kullanip duruyorduk, ornegin kullandigimiz
+printf komutu, bir fonksiyondur. Printf fonksiyonu, derleyici ile gelen
+fonksiyon kutuphanesinin bir parcasidir.
+
+Bu programin calisan kismina bir bakin. baslik() isimli bir satir ile
+basliyor. Iste C de, herhangi bir fonksiyon, bu sekilde cagirilir: ismi,
+parantez, ve sayet varsa bu fonksiyona gonderilmesi istenen degerler
+yazilir. Programin calismasi bu satira gelince, baslik isimli fonksiyona
+atlanir, ve buradaki islemler yapilir. Bitince, program geri doner, ve
+ana programda kaldigi yerden isleme devam eder, ve "for" dongusune gelir.
+Burada, yedi kere "kare" isimli bir fonksiyonu cagirir, daha sonra "bitis"
+fonksiyonunu cagirir ve program sona erer. 
+
+FONKSIYONUN TANIMLANMASI
+
+main'den sonra ayni main'in ozelliklerini tasayan bir program
+goreceksiniz. Sadece bunun ismi "baslik()" olarak tanimlanmistir. Bu
+basligin ilk satirinda "toplam" degiskeninin degeri 0 a atanir, ve bir
+baslik satiri yazilir. Dikkat ederseniz, "toplam" degiskenini,
+fonksiyonlarin disinda, programin basinda tanimlamistik. Bu sekilde
+tanimlanan bir degisken, o programdaki herhangi bir fonksiyondan
+cagirilabilir.  Bu tip degiskenlere "global" denir. 
+
+Bu iki satiri main() in icine de koymamiz mumkundur. Bu ornek sadece
+fonksiyonlarin kullanimini gostermektedir. 
+
+FONKSIYONA DEGER GECIRMEK
+
+Ana programda, "for" dongusunde, "index++" deyimini goruyorsunuz. Ilk
+olarak gecen konuda ogrendigimiz birer birer arttirma metoduna alismaya
+bakin, cunku C programlarinda cok karsilasacaksiniz.
+
+"kare" isimli fonksiyonu cagirirken, bir yenilik kattik. Yani, parantez
+icindeki "index" deyimini. Bu da derleyiciye, o fonksiyona gidince,
+"index" in o andaki degerini de beraberimizde goturmek istedigimizi
+belirtir. "Kare" isimli fonksiyonun basligina baktigimizda ise,
+parantezler icinde bir baska degisken ismi goruyoruz: "rakam." Ana
+programdan "kare(index)" dedigimizde gelen index'in degerine, bu fonksiyon
+icinde 'rakam' diyecegimizi belirtiyoruz. Buna rakam demek yerine
+istedigimiz herhangi bir ismi verebilirdik - C nin degisken isim
+kurallarina uymasi sarti ile. Fonksiyon, ona ne tip bir deger
+gecirilecegini bilmesi icinde, hemen alt satirda, "int rakam" diyerek,
+gelecek bu degerin bir integer olacagini belirtiyoruz. 
+
+Kume isaretinden sonra, "int karesi" deyimi ile, sadece bu fonksiyonun
+icinde tanimli olan bir degisken daha tanimlandigini goruyoruz.  Bundan
+sonra, "karesi" degiskenine 'rakam' in karesini atiyoruz, ve "toplam"
+degiskenine de "karesi" degiskeninin degerini ekliyoruz.
+
+BIR FONKSIYONA DEGER ATAMA HAKKINDA DAHA BILGI
+
+Aslinda "index" in degerini fonksiyona gecirdigimizde, anlattigimdan biraz
+daha fazla sey oldu. Gercekte, "index" in degerini gecirmedik bu
+fonksiyona, o degerin bir kopyasini gecirdik. Bu sayede, "index" in asil
+degeri, fonksiyon tarafindan kazara zarar goremez. "rakam" isimli
+degiskenimizi fonksiyon icinde istedigimiz gibi degistirebilirdik, fakat
+ana programa geri dondugumuzde, "index" in degeri yine ayni kalirdi. 
+
+Boylece, degiskenin degerinin zarar gormesini onlemis oluyoruz, fakat ayni
+zamanda, ana programa bir deger dondurmemize de mani oluyoruz. Pointers
+kisimina gelince, cagiran fonkisyona degeri dondurmek icin, iyi tanimli
+bir metod gorecegiz. O zamana kadar ana programa deger dondurmenin yegane
+yolu, global degiskenler kullanaraktir. Global degiskenlerden biraz
+bahsetmistik, bu konu icersinde, daha da bahsedecegiz. 
+
+Programa devam ederek, bitis() isimli bir fonksiyonun cagirilisina
+geliyoruz. Bu cagirma da, hicbir yerel degiskeni olmayan fonksiyonu
+cagirir. "toplam" degiskeninin degerini yazdiktan sonra ana kesime donen
+program, yapacak baska birsey olmadigini gorunce durur. 
+
+UFAK BIR YALANI ITIRAF ETME ZAMANI
+
+Biraz once size bir fonksiyondan bir deger dondurmek icin yegane yolun
+global degiskenler ile olabilecegini soylemistim. Fakat bir baska metod
+daha var. Lutfen KARELER.C isimli programa bakin...
+
+KARELER.C:
+=====================================================================
+
+main()  /* Ana program burada.  */
+{
+int x,y;
+
+   for(x = 0;x <= 7;x++) {
+      y = squ(x);  			/* x*x i hesaplayalim.. */
+      printf("%d nin karesi %d dir...\n",x,y);
+   }
+
+   for (x = 0;x <= 7;++x) 
+      printf("%d nin karesi %d dir...\n",x,squ(x));
+}
+
+squ(in)  /* Bir rakamin karesini bulan fonksiyon */
+int in;
+{
+int kare;
+
+   kare = in * in;
+   return(kare);  	/* Yeni buldugumuz deger donduruluyor.. */
+}
+
+=====================================================================
+
+Bu program, tek bir deger dondurmenin kolay oldugunu gosteriyor. Fakat,
+birden fazla deger dondurmek icin, baska metodlara gerek oldugunu
+hatirlamanizda fayda var. 
+
+ana programda, iki tane tamsayi degiskeni tanimliyoruz, ve 8 kere islenen
+bir "for" dongusu baslatiyoruz. Dongudeki ilk satir, "y = squ(x);", yeni
+ve tuhaf gorunuslu bir satir. Onceki programlarda gordugumuz gibi, squ(x)
+kisimi, squ isimli fonksiyonu, x parametresi ile cagirmaktadir. Fonksiyona
+baktigimizda, bu gecen degiskenin orada 'in' isminde oldugunu, ve kare
+ismindeki yerel degiskene, gecirdigimiz degerin karesinin atandigini
+goruyoruz. Daha sonra, yeni "return" komutunu goruyoruz. Parantezler
+icindeki bu deger, fonksiyonun kendisine atanir, ve ana programa bu deger
+dondurulur. Yani, "squ(x)" fonksiyonu, x in karesine atanir, ve bu deger,
+ana programa atanir. Ornegin, x in degeri 4 ise, y nin degeri, "y=squ(x)"
+satirindan sonra 16 olacaktir.
+
+Bir baska dusunme sekli de, "squ(x)" sozcugunu, "x" in karesi degerinde bir
+degisken olarak dusunmektir. Bu yeni degisken de, degiskenlerin
+kullanildigi herhangi bir yerde kullanilabilir. Baska bir degisken olarak
+gormeye bir ornek olarak bu programda ikinci bir dongu vardir. Burada,
+y degiskenine atamak yerine, printf'in icinde, bu fonksiyonu cagiriyoruz.
+
+Bir fonksiyondan donecek degiskenin tipi, derleyiciye bildirilmelidir.
+Fakat, bizim yaptigimiz gibi sayet belirtmezsek, derleyici donecek degerin
+tam sayi (integer) olacagini kabul edecektir. Baska tiplerin tanimlanmasini
+ise, bundan sonraki programda gorecegiz..
+
+
+KAYAR NOKTA FONKSIYONLARI
+
+KAYARKAR.C:
+================================================================
+
+float z;   /* Bu bir global degiskendir */
+
+main()
+{
+int index;
+float x,y,sqr(),glsqr();
+
+   for (index = 0;index <= 7;index++){
+      x = index;  /* int'i float yapalim  */
+      y = sqr(x); /* x'in karesini alalim..   */
+      printf("%d in karesi %10.4f dir.\n",index,y);
+   }
+
+   for (index = 0; index <= 7;index++) {
+      z = index;
+      y = glsqr();
+      printf("%d in karesi %10.4f dir.\n",index,y);
+   }
+}
+
+float sqr(deger)  /* float'in karesini al, float dondur. */
+float deger;
+{
+float karesi;
+
+   karesi = deger * deger;
+   return(karesi);
+}
+
+float glsqr()    /* float'in karesini al, float dondur. */
+{
+   return(z*z);
+}
+================================================================
+
+KAYARKAR.C isimli programa bir bakin. Ilk once daha sonra kullanacagimiz
+bir global degisken tanimlamak ile basliyor. Programin "main" kisiminda,
+bir tamsayi degiskeni tanimlaniyor. Bunun altinda, iki tani tamsayi
+degiskeni, iki tane de tuhaf gorunuslu tanimlamalar var. "sqr()" ve
+"glsqr()" isimli iki fonksiyon gibi gorunuyorlar, ve oyleler. Bu, C
+dilinde "int" yani tamsayi dan baska birsey dondurecek bir fonksiyonun
+(float mesela) resmi sekilde tanimlanmasidir. Bu derleyiciye, bu iki
+fonksiyondan bir deger donunce, bu degerin float olacagini bildiriyor. 
+
+Simdi programin ortasinda yer alan "sqr" fonksiyonuna bir bakin. Burada
+fonksiyonun isminin basinda bir "float" sozcugu goreceksiniz. Bu
+derleyiciye herhangi bir yerden bu fonksiyon cagirilinca, donecek degerin
+float olacagini bildiriyor. Simdi bu fonksiyon, ana programdaki cagirma
+ile uyumludur. Bunun altinda, "float deger" satirini goruyorsunuz. Bu da,
+bu fonksiyona, cagiran tarafindan gecirilecek degerin, bir "float" yani
+kayar nokta olacagini bildirir. 
+
+Bundan sonraki fonksiyon "glsqr" da, bir kayar nokta donduruyor, fakat o,
+input icin global bir degikeni (z degiskenini) kullaniyor. Ayrica, yeni
+bir degisken tanimlamadan, karesini almayi "return" komutunun icinde
+yapiyor. 
+
+DEGISKENLERIN ALANI
+
+ALAN.C:
+================================================================
+int say;        /* Bu bir global degiskendir.  */
+
+main()
+{
+register int index; /* Bu degisken sadece "main" icinde kullanilabilir */
+
+   baslik_1();
+   baslik_2();
+   baslik_3();
+                      /* bu programin ana "for" dongusu  */
+   for (index = 8;index > 0;index--)
+   {
+      int birsey; /* Bu degisken sadece bu kume isaretleri arasinda tanimli */
+	 
+      for (birsey = 0;birsey <= 6;birsey++)
+         printf("%d ",birsey);
+
+      printf(" index simdi: %d oldu.\n",index);
+    }
+}
+
+int sayac;      /* Bu degisken bu noktadan sonra kullanilabilir. */
+
+baslik_1()
+{
+int index;        /* Bu degisken sadece baslik_1 icinde tanimli */
+
+   index = 23;
+   printf("Baslik_1 deki degeri %d\n",index);
+}
+
+baslik_2()
+{
+int say;    /* Bu degisken sadece baslik_2 icinde gecerli */
+            /* ayni isimli global degiskenin yerini alir.. */
+
+   say = 53;
+   printf("Baslik_2 deki degeri %d\n",say);
+   sayac = 77;
+}
+
+baslik_3()
+{
+   printf("Baslik_3 deki degeri ise %d\n",sayac);
+}
+================================================================
+
+Ilk tanimlanan degisken "say", butun fonksiyonlardan once tanimlandigi
+icin, herhangi biri tarafindan cagirilabilir, ve daima erisilebilir. Daha
+sonra, "sayac" isimli bir degisken tanimliyoruz. Bu da global bir
+degiskendir, fakat ana programdan sonra tanimlandigi icin, ana program
+tarafindan kullanilamaz. Global bir degisken, fonksiyonlarin disinda
+tanimlanan degiskenlere denir. Bu tip degiskenlere dissal degiskenler adi
+da verilebilir. 
+
+Ana programa geri donerek, "index" isimli degiskenin tanimina bakalim. Su
+an icin "register" sozcugunu goz onune almayin. Bu degisken "otomatik" bir
+degiskendir, yani o fonksiyon cagirildiginda olusur, ve fonksiyondan
+cikinca kaybolur. Ana program baska fonksiyonlari cagirdiginda bile daima
+calisir oldugundan, burada pek manasi yoktur. Tanimlanan diger bir
+degisken de, "birsey" degiskenidir. Bu degisken, sadece "for" dongusunun
+icinde tanimlidir, ve baska bir yerden erisilemez. Herhangi bir kume
+dongusunun basina, degisken tanimlamalari konulabilir. Kumeden cikinca, bu
+degisken tanimsiz olacaktir. 
+
+OTOMATIK DEGISKENLER HAKKINDA...
+
+Baslik_1'e bir bakin. "index" isimli bir degisken kullaniyor. Bu
+degiskenin ana programdaki "index" ile arasinda, ikisinin de otomatik
+degisken olmasi disinda hicbir bag yoktur. Program, bu fonksiyonu
+islemezken, bu degisken yoktur bile. Baslik_1 cagirildiginda, bu degisken
+yaratilir, ve baslik_1 bitince de bu degisken silinir. Fakat bu, ana
+programdaki ayni isimli degiskenin degerini hic etkilemez, cunku ayri
+nesnelerdir.
+
+Yani otomatik degiskenler, gerektiginde yaratilirlar, ve isleri bitince de
+silinirler. Hatirlamaniz gereken bir nokta da, bir fonksiyon birden fazla
+kere cagirildiginda, otomatik degiskenlerin eski degerleri saklanmaz, yeni
+bastan deger atanmalari gerekir. 
+
+STATIK DEGISKENLER ?
+
+Bir baska degisken tipi ise, statik degiskenlerdir. Degiskeni tanimlarken
+basina "static" sozcugunu koyarak, o degisken yada degiskenler,
+fonksiyonun tekrar tekrar cagirilmasinda, eski degerlerini tutarlar.
+
+Ayni sozcugu bir global degiskenin onune koyarak, o degiskenin sadece o
+kutuk icindeki fonksiyonlara tanimli olmasini saglayabiliriz. Bundanda
+anlayacaginiz gibi, birkac parcadan olusan kutukler arasinda global
+degiskenlerin tanimlanmasi mumkundur. Bunu 14. konuda daha iyi gorecegiz.
+
+AYNI ISMI TEKRAR KULLANMAK
+
+baslik_2 ye bir bakin. Burada "say" isimli degiskenin tekrar
+tanimlandigini ve 53 degerini aldigini goruyoruz. Global olarak
+tanimlanmasina karsin, ayni isimde bir otomatik degisken tanimlamak
+mumkundur. Bu degisken tumuyle yeni bir degiskendir, ve global olarak,
+programin basinda tanimlanan "say" ile arasinda hicbir baglanti yoktur. Bu
+sayede kafanizda "acaba global isimlerle karisirmi" sorusu olmadan
+fonksiyon yazabilirsiniz.
+
+REGISTER DEGISKENLERI NEDIR
+
+Sozumu tutarak, register degiskenine donelim. Bir bilgisayar bilgiyi
+hafizada yada registerlerde tutabilir. Register sahasina erisim, hafizaya
+erisimden cok daha hizlidir, fakat programcinin kullanabilecegi az sayida
+register vardir. Bazi degiskenlerin program tarafindan cok kullanilacagini
+dusunuyorsaniz, o degiskeni "register" olarak tanimlayabilirsiniz.
+Bilgisayar ve derleyici tipinize gore, bir yada birkac degiskeni bu
+sekilde tanimlayabilirsiniz. Cogu derleyicilerin hic register degiskenleri
+yoktur, ve "register" sozcugunu goz onune almadan derleme yaparlar. 
+
+Register degiskenleri, sadece tamsayi ve karakter tipi degiskenler ile
+kullanilabilir. Sectiginiz derleyiciye gore, unsigned, long yada short
+tipleride register olabilir. 
+
+DEGISKENLERI NEREDE TANIMLAYALIM
+
+Bir fonksiyona parametre olarak gecirilmis degiskenler varsa, bunlarin
+tanimi, fonksiyon isminden sonra, ve acik kume isaretinden once
+yapilmalidir. Fonksiyonda kullanilan diger degiskenler ise, fonksiyonun
+basinda, hemen acik kume isaretinden sonra tanimlanir. 
+
+STANDART FONKSIYON KUTUPHANESI
+
+Her derleyici, icinde bircok fonksiyon olan bir kutuphane ile birlikte
+gelir. Bunlar genellikle giris/cikis islemleri, karakter ve katar isleme,
+ve matemetiksel fonksiyonlari icerir. Bunlarin cogunu sonraki konularda
+gorecegiz. 
+
+Bunun disinda, cogu derleyicinin, standart olmayan, ve kullandiginiz
+bilgisayarin ozelliklerini kullanan, ilave fonksiyonlari vardir. Ornegin,
+IBM-PC ve uyumlular icin, BIOS servislerini kullanan fonksiyonlar
+sayesinde, isletim sistemine komutlar vermeyi, yada ekrana direk yazmayi
+saglayan fonksiyonlar olabilir. 
+
+RECURSION NEDIR ?
+
+RECURS.C:
+================================================================
+
+main()
+{
+int index;
+
+   index = 8;
+   geri_say(index);
+}
+
+geri_say(rakam)
+int rakam;
+{
+   rakam--;
+   printf("rakam degeri %d dir.\n",rakam);
+   if (rakam > 0)
+      geri_say(rakam);
+   printf("Simdi rakam %d oldu..\n",rakam);
+}
+
+================================================================
+
+Recursion, ilk karsilasildiginda cok korkutucu gorunen bir kavramdir.
+Fakat RECURS.C isimli programa bakarsaniz, recursion'un butun zorlugunu
+yenebiliriz. Aslinda fazla basit ve dolayisi ile aptal olan bu program,
+bize recursion'un kullanimini gostermesi bakimindan cok yararlidir. 
+
+Recursion, kendini cagiran bir fonksiyondan baska birsey degildir. Yani,
+bitmek icin bir kontrol mekanizmasina ihtiyaci olan bir dongudur.
+Karsinizdaki programda "index" degiskeni 8 e atanir, ve "geri_say"
+fonksiyonunun parametresi olarak kullanilir. Bu fonksiyon da, bu
+degiskenin degerini teker teker azaltir, ve bize bu degeri gosterir. Sonra
+tekrar kendisini cagirir, degeri bir kez daha azalir, tekrar, tekrar..
+Sonunda deger sifira ulasir, ve dongu artik kendini cagirmaz. Bunun
+yerine, daha onceki cagirmada kaldigi yere geri doner, tekrar geri doner,
+en sonunda ana programa geri doner, ve program sona erer.
+
+
+NE OLDU ?
+
+Fonksiyon kendisini cagirdiginda, butun degiskenlerini,ve cagirilan
+fonksiyonun islemesi bittiginde donmesi gereken yeri hafizaya sakladi.
+Bir dahaki sefere kendinin tekrar cagirdiginda, yine ayni seyi yapti, ta
+ki kendisini tekrar cagirmasi bitene kadar. Daha sonra tekrar bu
+bilgileri, ayni koyus sirasi ile geri okudu. 
+
+Hatirlamaniz gereken nokta, recursion'un bir noktada bitmesi gerektigidir,
+sayet sonsuz bir donguye girerseniz, bilgisayarin hafizasi bitecek ve bir
+hata mesaji cikacaktir.
+
+ODEVLER
+
+1. Daha once yazdigimiz Santigrad'dan Fahrenheit'a karsilik tablosundaki
+derece hesaplamasini bir fonksiyona geciriniz.
+2. Ekrana isminizi 10 kere yazan bir program yaziniz. Yazma isini yapmak
+icin bir fonksiyon cagiriniz. Daha sonra bu fonksiyonu main() in basina
+alarak, derleyicinin bunu kabul edip etmedigini kontrol ediniz.
+C Dili - 6. Konu
+
+================================================================
+
+#define BASLA  0  /* Dongunun baslangic noktasi */
+#define BITIR  9  /* Dongunun bitis noktasi     */
+#define MAX(A,B)  ((A)>(B)?(A):(B))  /* Max makro tanimlanmasi */
+#define MIN(A,B)  ((A)>(B)?(B):(A))  /* Min makro tanimlanmasi */ 
+
+main()
+{
+int index,mn,mx;
+int sayac  = 5;
+
+   for (index = BASLA;index <= BITIR;index++) {
+      mx = MAX(index,sayac);
+      mn = MIN(index,sayac);
+      printf("Max simdi %d ve min de %d ..\n",mx,mn);
+   }
+}
+
+================================================================
+
+Bu programda, ilk defa define lara ve makrolarla tanisacaksiniz. Ilk dort
+satirdaki "#define" sozcuklerine dikkat edin. Butun makrolar ve define'lar
+bu sekilde baslar. Derleme baslamadan, on-derleyici (preprocessor) bu
+tanimlari alir, ve programda bu sembolleri gercek degerleri ile
+degistirir. Ornegin, BASLA sembolunu heryerde sifir ile degistirir.
+Derleyicinin kendisi, bu BASLA yada BITIR sembollerini gormez bile.
+
+Boyle ufak bir programda bu sekilde semboller tanimlamak luzumsuzdur,
+fakat ikibin satirlik bir programda, yirmiyedi yerde BASLA olsa idi,
+sayede #define'i degistirmek, programdaki rakamlari degistirmekten daha
+kolay olurdu. 
+
+Ayni sekilde on-derleyici, BITIS sembolu gordugu heryere 9 rakamini
+koyar. 
+
+C de alisilmis bir teknik de, BASLA yada BITIR gibi sembolik sabitlerin
+buyuk harfle, ve degisken isimlerinin de kucuk harfle yazilmasidir. 
+
+MAKRO NEDIR ?
+
+Makro, bir #define satirindan baska birsey degildir. Fakat icinde islemler
+yapabildigi icin, ona ozel bir isim verilmistir. Ornegin ucuncu satirda,
+iki rakamin hangisi buyukse onu donduren MAX isimli bir makro
+tanimliyoruz. Bundan sonra on-derleyici ne zaman MAX termini ve arkasindan
+parantezi gorurse, bu parantezlerin arasinda iki tane deger bulacagini
+farz eder, ve tanimda bulunan deyimi, buraya koyar.  Ornegin, onikinci
+satira gelindiginde, "A" yerine "index" ve "B" yerine de "sayac" konur.
+
+Ayni sekilde "MIN" isimli makro da kendisine gecirilen iki rakamin
+hangisi daha kucukse, o degeri dondurur. 
+
+Bu makrolarda bir suru fazlalik parantez goreceksiniz. Bunlarin nedeni,
+bir sonraki programda anlasilacak..
+
+YALNIS BIR MAKRO
+
+================================================================
+
+
+#define HATALI(A)   A*A*A      /* Kup icin hatali makro */
+#define KUP(A)    (A)*(A)*(A)  /* Dogusu ...            */
+#define KARE(A)    (A)*(A)     /* Karesi icin dogru makro */
+#define START 1
+#define STOP  9
+
+main()
+{
+int i,offset;
+
+   offset = 5;
+
+   for (i = START;i <= STOP;i++) {
+      printf("%3d in karesi %4d dir, ve kubu ise %6d dir..\n",
+              i+offset,KARE(i+offset),KUP(i+offset));
+
+      printf("%3d in HATALIsi ise %6d dir.\n",i+offset,HATALI(i+offset));
+   }
+}
+
+================================================================
+
+Ilk satira baktiginiza, HATALI isimli makronun bir rakamin kubunu
+aldigini goruyoruz. Gercektende, bu makro bazen dogru calismaktadir.
+
+Programin kendisinde,i+offset 'in  KUP unun hesaplandigi yeri
+inceleyelim. Sayet i 1 ise, offset de 5 olduguna gore, 1+5 = 6 olacaktir.
+KUP isimli makroyu kullanirken, degerler:
+
+	(1+5)*(1+5)*(1+5) = 6*6*6 = 216
+	
+olacaktir. Halbuki, HATALI yi kullanirsak, carpmanin onceligi, toplamadan
+fazla oldugundan, degerleri:
+
+	1+5*1+5*1+5 = 1+5+5+5 = 16
+	
+seklinde buluyoruz. Yani, parantezler, degiskenleri dogru bir sekilde
+birbirinden ayrimak icin gereklidir. 
+
+Programin gerisi basittir, ve sizin incelemenize birakilmistir.. 
+
+ODEV:
+
+1. 7 den -5 e dogru sayan bir program yaziniz.
+C Dili - 7. Konu
+
+KELIME KATARI (STRING) NEDIR?
+
+Bir katar, genellikle harflerden olusan karakterler dizisidir. Ciktinizin
+guzel ve manali gorunmesi icin, icinde isimler ve adresler olabilmesi
+icin, programlarinizin katarlar kullanmasi sarttir. C dilinde tam tanimi,
+"char" tipi bilgilerin, NULL karakter (yani sifir) ile sonlandirilmasidir.
+
+C bir katari karsilastiracagi, kopyalayacagi yada ekrana yansitacagi
+zaman, bunlari gerceklestiren fonksiyonlar, NULL gorunene dek bu islemi
+yapmak uzere programlanmistir.
+
+ARRAY (dizi) NEDIR?
+
+dizi, ayni tip verilerin birbiri arkasina tanimlanmasidir. Kelime katari,
+bir cins dizidir. 
+
+CHRSTRG.C:
+================================================================
+
+main()
+{
+char isim[7];       /* Bir karakter dizisi tanimlayalim */
+
+   isim[0] = 'T';
+   isim[1] = 'u';
+   isim[2] = 'r';
+   isim[3] = 'g';
+   isim[4] = 'u';
+   isim[5] = 't';
+   isim[6] = 0;     /* Bos karakter - katarin sonu  */
+
+   printf("Isim %s dur. \n",isim);
+   printf("Icinden bir karakter: %c\n",isim[2]);
+   printf("Ismin bir parcasi: %s \n",&isim[3]);
+}
+
+================================================================
+
+Bu programda, ilk once, "char" tipi bir tanimlama goruyoruz. Koseli
+parantezler icinde, kac hanelik bir dizi tanimlanacagini belirtiyoruz. C
+dilinde butun diziler sifirdan basladigi icin, bu tanimlama ile
+kullanabilecegimiz en yuksek index degeri 6 dir. 
+
+KATAR NASIL KULLANILIR
+
+Demek ki, "isim" degiskeni, icinde 7 tane karakter tutabilir. Fakat en son
+karakterin sifir olmasi zorunlugu oldugu icin, kullanilabilecek olan alan
+6 karakterliktir. Bu katarin icine manali birsey yuklemek icin, yedi tane
+komut veriyoruz - her biri, katara bir karakter atamaktadir. En sonunda
+da, katarin sonunu belirten sifir rakamini koyuyoruz. (Bir "#define" ile
+NULL karakteri, programin basinda sifir olarak tanimlayabiliriz.)
+
+printf komutundaki %s isareti, printf'e "isim" isimli katardan, sifira
+rastlayincaya kadar ekrana yazmasini belirtir. Dikkat etmeniz gereken bir
+nokta, "isim" degiskeninin indexinin yazilmasinin gerekmedigidir.
+
+KATARIN BIR KISMININ YAZILMASI
+
+Ikinci printf komutu ise %c ile, katarin icinden sadece bir karakter
+(harf) yazilmasini gosterir. Istedigimiz karakterin index numarasini da,
+"isim" degiskeninin yanina, koseli parantezler arasinda gosterebiliriz. 
+
+Son printf komutunda ise, katarin 4. karakterinden itibaren yazmanin bir
+ornegidir. "isim" degiskeninin onundeki & (ampersand) isareti, isim[3]'un
+hafizada saklandigi adresin printf'e gecirilmesini belirtir. Adresleri 8.
+konuda gorecegiz, fakat ufak bir ornek ile size bizleri nelerin
+bekledigini gostermek istedim.
+
+BAZI KATAR FONKSIYONLARI
+
+KATAR.C
+================================================================
+
+main()
+{
+char isim1[12],isim2[12],karisik[25];
+char baslik[20];
+
+   strcpy(isim1,"Rosalinda");
+   strcpy(isim2,"Zeke");
+   strcpy(baslik,"Bu bir basliktir.");
+
+   printf("     %s\n\n",baslik);
+   printf("isim 1:  %s \n",isim1);
+   printf("isim 2:  %s \n",isim2);
+
+   if(strcmp(isim1,isim2)>0)  /* sayet isim1 > isim2 ise, 1 dondurur */
+      strcpy(karisik,isim1);
+   else
+      strcpy(karisik,isim2);
+
+   printf("Alfabetik olarak en buyuk isim %s dir.\n",karisik);
+
+   strcpy(karisik,isim1);
+   strcat(karisik,"  ");
+   strcat(karisik,isim2);
+   printf("Iki isim birden %s\n",karisik);
+}
+================================================================
+Ilk once 4 tane katar tanimliyoruz. Daha sonra, "strcpy" isimli cok pratik
+bir fonksiyona geliyoruz. Yaptigi is, bir katari, bir digerine, ta ki
+sifir bulunana kadar kopyalamak.  Hangi katarin hangisine kopyalancagini
+hatirlamak icin, bir atama komutunu dusunun ("x=23" gibi). Veri,
+sagdakinden, soldakine kopyalanir. Bu komutun yapilmasindan sonra, isim1
+in icinde, "Rosalinda" olacaktir - den-densiz olarak.  Den-denler,
+derleyicinin sizin bir katar tanimladiginizi anlamasi icin gereklidir. 
+
+KATARLARIN ALFABETIK OLARAK SIRAYA KONMASI
+
+Ilginizi cekebilecek diger bir fonksiyonda, "strcmp" dur. Sayet kendisine
+gecirilen birinci katar ikinciden daha buyukse, 1 dondurur, ayni ise 0, ve
+ikinci daha buyukse -1 dondurur. "Zeke" katarinin kazanmasi, sizi herhalde
+sasirtmaz. Burada katarin boyu onemli degildir, sadece icindeki
+karakterler. Ayrica harflerin buyuk yada kucuk harf olmasi da fark
+ettirir. C de bir katarin butun harflerini kucuk yada buyuge ceviren
+fonksiyonlar da vardir. Bunlari daha ileri kullanacagiz. 
+
+KATARLARI BIRBIRINE EKLEMEK
+
+En son satirda, "strcat" isimli yeni bir fonksiyon goreceksiniz. Gorevi,
+bir katarin sonuna diger katari eklemektir. Bunu yaparken NULL karakterin
+de yerli yerinde olmasini saglar. Burada, "isim1", "karisik" 'a
+kopyalanir, daha sonra "karisik" a iki bosluk ve "isim2" eklenir. 
+
+Katarlar zor degildir, ve son derece faydalidirlar. Onlari kullanmayi
+iyice ogrenmenizde fayda vardir. 
+
+
+BIR TAMSAYI DIZISI
+
+INTDIZIN.C:
+================================================================
+main()
+{
+int degerler[12];
+int index;
+
+   for (index = 0;index < 12;index++)  
+      degerler[index] = 2 * (index + 4);
+
+   for (index = 0;index < 12;index++)
+      printf("Index = %2d deki degeri %3d dir..\n",index,degerler[index]);
+
+}
+================================================================
+
+Bu programda, bir tamsayi dizisi tanimliyoruz. Gordugunuz gibi, ayni katar
+tanimlama gibi.. Bu sayede, index degiskeni haric oniki tane degiskenimiz
+oluyor. Bu degiskenlerin isimleri "degerler[0]" , "degerler[1]" ,vs. dir.
+Ilk "for" dongusunde, bunlara deger atiyoruz, ikincisi ise, index
+degiskeni ve "degerler" dizisinin icindekileri ekrana yaziyor. 
+
+BIR KAYAR NOKTA DIZINI
+
+BUYUKDIZ.C:
+================================================================
+char isim1[] = "Birinci Program basligi";
+
+main()
+{
+int index;
+int ivir[12];
+float tuhaf[12];
+static char isim2[] = "Ikinci Program Basligi";
+
+   for (index = 0;index < 12;index++) {
+      ivir[index] = index + 10;
+      tuhaf[index] = 12.0 * (index + 7);
+   }
+
+   printf("%s\n",isim1);
+   printf("%s\n\n",isim2);
+   for (index = 0;index < 12;index++)
+      printf("%5d %5d %10.3f\n",index,ivir[index],tuhaf[index]);
+}
+================================================================
+
+Burada, "float" olarak tanimli bir kayar nokta dizisi goruyorsunuz.
+Ayrica bu program, katarlara nasil baslangic degeri atanabilecegini
+gosteriyor. Koseli parantezlerin icini bos birakarak, derleyicinin o
+veriyi saklamak icin yeteri kadar yer ayarlamasini sagladik. Programin
+icinde, bir katar daha ilk degerini veriyoruz. Burada onune "static"
+koymak zorunlugumuz var. Baska yeni birsey yok bu programda. Degiskenler
+rastgele degerlere atanir, ve sonra da bu degerler ekrana yazdirilir. 
+
+
+BIR FONKSIYONDAN DEGER DONDURME
+
+GERIDOND.C:
+================================================================
+main()
+{
+int index;
+int matrix[20];
+
+   for (index = 0;index < 20;index++)              /* veriyi uretelim */
+      matrix[index] = index + 1;
+
+   for (index = 0;index < 5;index++)         /* orjinal veriyi, ekrana. */
+      printf("Baslangic   matrix[%d] = %d\n",index,matrix[index]);
+
+   yapbirsey(matrix);              /* fonksiyona gidip, deger degistirme */
+
+   for (index = 0;index < 5;index++)       /* degismis matrix i yazalim  */
+      printf("Geri donen  matrix[%d] = %d\n",index,matrix[index]);
+} 
+
+yapbirsey(list)                 /* Veri donusunu gosterir */
+int list[];
+{
+int i;
+
+   for (i = 0;i < 5;i++)                   /* print original matrix */ 
+      printf("Onceki  matrix[%d] = %d\n",i,list[i]);
+
+   for (i = 0;i < 20;i++)                   /* add 10 to all values */
+      list[i] += 10;
+
+   for (i = 0;i < 5;i++)                   /* print modified matrix */
+      printf("Sonraki matrix[%d] = %d\n",i,list[i]);
+}
+================================================================
+
+Bir fonksiyondan deger dondurmenin bir yolu da, diziler kullanmaktir. 
+Buradam 20 hanelik bir dizi tanimladiktan sonra, icine degerler atiyoruz,
+bu degerlerin ilk besini ekrana yazdiktan sonra, "yapbirsey" isimli
+fonksiyona atliyoruz. Burada goreceginiz gibi, bu fonksiyon "matrix"
+isimli diziye "list" demeyi tercih ediyor. Fonksiyona, ne cins bir dizi
+gececegini bildirmek icin, "int" olarak "list"i tanimliyoruz. Fonksiyona
+kac elemanlik bir dizi gecegini soylememize luzum yok, fakat istenirse
+belirtilebilir. Bu nedenle bos koseli parantezler kullaniyoruz. 
+
+Bu fonksiyon da, kendisine gecen degerleri gosterdikten sonra, bu
+degerlere 10 ekliyor, ve yeni degerleri gosterip, ana programa geri
+donuyor. Ana programda goruyoruz ki, fonksiyonun yaptigi degisiklikler,
+"matrix" degerlerini de degistirmis. 
+
+Dizilerin, normal degiskenlerin aksine, fonksiyondaki degerleri degisince,
+cagiran programdaki dizinin degerlerinin degismesini garipsiyebilirsiniz.
+Pointerlar konusuna gelince butun bunlar daha manali olacaktir. 
+
+BIRDEN FAZLA BOYUTLU DIZILER
+
+COKLUDIZ.C:
+================================================================
+main()
+{
+int i,j;
+int buyuk[8][8],dev[25][12];
+
+   for (i = 0;i < 8;i++)
+      for (j = 0;j < 8;j++)
+         buyuk[i][j] = i * j;       /* Bu bir carpim tablosudur */
+
+   for (i = 0;i < 25;i++)
+      for (j = 0;j < 12;j++)
+         dev[i][j] = i + j;     /* Bu da bir toplama tablosudur */
+
+   buyuk[2][6] = dev[24][10]*22;
+   buyuk[2][2] = 5;
+   buyuk[buyuk[2][2]][buyuk[2][2]] = 177;  /* bu,  buyuk[5][5] = 177; demek */
+
+   for (i = 0;i < 8;i++) {
+      for (j = 0;j < 8;j++)
+         printf("%5d ",buyuk[i][j]);
+      printf("\n");               /* Her i nin degeri artinca, bir RETURN */
+   }
+}
+================================================================
+
+Burada iki tane iki boyutlu dizi kullaniyoruz. "buyuk" adli 8 e 8 lik
+dizinin elemanlari [0][0] dan [7][7] ye kadar, toplam 64 tanedir. Diger
+tanimli "dev" dizi ise, kare degildir, fakat dizinin kare olmasinin sart
+olmadigini gosteren bir ornektir. 
+
+Iki dizi de biri carpim tablosu, digeri de toplama tablosu ile doldurulur.
+
+Dizi elemanlarinin tek tek degistirilebilecegini gostermek icin, once
+"buyuk" un elemanlarinda birine, "dev" in bir elemani ile, 22 ile
+carpildiktan sonra atanir. Ikinci atamada ise, "buyuk[2][2]" elemani 5
+degerine atanir. Herhangi bir islemin index olarak kullanilabilecegini
+gosteren ucuncu atama ise, aslinda "big[5][5] = 177;" dir.
+
+ODEVLER
+
+1. Herbiri yaklasik 6 karakter uzunlugunda uc kisa katarin icine "strcpy"
+ile iclerine "bir", "iki" ve "dort" kelimelerini kopyalayan bir program
+yazin. Daha sonra, bu katarlari, daha buyuk bir katarin icine, uc kelimeyi
+bir araya getirerek yerlestirin. Cikan sonucu on kere ekrana yazdirin.
+
+2. Herbiri 10 elemanli olan "dizi1" ve "dizi2" isimli iki tamsayi dizisi
+tanimlayin, ve iclerine bir dongu ile, ivir zivir bilgi doldurun. Daha
+sonra her bir elemanini, ayni boydaki bir baska diziye ekleyin. Bu cikan
+sonucu da "diziler" isimli 3. bir diziye atayin. Sonuclari ekrana
+yazdirin: 
+
+1   2  +  10  = 12
+2   4  +  20  = 34
+3   6  +  30  = 36   gibi..
+
+Ipucu: printf komutu soyle gorunecek:
+    printf("%4d %4d + %4d = %4d\n",index,dizi1[index],dizi2[index],
+            diziler[index]);
+    
+C Dili - 8. Konu
+
+POINTER NEDIR?
+
+Basitce, pointer, bir adrestir. Bir degisken olmak yerine, bir degiskenin
+hafizadaki adresini tasiyan bir 'ok isareti'dir.
+
+================================================================
+
+main()                      /* Pointer kullanimi ornegi */
+{
+int index,*pt1,*pt2;
+
+   index = 39;                      /* herhangi bir deger  */
+   pt1 = &index;                   /* 'index' in adresi    */
+   pt2 = pt1;
+
+   printf("Deger simdi %d %d %d dir.\n",index,*pt1,*pt2);
+
+   *pt1 = 13;           /* 'index' in degerine degisiklik yapalim */
+
+   printf("Degistikten sonra ise %d %d %d\n",index,*pt1,*pt2);
+}
+
+================================================================
+
+Su an icin, programin index degiskenini ve iki tane astrisk ile baslayan
+terimlerin tanimlandigi yere bakmayin. Aslinda astrisk denilen bu isarete,
+biz simdilik 'yildiz' diyelim. 
+
+Programda ilk once, index degiskenine 39 degerini atiyoruz. Bunun
+altindaki satirda ise, pt1'e tuhaf bir deger atanmasini goruyoruz - index
+degiskeni, ve onunde bir & ampersand isareti ile. Bu ornekte, pt1 ve pt2
+pointer dir, ve index de basit bir degiskendir. Simdi bir problemle karsi
+karsiyayiz. Bu programda pointer kullaniliyor, fakat nasil kullanilacagini
+ogrenmedik. 
+
+Bu gorecekleriniz biraz aklinizi karistiracak, fakat bunlari anlamadan
+gecmeyin. 
+
+IKI ONEMLI KURAL
+
+1. Onune ampersand isareti konmus bir degisken, o degiskenin adresini
+belirtir. Yani altinci satir, soyle okunabilir: "pt1, index isimli
+degiskenin adresini alir."
+
+2. Onune yildiz konmus bir pointer, kendisinin tuttugu adreste bulunan
+degeri gosterir. Programin dokuzuncu satiri, soyle okunabilir: "pt1
+pointer'inin gosterdigi yere, 13 degeri atandi."
+
+HAFIZA YARDIMCISI
+
+1.  &  'i bir adres olarak dusunun.
+2.  *  'i adresteki deger olarak dusunun.
+
+pt1 ve pt2 pointer olarak, kendileri bir deger tasimazlar, fakat
+bellekteki bir adresi gosterirler. Bu programda, 'index' degiskenini
+gosteren pointer'lar oldugu icin, degiskenin degerini hem index ile, hemde
+onun adresini tasiyan pointer'lar ile degistirebiliriz. 
+
+Dokuzuncu satirda, index degiskeninin degeri, pt1 pointer'i ile
+degistiriliyor. Program icinde 'index' i kullandigimiz herhangi biryerde,
+(pt1 baska birseye atanincaya kadar), '*pt1' i de kullanmamiz
+mumkundur, cunku pt1, index'in adresini tasimaktadir.
+
+BIR BASKA POINTER
+
+Programa degisklik katmak icin, birbaska pointer daha tanimladim. "pt2"
+isimli bu pointer, yedinci satirda "pt1"'in tasidigi adresi almaktadir. Bu
+atamadan once, ayni henuz deger atanmamis degiskenler gibi icinde rastgele
+bilgiler vardir. Bundan sonra, "pt2" de "index" degiskeninin adresini
+tasimaktadir. Ornegin, dokuzuncu satirda "*pt1" i "*pt2" ile degistirsek
+de, sonuc ayni olacaktir - cunku iki pointer da ayni adresi tasimaktadir. 
+
+SADECE BIR DEGISKEN
+
+Bu programda uc tane degisken var gibi gorunse de, aslinda bir tane
+degisken tanimlidir. Iki pointer ise, bu degiskenin adresini tutmaktadir.
+Bu durum, "printf" komutunun hep 13 degerini yazmasindan da anlasilabilir.
+
+Bu gercekten anlamasi zor bir kavramdir, fakat en kucuk C programlari
+disinda hepsi tarafindan kullanildigi icin, ogrenmeniz gereklidir.
+
+POINTER NASIL TANIMLANIR
+
+Programin ucuncu satirinda, ilk once "index" isimli degisken tanimlanir,
+daha sonra da iki tane pointer tanimlamasi goreceksiniz. Ikinci tanim, su
+sekilde okunabilir: "pt1'in gosterecegi adres, bir tamsayi degiskenine ait
+olacak." Yani, "pt1", tamsayi bir degiskeninin pointer'i olur. Ayni
+sekilde, "pt2" de, yine bir tamsayi degiskeninin pointer'i olur.
+
+Bir pointer, bir degiskenin adresini tasimak icin tanimlanir.
+Tanimlandigindan baska bir degisken tipi icin kullanimi "uyumsuz veri
+tipi" hatasinin olusmasina sebep olur. Ornegin, "float" tipi bir pointer,
+"int" tipli bir degiskenin adresini alamaz. 
+
+POINTER'LI IKINCI PROGRAMIMIZ
+
+POINTER2.C:
+================================================================
+main()
+{
+char katar[40],*orada,bir,iki;
+int *pt,list[100],index;
+
+   strcpy(katar,"Bu bir karakter kataridir.");
+
+   bir = katar[0];                 /* bir ve iki ayni degeri tasirlar */
+   iki = *katar;
+   printf("Ilk cikti %c %c\n",bir,iki);
+
+   bir = katar[8];                /* bir ve iki ayni degeri tasirlar */
+   iki = *(katar+8);
+   printf("Ikinci cikti %c %c\n",bir,iki);
+
+   orada = katar+10;        /* katar+10 ve katar[10] aynidir. */
+   printf("Ucuncu cikti %c\n",katar[10]);
+   printf("Dorduncu cikti %c\n",*orada);
+
+   for (index = 0;index < 100;index++)
+      list[index] = index + 100;
+   pt = list + 27;
+   printf("Besinci cikti %d\n",list[27]);
+   printf("Altinci cikti %d\n",*pt);
+}
+================================================================
+
+Bu programda, iki tane pointer, iki tane dizi ve uc tane degisken
+tanimliyoruz. "orada" isimli pointer, karakter tipi, ve "pt" ise, tamsayi
+tipindedir.
+
+BIR KATAR DEGISKENI ASLINDA BIR POINTER DIR
+
+C programlama dilinde, bir katar degiskeni, o katarin baslangicini
+gosteren bir pointer olarak tanimlanmistir. Programda bir bakin:  once
+"katar" isimli diziye sabit bir katar atiyoruz. Daha sonra, "bir" isimli
+degiskene, "katar" in ilk harfini atiyoruz. Sonra, "iki" isimli degiskene,
+ayni degeri atiyoruz. Ikinci satirda "*katar[0]" yazmak yalnis olurdu,
+cunku yildiz isareti, koseli parantezlerin yerini almaktadir. 
+
+"katar" i neredeyse tam bir pointer gibi kullanabilirsiniz, yegane farki,
+tuttugu adres degistirilemez, ve daima o katarin baslangic adresini
+gosterir.
+
+Onkinci satira gelince, katarin dokuzuncu karakterinin (sifirdan
+basladigimiz icin), iki ayri sekilde "bir" ve "iki" isimli degiskenlere
+atandigini goruyoruz. 
+
+C programlama dili, pointer'in tipine gore, index ayarlamasini
+otomatik olarak yapar. Bu durumda, "katar" bir "char" olarak tanimlandigi
+icin, baslangic adresine 8 eklenir. Sayet "katar" "int" (tamsayi) olarak
+tanimlanmis olsa idi, index iki ile carpilip, "katar" in baslangic
+adresine eklenirdi. 
+
+"orada" bir pointer oldugu icin, 16. satirda "katar" in 11. elemaninin
+adresini tasiyabilir. "orada" gercek bir pointer oldugu icin, herhangi bir
+karakter degiskeninin adresini gosterebilir. 
+
+POINTER VE ARITMETIK
+
+Her cesit islemler, pointer'lar ile mumkun degildir. Pointer bir adres
+oldugundan, ona bir sabit rakam ekleyip, daha ilerideki bir adrese
+erismek mumkundur. Ayni sekilde, pointer'in adresinde bir rakam cikartip,
+daha onceki hafiza bolgelerine erismek mumkundur. Iki pointer'i toplamak
+pek mantikli degildir, cunku bilgisayardaki adresler sabit degildir.
+Cikacak rakamin tuhaf olacagi icin pointer ile carpma da yapilamaz. Ne
+yaptiginizi dusunurseniz, yapabilecekleriniz ve yapamayacaklariniz kendini
+belli edecektir. 
+
+TAMSAYI POINTER'I 
+
+"list" isimli tamsayi dizisine, 100 den 199 a kadar degerler verilir. Daha
+sonra, 28. elemanin adresini, "pt" isimli pointer'a atiyoruz. Daha sonra
+ekrana yazdigimizda, gercektende, o degeri aldigini goruyoruz.
+
+Daha onceki konularda, bir fonksiyondan veri degerlerini dondurmek icin
+iki metod oldugunu soylemistim. Ilki, bir dizi kullanarakti. Ikincisini
+herhalde tahmin edersiniz. Sayet tahmininiz "pointer sayesinde" idiyse,
+tebrikler.
+
+CIFTYON.C:
+================================================================
+main()
+{
+int cevizler,elmalar;
+
+   cevizler = 100;
+   elmalar = 101;
+   printf("Baslangic degerleri %d %d\n",cevizler,elmalar);
+
+			   /* "degistir" i cagirinca,         */
+   degistir(cevizler,&elmalar);  /* cevizlerin DEGERI ve,     */
+			   /* elmalarin adresini geciriyoruz  */
+
+   printf("Bitis degerleri ise, %d %d dir..\n",cevizler,elmalar);
+}
+
+degistir(kuru_yemis,meyvalar)       /* kuru_yemis tamsayidir   */
+int kuru_yemis,*meyvalar;           /* meyvalar bir tamsayi pointer'idir */
+{
+   printf("Degerler %d %d\n",kuru_yemis,*meyvalar);
+   kuru_yemis = 135;
+   *meyvalar = 172;
+   printf("Sonraki degerler %d %d\n",kuru_yemis,*meyvalar);
+}
+================================================================
+Burada, iki tane tamsayi degiskeni (pointer degil) tanimliyoruz:
+"cevizler" ve "elmalar". Once bunlara birer deger atiyoruz, ve "degistir"
+isimli fonksiyonu cagiriyoruz. Cagirirken, "cevizler" in degeri (100), ve
+"elmalar" degiskeninin adresini geciriyoruz. Fakat, fonksiyona da, bir
+deger ve bir adres gelecegini haber vermemiz gereklidir. Bunun icin,
+fonksiyonun parametreleri tanimlanirken, bir adres tasiyacak olan sembolun
+basina bir yildiz koymamiz yeterlidir. 
+
+
+Fonksiyonun icinde, bu iki degeri degistirip, eski ve yeni degerleri
+ekrana yaziyoruz. Bu program calistiginda, ana programdaki "cevizler" in
+degerinin  ayni kaldigini fakat "elmalar" in yeni degerlerini aldigini
+goreceksiniz. 
+
+"cevizler" in degerinin ayni kalmasinin nedeni, fonksiyona bir
+deger gecirildiginde, C dilinin o degerin bir kopyasini fonksiyona
+gecirmesi yuzundendir. Programa geri dondugunuzde, degerin bir kopyasini
+kullandigimiz icin asil degerin degismedigini goreceksiniz.
+
+"elmalar" in degerinin degismesi ise, yine fonksiyona "elmalar"
+degiskeninin adresinin bir kopyasi gecirildigi halde, bu adres ana
+programdaki "elmalar" a karsilik geldigi icin, fonksiyonda bu adresteki
+degeri degistirir degistirmez, "elmalar" in da degeri degismis olur. 
+
+ODEV
+
+1. Bir karakter katari tanimlayin, ve icine "strcpy" ile bilgi koyun. Bir
+dongu ve pointer ile katari harf-harf (teker teker) ekrana yazin. 
+Programin basinda pointer'i katarin ilk elemanina atayin, daha sonra cift
+arti isareti ile pointer'in degerini arttirin. Ayri bir tamsayi degiskeni
+ile kac karakter yazilacagini kontrol edin..
+
+2. 1. deki programi, pointeri katarin sonuna atayip, cift eksi isaretini
+kullanarak sondan basa dogru yazmasi icin degistiriniz.
+
+C Dili - 9. Konu
+
+Standart Input/Output
+
+BASITIO.C:
+================================================================
+#include <stdio.h>    /* input/output icin standard header */
+
+main()
+{
+char c;
+
+   printf("Herhangi bir tusa basin.  X = Programi durdurur. \n");
+
+   do {
+      c = getchar();    /* klavyeden bir tus okuyalim         */
+      putchar(c);       /* ekranda gosterelim.                */
+   } while (c != 'X');  /* ta ki okunan bir X oluncaya dek... */
+
+   printf("\nProgramin sonu.\n");
+}
+================================================================
+
+Standart I/O deyimi, verinin girildigi ve ciktigi en normal yerleri,
+klavyeyi ve ekrani kast eder.  Bu kutuge ilk baktiginizda, "#include
+<stdio.h>" komutunu goreceksiniz. Bu komut on-derleyiciye, kucuktur ve
+buyuktur isaretleri arasinda yer alan kutuk isminin programa eklenmesini
+soyler. Bazen, < > isaretleri yerine den-den " " isaretleri de
+gorebilirsiniz. Aralarindaki fark, <> isaretlerinin on-derleyiciye, su
+anda calistiginiz diskte / dizinde degil de, bu tip kutuklerin konuldugu
+yerde aramasini bildirir. Halbuki den-den isaretleri ile belirlenmis bir
+kutuk ismi, sizin su anda bulundugunuz disk / dizinde aranir. Genellikle,
+"bu tip kutuklerin konuldugu yer", derleyiciye daha onceden belirtilir.
+Ornegin, Quick C derleyicisinde, derleyiciye girmeden once:
+               SET INCLUDE=C:\INCLUDE
+yazmak, derleyicinin bundan sonra butun 'include' edilecek, yani eklenecek
+kutuklerin C: diskinin \INCLUDE dizininde aranmasini belirtir.
+
+Sonu .h ile biten kutuklerin, ozel bir fonksiyonu vardir. Bunlara header
+yada baslik kutukleri denir. Genellikle iclerinde, bazi fonksiyonlari
+kullanmak icin gereken tanimlamalar yer alir. Bu kullandigimiz "stdio.h"
+kutugu ise, bir suru "#define" komutundan olusur.
+
+C DE INPUT/OUTPUT ISLEMLERI
+
+C dilinde lisanin bir parcasi olarak tanimlanmis input/output komutlari
+yoktur, bu nedenle bu fonksiyonlarin kullanici tarafindan yazilmasi
+gereklidir. Her C kullanan kisi, kendi input/output komutlarini yazmak
+istemediginden, derleyici yazarlari bu konuda calisma yapmislar, ve bize
+bir suru input/output fonksiyonlari saglamislardir. Bu fonksiyonlar
+standart hale gelmislerdir, ve hemen her C derleyicisinde ayni
+input/output komutlarini bulabilirsiniz. C nin lisan tanimi, Kernigan ve
+Richie tarafindan yazilmis bir kitaptir, ve onlar bu gorecegimiz
+input/output fonksiyonlari bu kitaba katmislardir. 
+
+Bu "stdio.h" isimli kutugu incelemenizde fayda vardir. Icinde bircok
+anlamadiginiz nokta olacaktir, fakat bazi kisimlar tanidik olacaktir. 
+
+DIGER INCLUDE KUTUKLERI
+
+C de buyuk programlar yazmaya basladiginizda, programlari ufak parcalara
+ayirip ayri ayri derlemek isteyebilirsiniz. Bu degisik parcalarin ortak
+kisimlarini tek bir kutukte toplayip, bir degisiklik gerektiginde sadece o
+ortak kutukten yapmayi isteyebilirsiniz (ornegin global degisken
+tanimlari.) Bu gibi durumlarda "#include" kutukleri cok faydali olacaktir.
+
+"BASITIO" YA GERI DONELIM
+
+"c" isimli degisken tanimlanir, ve ekrana mesaj yazilir. Daha sonra,
+kendimizi "c", buyuk harf X e esit olmadigi surece devam eden bir dongunun
+icinde buluyoruz. Bu programdaki iki yeni fonksiyon, su an icin ilgi
+noktamiz. Bunlar klavyeden bir tus okumak, ve ekrana bir karakter yazmayi
+saglarlar. 
+
+"getchar()" isimli fonksiyon, klavyeden okudugu tusu dondurur, bu deger
+"c" ye atanir. "putchar()" fonksiyonu ise, bu degeri ekrana yansitir. 
+
+Bu programi derleyip calistirdiginizda, bir surpriz ile karsilasacaksiniz.
+Klavyeden yazdiginizda, ekrana herseyin iyi bir sekilde yansitildigini
+goreceksiniz. RETURN tusuna bastiginizda ise, butun satirin tekrar ekrana
+yazildigini goreceksiniz. Her karakteri teker teker ekrana getirmesini
+soyledigimiz halde, programimiz sanki butun satiri sakliyor gibi. 
+
+DOS BIZE YARDIMCI OLUYOR (YADA ISE KARISIYOR)
+
+Bu durumu anlayabilmek icin, DOS un nasil calistigini anlamamiz
+gereklidir. Klavyeden tuslar DOS kontrolu ile okundugu zaman, RETURN tusu
+basilana dek, basilan tuslar bir sahada saklanir. RETURN basilinca da,
+butun satir programa dondurulur. Tuslara basilirken, karakterler ekrana da
+yansitilir. Bu duruma da "eko" ismi verilir. 
+
+Simdi anlatilanlari goz onunde bulundurarak, programimiz calisirken ekrana
+eko edilenlerin, DOS tarafindan yapildigini anlayabilirsiniz. Siz RETURN e
+basinca da, bu saklanan tuslar, programa gonderilir. Bunu daha iyi anlamak
+icin, icinde buyuk harf X olan bir satir yazin. DOS, buyuk X in ozel bir
+tus oldugundan habersiz, siz RETURN e basana kadar tuslari kabul etmeye
+devam eder. RETURN e basinca ise, bu katar programa gecirilir, ve program
+X e rastlayincaya kadar ekrana karakterleri birer birer yazar.
+
+Isletim sisteminin bu tuhafliklari karsisinda yilmayin. Bazi
+programlarinizda, bu ozellik isinize yarayabilir. Fakat simdi biz, az once
+yazdigimiz programin, dusundugumuz gibi calismasini saglayalim.
+
+TEKIO.C:
+================================================================
+
+#include <stdio.h>
+
+main()
+{
+char c;
+
+   printf("Herhangi bir tusa basin.  X = Programi durdurur. \n");
+
+   do {
+      c = getch();                     /* bir tus oku          */
+      putchar(c);                  /* basilan tusu goster      */
+   } while (c != 'X');             /* ta ki c == 'X' olana dek */
+
+   printf("\nProgramin sonu.\n");
+}
+================================================================
+
+Bu programdaki yegane degisiklik olan yeni fonksiyon "getch()", yine
+klavyeden tek bir karakter okur. Farki, "getchar" gibi DOS'a
+takilmamasidir. Bir karakter okur, ve ekrana yansitmadan bu tusu programa
+dondurur. 
+
+Bu programi calistirdiginizda, bir oncekindeki gibi tekrarlanan satirlar
+olmadigini goreceksiniz. Ayrica program artik 'X' e basar basmaz
+durmaktadir. Burada baska bir problemimiz var. RETURN'e basinca cursor,
+ekranin soluna gitmektedir, ama bir alt satira inmemektedir. 
+
+SATIR ATLAMAMIZ LAZIM
+
+Cogu uygulama programi siz RETURN e basinca, program o RETURN e ek olarak
+bir de "Line Feed" yani satir atlama karakteri ilave eder. Satir atlama
+otomatik olarak yapilmaz. Bundan sonraki programda, bu sorunu da halletmis
+olacagiz. 
+
+IYIIO.C:
+================================================================
+#include "stdio.h"
+#define CR 13       /* CR sembolunu 13 olarak tanimlar */
+#define LF 10       /* LF sembolunu 10 olarak tanimlar */
+
+main()
+{
+char c;
+
+   printf("Tuslara basin. Durmak icin X e basin.\n");
+
+   do {
+      c = getch();                    /* Bir karakter oku        */
+      putchar(c);                     /* basilan tusu ekrana yaz */
+      if (c == CR) putchar(LF);       /* sayet basilan RETURN tusu ise,
+                                      bir SATIR ATLAMA karakteri yolla */
+   } while (c != 'X');
+
+   printf("\nProgramin sonu.\n");
+}
+================================================================
+Programin ilk basinda CR 'nin artik 13 e esit oldugunu ve LF nin de 10
+oldugunu belirtiyoruz. Sayet ASCII tablosundan bakarsaniz, RETURN tusuna
+karsilik gelen kodun 13 oldugunu gorursunuz. Ayni tabloda, satir atlama
+kodu da 10 dur.
+
+Ekrana basilan tusu yazdiktan sonra, sayet bu tus RETURN tusu ise, bir
+satir atlayabilmemiz icin, satir atlama kodunu ekrana yaziyoruz.
+
+Programin basindaki "#define" lar yerine "if (c == 13) putchar(10);"
+diyebilirdik, fakat ne yapmak istedigimiz pek belirgin olmazdi. 
+
+HANGI METOD DAHA IYI?
+
+Burada ekrandan bir harf okumanin iki yolunu inceledik. Her ikisinin de
+avantajlari ve dezavantajlari var. Bunlara bir bakalim.
+
+Ilk metodda, butun isi DOS ustlenmektedir. Programimiz baska islerle
+ugrasirken, DOS bizim icin satiri hazirlayabilir, ve RETURN'e basilinca bu
+satiri programa dondurebilir. Fakat, bu metodda karakterleri basildiklari
+anda fark etmemiz imkansizdir.
+
+Ikinci metodda, tuslari teker teker fark etmemiz mumkundur. Fakat,
+program bu okuma sirasinda butun zamanini okumaya harcar ve baska bir is
+yapamaz, ve bilgisayarin tum zamanini bu isle almis oluruz. 
+
+Hangi metodun uzerinde calistiginiz program icin daha uygun oldugunu
+programci olarak siz karar vereceksiniz.
+
+Burada, "getch()" fonksiyonun tersi olan "ungetch()" isimli bir fonksiyon
+daha oldugunu da belirtmeliyim. Sayet bir karakteri "getch()" le okuduktan
+sonra fazla okudugunuzu fark ederseniz, bu fonksiyon ile okunan tusu geri
+koyabilirsiniz. Bu bazi programlarin yazilimini kolaylastirmaktadir cunku
+bir tusu istemediginizi onu okuyuncaya kadar bilemezsiniz. Sadece bir tek
+tusu "ungetch" edebilirsiniz, fakat genellikle bu yeterlidir. 
+
+BIRAZ TAMSAYI OKUYALIM
+
+TAMOKU.C:
+================================================================
+#include <stdio.h>
+
+main()
+{
+int deger;
+
+   printf("0 ila 32767 arasinda bir rakam yazin, durmak icin 100 girin.\n");
+
+   do {
+      scanf("%d",&deger);   /* bir tamsayi oku (adresi ile) */
+      printf("Okunan deger %d idi. \n",deger);
+   } while (deger != 100);
+
+   printf("Programin sonu\n");
+}
+================================================================
+
+Alistigimiz tip bir program olan TAMOKU'da, "scanf" isimli yeni bir
+fonksiyon goruyoruz. Cok kullandigimiz "printf" fonksiyonuna cok benzeyen
+bu fonksiyonun gorevi, istenilen tip verileri okuyup, degiskenlere atamak.
+
+"printf" den en buyuk farki, "scanf" in degisken degerleri yerine,
+adreslerini kullanmasidir. Hatirlayacaginiz gibi, bir fonksiyonun
+parametrelerinin degerlerini degistirebilmesi icin, degiskenin adresine
+ihtiyaci vardir. "scanf" fonksiyonuna adres yerine deger gecirmek, C
+dilinde en SIK rastlanan hatalardan biridir. 
+
+"scanf" fonksiyonu, girilen satiri, satirdaki bosluklara bakmadan, ve bu
+sekilde kullanildiginda, rakam olmayan bir karakter bulana kadar bir
+tamsayi okur.
+
+Sayet 32766 den buyuk bir rakam girerseniz, programin hata yaptigini
+gorursunuz. Ornegin 65536 girerseniz, programin 0 degerini dondurdugunu
+gorursunuz. Buna sebep, tamsayilarin hafizada saklanisinda onlara 16
+bitlik bir saha ayrilmasindandir. Programinizda daha buyuk rakamlar
+kullanacaksaniz, 'long' yada 'float' tiplerini secebilirsiniz.
+
+KARAKTER KATARI GIRISI
+
+KATARIN.C:
+================================================================
+#include <stdio.h>
+
+main()
+{
+char big[25];
+
+    printf("Karakter katari girin, en fazla 25 karakter.\n");
+    printf("Birinci kolonda X yazarak programi bitirin.\n");
+
+    do {
+       scanf("%s",big);
+       printf("Yazdiginiz katar -> %s\n",big);
+    } while (big[0] != 'X');
+
+    printf("Programin sonu.\n");
+}
+================================================================
+
+Bu program bir oncekine cok benzer, fakat bu sefer bir kelime katari
+giriyoruz. 25 elemanli bir dizi tanimlanmistir, fakat en son deger bir '0'
+olmasi gerektiginden, kullanilabilen kisimi 24 dur. "scanf" deki
+degiskenin onune & ampersand isareti gerekmez cunku, koseli parantezleri
+olmayan bir dizi degiskeni, C dilinde o dizinin baslangicini gosteren
+bir adrestir. 
+
+Calistiginizda, sizi bir supriz bekliyor. Yazdiginiz cumleyi, program ayri
+satirlarda gosterir. Bunun sebebi, "scanf" bir katar okurken, satirin
+sonuna yada bir bosluga rastlayincaya kadar okumasina devam eder. Bir
+dongu icinde oldugumuzdan, program tekrar tekrar "scanf" i cagirarak,
+DOS'un giris sahasinda kalan butun karakterleri okur. Cumleleri kelimelere
+boldugunden, X ile baslayan herhangi bir kelimeye rastlayinca, bu program
+durur.
+
+24 karakterden daha fazlasini girmeye calisin. Ne olduguna bakin. Size bir
+hata mesaji verebilir, yada programiniz aleti kilitleyebilir. Gercek bir
+programda, boyle seylerin sorumlulugu sizlerin omuzlarinizdadir. C dilinde
+yazdiginiza size cok sey duser, fakat ayni zamanda bircok kolaylik da
+saglar. 
+
+C DE INPUT/OUTPUT PROGRAMLAMA
+
+C dili cok miktarda input/output yapan programlar icin degil de, bir
+bircok icsel islemler yapan sistem programlari icin yazilmistir.
+Klavye'den bilgi alma rutinleri cok kullanislidir, fakat C size az 
+yardimci olur. Yani, yapmaniz gereken I/O islemlerinde sorun cikmasini
+onlemek icin detaylarla sizin ugrasmaniz lazimdir. Fakat genellikle
+herhangi bir program icin bu tip fonksiyonlari bir defa tanimlamaniz
+yeterlidir. 
+
+HAFIZADA.C:
+================================================================
+main()
+{
+int rakam[5], sonuc[5], index;
+char satir[80];
+
+   rakam[0] = 5;
+   rakam[1] = 10;
+   rakam[2] = 15;
+   rakam[3] = 20;
+   rakam[4] = 25;
+
+   sprintf(satir,"%d %d      %d %d %d\n",rakam[0],rakam[1],
+           rakam[2],rakam[3],rakam[4]);
+
+   printf("%s",satir);
+
+   sscanf(satir,"%d %d %d %d      %d",&sonuc[4],&sonuc[3],
+	   (sonuc+2),(sonuc+1),sonuc);
+
+
+   for (index = 0;index < 5;index++)
+      printf("Sonuc %d dir. \n",sonuc[index]);
+
+}
+================================================================
+
+Bu programda, birkac tane degisken tanimliyoruz, ve "rakamlar" isimli
+diziye de, "sprintf" fonksiyonunu incelemek icin rastgele sayilar
+atiyoruz. Bu fonksiyon, "printf" e cok benzer. Yegane farki, ciktisini
+ekrana yazmak yerine, bir karakter dizisine yazmasidir. Bunu da, ilk
+parametresi olarak veriyoruz. Yani program bu fonksiyondan dondukten
+sonra, "satir" dizisinin icinde, bes tane rakam olacaktir. Ikinci ile
+ucuncu rakamlar arasindaki bosluk, "sscanf" fonksiyonunun bunlarin
+uzerinden atlamasini gormek icindir. 
+
+Bunun altinda "printf" i kullanarak bu hazirladigimiz satiri yaziyoruz.
+Daha sonra gordugunuz, "sscanf" fonksiyonu ise, "scanf" gibi ekrandan
+okumak yerine, bizim "satir" dizimizden degerleri okur. Gordugunuz gibi,
+"sscanf" e rakamlarin konacagi dizinin adreslerini cok degisik sekillerde
+verebiliyoruz. Ilk ikisi, sadece dizideki 5. ve 4. elemanlarin adreslerini
+index vererek tanimliyorlar, sonraki ikisi ise, dizinin baslangic adresine
+bir offset (bir rakam) ekleyerek buluyorlar. Sonuncusu ise, koseli
+parantezi olmayan bir dizinin, o dizinin baslangic elemaninin adresini
+gostereceginden, hicbir sey gerektirmiyor. 
+
+Bazen, bir programin ciktilarini, standart ciktidan (ekrandan), bir baska
+kutuge yoneltmek istenir. Fakat, hata mesajlarini gibi bazi mesajlari hala
+ekrana yollamak isteyebilirsiniz:
+
+OZEL.C:
+================================================================
+#include <stdio.h>
+
+main()
+{
+int index;
+
+   for (index = 0;index < 6;index++) {
+      printf("Bu satir, standart ciktiya gidiyor.\n");
+      fprintf(stderr,"Bu satir ise standart hataya gidiyor.\n");
+   }
+
+   exit(4);  /* Bu komut, DOS 'un ERRORLEVEL komutu ile bir batch file'da
+		(yigit kutugunde) kontrol edilebilir. Bu programin
+		d”nd£rd£g£ deger, soyle kontrol edilebilir:
+
+		A> COPY CON: DENE.BAT   <RETURN>
+
+		OZEL
+		IF ERRORLEVEL 4 GOTO DORT
+		(Dortten kucukse, buraya devam eder..)
+                .
+                .
+		GOTO BITTI
+		:DORT
+		(dort yada buyukse, buraya devam eder)
+                .
+                .
+		:BITTI
+
+		<F6> <RETURN>
+
+								  */
+}
+================================================================
+
+Bu program, bir dongu, ve icinde iki satirdan olusur. Bu satirlardan bir
+tanesi standart ciktiya, bir tanesi de standart hataya gider. Burada
+gordugunuz "fprintf" komutu, "printf" e cok benzer, fakat ciktinin nereye
+gidecegini de belirtmenizi saglar. Bu alanda bir sonraki konuda daha uzun
+duracagiz. 
+
+Program calisinca, ekranda on iki tane satir goreceksiniz. Sayet bu
+programi:
+
+A>  OZEL > CIKTI
+
+seklinde calistirirsaniz, ekranda sadece alti tane standart hataya giden
+mesajlari goreceksiniz. Geri kalan (standart ciktiya giden) alti tanesi
+ise, "cikti" isimli kutukte yer alacaktir.
+
+YA exit(4) KOMUTU ?
+
+Bu programdaki en son satir olan "exit(4)" komutu, programi sona erdirir,
+ve dort degerini DOS a dondurur. Parantezlerin arasinda 0 ila 9 degerleri
+kullanilabilir. Sayet bir "batch" (yigit) kutugu icinde bu programi
+calistiriyorsaniz, bu degeri ERRORLEVEL komutu ile kontrol edebilirsiniz.
+
+ODEV
+
+1. Bir dongu icinde bir harf okuyun ve ekrana bu harfi normal "char"
+tipinde gosterin. Bu harfi bir rakam olarak da gosterin. Programi
+durdurmak icin, dolar sembolunu bekleyin. "getch" fonksiyonunu kullanarak
+programin tusa basilir basilmaz islemesini saglayin. F tuslari gibi ozel
+tuslara basarak ne oldugunu kaydedin. Her fonksiyon tusundan iki tane
+deger donecektir. Birincisi sifir olup, ozel bir tusa basildigini haber
+verecektir. 
+
+C Dili - 10. Konu
+
+BIR KUTUGE YAZMAK
+
+ONSATIR.C:
+================================================================
+#include <stdio.h>
+main()
+{
+FILE *fp;
+char ivir[25];
+int index;
+
+   fp = fopen("ONSATIR.TXT","w");   /* yazmak icin acalim */
+   strcpy(ivir,"Bu bir ornek satirdir.");
+
+   for (index = 1;index <= 10;index++)
+      fprintf(fp,"%s  Satir no: %d\n",ivir,index);
+
+   fclose(fp);    /* Kutugu kapayalim */
+}
+================================================================
+
+Bir kutuge yazan ilk programimiz. Herzamanki gibi, "stdio.h" i programa
+ekliyoruz, ve daha sonra cok tuhaf bir degisken tanimliyoruz.
+
+"FILE" tipi, bir kutuk degiskenidir, ve "stdio.h" in icinde
+tanimlanmistir. Kullanacagimiz kutuge erismek icin bir 'kutuk pointeri'
+tanimlamaktadir. 
+
+KUTUGUN ACILMASI
+
+Bir kutuge yazmadan once, onu acmamiz gereklidir. Acmak demek, sisteme o
+kutugun ismini bildirmek, ve yazmak istedigimizi belirtmektir. Bunu,
+"fopen" fonksiyonu ile yapiyoruz. "fp" isimli kutuk pointer'i, bu acilan
+kutuge ait bazi bilgileri tutar. "fopen" ise, iki parametre gerektirir.
+Birincisi, kutugun ismidir. Buyuk harf, kucuk harf, yada karisik fark
+etmez. 
+
+OKUMAK "r"
+
+"fopen" in ikinci parametresi ise, acilacak kutuk ile ne yapilacagini
+belirtir. Buraya, "r" "w" yada "a" yazabiliriz. "r" kullanildiginda, kutugun
+okuma icin acilacagini belirtir. "w", kutuge yazilacagini, ve "a" ise
+zaten var olan bir kutuge bilgi ekleyeceginizi belirtir. Bir kutugu okumak
+icin acmak icin, o kutugun diskte var olmasini geretirir. Sayet kutuk yok
+ise, "fopen", geriye NULL degerini dondurur.
+
+YAZMAK "w"
+
+Bir kutuk yazmak icin acilinca, sayet diskte yoksa yaratilir, sayet varsa,
+icindeki bilgiler silinir.
+
+EKLEMEK "a"
+
+Bir kutuk eklemek modunda acildiginda, sayet yoksa yaratilir, varsa, veri
+giris pointer'i bu kutugun sonuna ayarlanir. Bu sayede yeni bilgi
+yazilinca, kutugun sonuna yazilmis olur. 
+
+KUTUGE YAZMAK
+
+Bir kutuge yazmak, ekrana yazmak ile neredeyse aynidir. En onemli farklar,
+yeni fonksiyon isimleri, ve kutuk pointer'inin bu fonksiyonlara parametre
+olarak eklenmesidir. Ornek programda, "fprintf" komutu "printf" komutunun
+yerini alir. 
+
+KUTUGU KAPATMAK
+
+Bir kutugu kapatmak icin, sadece "fclose" komutunu kullanmak yeterlidir.
+Parametre olarak da kutugun pointer'ini gecirmek yeterlidir. DOS, program
+sona erince kullandigi kutukleri kapattigindan, "fclose" u kullanmak sart
+degildir, fakat bir aliskanlik yapmasi icin, kullandiginiz kutukleri
+kapatmanizi tavsiye ederim.
+
+Bu programi calistirdiginizda, ekranda hicbir sey cikarmaz. Program
+bittikten sonra, "ONSATIR.TXT" isimli kutugu inceleyin. Icinde programin
+yazdigi on satirlik ciktiyi goreceksiniz.
+
+KARAKTERLERI TEKER TEKER YAZMAK
+
+KAROUT.C:
+================================================================
+#include <stdio.h>
+main()
+{
+FILE *kutukpoint;
+char digerleri[35];
+int index,say;
+
+   strcpy(digerleri,"Ek satirlar.");
+   kutukpoint = fopen("onsatir.txt","a"); /* eklemek icin acmak */
+
+   for (say = 1;say <= 10;say++) {
+      for (index = 0;digerleri[index];index++)
+	 putc(digerleri[index],kutukpoint);  /* bir karakter yaz  */
+      putc('\n',kutukpoint);             /* bir de <RETURN>   */
+   }
+   fclose(point);
+}
+================================================================
+
+Normal "include" kutugumuzden sonra, "kutukpoint" isimli bir kutuk
+pointeri tanimliyoruz. Yazacagimiz bilgileri tutmasi icin, "digerleri"
+isminde bir karakter dizisi tanimliyoruz. Daha sonra bu actigimiz sahaya,
+"strcpy" fonksiyonu ile "Ek satirlar." sozcugunu yaziyoruz. Bundan sonra,
+yine ayni kutugu "append" yani eklemek icin aciyoruz. 
+
+Bu program iki tane ic ice donguden olusuyor. Distaki dongu, sadece birden
+ona kadar sayiyor.. Icindeki dongu ise, yazilan karakter sifir olmadigi
+surece, "putc" fonksiyonunu cagirir. 
+
+"putc" FONKSIYONU
+
+Bu programin ilgimizi ceken yonu, "putc" fonksiyonudur. Belirtilen kutuge
+bir karakter yazan bu fonksiyon, ilk parametre olarak yazilacak karakteri,
+ikinci olarak da kutuk pointer'ini veriyoruz. "Digerleri" isimli dizi
+bitince satirin sonuna bir <RETURN> karakteri koymak icin "putc" yi tekrar
+cagiriyoruz.
+
+Dis dongu on kere tekrarlandiktan sonra, program kutugu kapatip sona
+eriyor. Bu program calistiktan sonra kutugu incelerseniz, gercektende
+sonuna 10 satir eklendigini gorursunuz.
+
+BIR KUTUGU OKUMAK
+
+
+KAROKU.C:
+================================================================
+#include <stdio.h>
+
+main()
+{
+FILE *tuhaf;
+int c;
+
+   tuhaf = fopen("ONSATIR.TXT","r");
+
+   if (tuhaf == NULL) printf("Boyle bir kutuk yok\n");
+   else {
+      do {
+         c = getc(tuhaf);    /* Bir karakter oku  */
+         putchar(c);         /* ekranda goster    */
+      } while (c != EOF);    /* Kutuk sonuna (END OF FILE) a kadar devam */
+   }
+   fclose(tuhaf);
+}
+================================================================
+
+Bir kutuk okuyan ilk programimiz!  "stdio.h" ve iki degisken tanimindan
+sonra, "fopen" fonksiyonunda okumak icin "r" parametresini veriyoruz. Daha
+sonra, kutuk acmanin basarili olip olmadigini kontrol ediyoruz. Sayet
+basarili degilse, geriye NULL degeri donecektir.
+
+Program, bir "do while" dongusunun icinde tek bir karakter okuyup, ekrana
+yaziyor. Bu dongu, ta ki, "getc" fonksiyonu kutugun sonunu belirten EOF
+dondurene kadar surer. EOF donunce de, kutuk kapatilir, ve program sona
+erer. 
+
+DIKKAT DIKKAT DIKKAT
+
+Bu noktada, C nin en sasirtici ve en cok yapilan hatasina rastliyoruz.
+"getc" fonksiyonundan geri donen degisken bir karakterdir, dolayisi ile
+bunu "char" tipi bir degiskene atayabiliriz. Hatirlayalim ki, bir "char"
+degiskeni 0 ila 255 arasindaki degerleri alabilir.
+
+Fakat, cogu C derleyicilerinde EOF karakteri, -1 olarak tanimlanmistir -
+yani, "char" degiskeninin disinda - Bu nedenle sayet char kullanirsak,
+program kutugun sonunun geldigini bulamaz, ve sonsuz bir dongude takilir.
+Bunun onune gecmesi kolaydir: EOF karakteri donmesini beklediginiz
+durumlarda, daima "int" tipi bir degisken kullanin. 
+
+Sayet sizin derleyiciniz icin EOF karakterinin ne oldugunu ogrenmek
+isterseniz, "stdio.h" isimli header'i okuyabilirsiniz.
+
+
+KELIME KELIME OKUMAK
+
+TEXTOKU.C:
+================================================================
+#include "stdio.h"
+
+main()
+{
+FILE *fp1;
+char birkelime[100];
+int c;
+
+   fp1 = fopen("ONSATIR.TXT","r");
+
+   do {
+      c = fscanf(fp1,"%s",birkelime); /* kutukten bir kelime okuyalim */
+      printf("%s\n",birkelime);       /* ekrana yazalim               */
+   } while (c != EOF);              /* ta ki EOF olana kadar          */
+
+   fclose(fp1);
+}
+================================================================
+
+Bu program, nerdeyse bir oncekinin aynisidir. Burada, kelime kelime okumak
+icin "fscanf" fonksiyonunu kullaniyoruz, cunku "fscanf" fonksiyonu, bir
+bosluga gelince, okumayi birakir. 
+
+FAKAT BIR PROBLEM VAR
+
+Programi inceleyince, verinin kutukten okundugunu, ekrana yazildigini ve
+daha sonra EOF olup olmadiginin kontrol edildigini goruyoruz. Bu nedenle,
+istemedigimiz birsey ekrana yazilmis oluyor. Buyuk ihtimalle, programin
+sonunda, en son kelimeyi bir daha yaziyoruz - cunku zaten "birkelime" nin
+icinde idi o deger. 
+
+Buna mani olmak icin, bir baska program gorelim. Ismi IYIOKU.C olsun:
+
+IYIOKU.C:
+================================================================
+#include "stdio.h"
+
+main()
+{
+FILE *fp1;
+char birkelime[100];
+int c;
+
+   fp1 = fopen("onsatir.txt","r");
+
+   do {
+      c = fscanf(fp1,"%s",birkelime); /* kutukten bir kelime oku... */
+      if (c != EOF)
+         printf("%s\n",birkelime);    /* ekrana yaz...            */
+   } while (c != EOF);              /* ta ki EOF olana dek..      */
+
+   fclose(fp1);                      /* kutugu kapa       */
+}
+================================================================
+
+Gordugunuz gibi, bir "if" komutu ile, sayet kutugun sonuna gelip
+gelmedigimize bakiyoruz. Aslinda bu problem KAROKU.C da da vardi, fakat
+orada pek gorunmuyordu.
+
+SONUNDA, BUTUN BIR SATIR OKUYORUZ
+
+SATIROKU.C:
+================================================================
+
+#include "stdio.h"
+
+main()
+{
+FILE *fp1;
+char birkelime[100];
+char *c;
+
+   fp1 = fopen("ONSATIR.TXT","r");
+
+   do {
+      c = fgets(birkelime,100,fp1); /* bir satir okuyalim */
+      if (c != NULL)
+         printf("%s",birkelime);    /* ekrana yazalim   */
+   } while (c != NULL);          /* ta ki NULL olana kadar.. */
+
+   fclose(fp1);
+}
+
+================================================================
+
+Bu program, simdiye de gorduklerimize benziyor, fakat NULL isimli yeni bir
+nesne de katildi. 
+
+"fgets" fonksiyonu ile, bir butun satiri, ve sonundaki yeni satir
+karakterini (\n), bir diziye okur. Ilk parametre olarak, donen
+karakterleri koyacagimiz yerin adresi tanimlanir, ikinci parametrede en
+fazla kac karakter okunmasina izin verecegimizi belirtiyoruz, ve son
+olarak da kutuk degiskeninin ismini veriyoruz.
+
+ o Yani bu fonksiyon, ya bir yeni satir karakterine rastlayana kadar, yada
+izin verilen karakter sayisi eksi bir kadar okur. Eksi birin sebebi ise,
+katarin sonunu belirten (\0)  sifir degerine yer birakmasidir.
+
+Tabi sonunda, kutugu kapatiyoruz..
+
+DEGISKEN BIR KUTUK ISMI
+
+HERKUTUK.C:
+================================================================
+#include "stdio.h"
+
+main()
+{
+FILE *fp1;
+char birkelime[100],kutukismi[25];
+char *c;
+
+   printf("Kutuk ismini girin -> ");
+   scanf("%s",kutukismi);         /* istenilen kutuk ismini alalim */
+
+   fp1 = fopen(kutukismi,"r");
+
+   do {
+      c = fgets(birkelime,100,fp1); /* kutukten bir satir okuyalim */
+      if (c != NULL)
+         printf("%s",birkelime);    /* ekrana yazalim       */
+   } while (c != NULL);          /* ta ki NULL olana kadar  */
+
+   fclose(fp1);
+}
+================================================================
+
+Burada, ilk once kullanicidan "scanf" ile kutuk ismini kullanicidan
+aliyoruz, daha sonra kutugu acip, satir satir ekrana yaziyoruz.
+
+YAZICIYA NASIL BIRSEY YOLLAYABILIRIZ
+
+PRINTDAT.C:
+================================================================
+#include "stdio.h"
+
+main()
+{
+FILE *guzel,*printer;
+int c;
+
+   guzel = fopen("onsatir.txt","r"); /* kutugu acalim        */
+   printer = fopen("PRN","w");        /* printeri acalim     */
+
+   do {
+      c = getc(guzel);    /* kutukten bir karakter okuyoruz  */
+      if (c != EOF) {
+	 putchar(c);      /* ekranda goruntuleyelim          */
+	 putc(c,printer); /* ve yaziciya yollayalim          */
+      }
+   } while (c != EOF);    /* ta ki (End Of File) kutuk bitene kadar */
+
+   fclose(guzel);
+   fclose(printer);
+}
+================================================================
+
+Okumak icin, "onsatir.txt" yi actiktan sonra, yazmak icin "PRN" isimli
+kutugu aciyoruz. Printere bir bilgi yollamak, ayni bir kutuge yazmak
+gibidir, fakat standart bir kutuk ismi kullanmak zorundayiz. Bu konuda
+kesin standartlar yoktur, fakat genellikle bu isimler "PRN" , "LPT",
+"LPT1" yada "LPT2" dir. 
+
+Bazi yeni derleyicilerin, "stdprn" diye, onceden tanimli bir kutuk
+tanimliyicilari vardir. Bu sayede, siz printer'i bir kutuk gibi acmadan,
+ona veri yollayabilirsiniz.
+
+Program, birer birer butun kutugu okuyup, ekranda gosterir, ve printer'e
+yollar. EOF , kutuk sonu bulundugunda, kutukler kapanir, ve programv
+biter. 
+
+
+
+ODEVLER:
+
+1. Okunacak, yazilacak  kutuklerin isimlerini kullaniciya soran, daha
+sonra bu ikisini ve printer kutugunu acan bir program yazin. Program
+bunlari actiktan sonra, kutuk sonu gelinceye kadar okunacak kutugu harf
+harf okuyup, yazilacak kutuge ve yaziciya bu karakteri yollamalidir.
+
+2. Programiniz, kullaniciya bir kutuk ismi sorsun, cevabi alinca da, bu
+kutugu ekranda, satir numaralari ile birlikte gostersin..
+
+<EOF>
+C Dili - Konu 11
+
+Structure ve Union'lar
+
+STRUCTURE NEDIR?
+
+Not: Structure'un tam tercumesi herhalde 'Yapi' olacak..
+
+Bir structure, kullanici tarafindan tanimlanmis bir veri tipidir. Su ana
+kadar kullandigimiz veri tiplerinden cok daha karmasik olanlari,
+tanimlayabilirsiniz. Bir structure, daha once tanimlanmis olan veri
+tiplerinin bir araya gelmis halidir - ki bu veri tiplerine, daha once
+tanimladigimiz structure'lar da dahildir. Bu tanimi rahat anlamanin bir
+yolu, structure'un, veriyi kullaniciya yada o programi kullanacak olan
+kisiye daha rahat bir sekilde gruplamak icin kullanildigini
+belirtebiliriz.  Her zamanki gibi, bir seyi anlamanin en iyi yolu,
+orneklere bakmaktir...
+
+STRUCT1.C:
+================================================================
+
+main()
+{
+
+struct {
+   char bas_harf;  /* Soyadin bas harfi   */
+   int yas;        /* cocugun yasi        */
+   int not;        /* okulda not ortalamasi (100 uzerinden) */
+   } oglan,kiz;
+
+   oglan.bas_harf = 'R';
+   oglan.yas = 15;
+   oglan.not = 75;
+
+   kiz.yas = oglan.yas - 1;  /* o, oglandan bir yas kucuk */
+   kiz.not = 82;
+   kiz.bas_harf = 'H';
+
+   printf("%d yasindaki %c'nin aldigi not, %d dir.\n",
+           kiz.yas, kiz.bas_harf, kiz.not);
+
+   printf("%d yasindaki %c'nin aldigi not, %d dir.\n",
+           oglan.yas, oglan.bas_harf, oglan.not);
+}
+================================================================
+
+Program, bir structure tanimi ile basliyor. "struct" kelimesinden sonra,
+kume isaretleri arasinda bazi basit degiskenler goruyorsunuz. Bu
+degiskenler, bu structure'i olusturan parcalardir. Kapanan kume
+isaretinden sonra, iki tane degisken ismi goruyorsunuz: "oglan" ve "kiz".
+Bu structure'un tanimina gore, "oglan" artik, 3 elemandan olusan bir
+degiskendir. Bunlar "bas_harf", "yas", ve "not" dur, ve herbiri, kendi
+tiplerinde bir veriyi saklayabilirler. "kiz" degiskeninin de ayni 3
+elemani vardir, fakat bu baska bir degiskendir. Yani, 6 tane basit
+degisken tanimlamis olduk..
+
+TEK BIR BIRLESIK DEGISKEN
+
+"oglan" degiskenini daha yakindan izleyelim. Daha once soyledigimiz gibi,
+"oglan" in her elemani, basit birer degiskendir, ve bu tip bir degiskenin
+kullanilabilecegi heryerde kullanilabilir. Ornegin, "yas" elemani, bir
+tamsayi degiskenidir, dolayisiyla, bir C programinda bir tamsayi
+degiskeninin kullanilabilecegi her yerde kullanilabilir. Hesaplamalarda,
+bir sayac olarak, I/O islemlerinde vs. Yegane problem, bu "yas" isimli
+basit degiskeni "oglan" ile beraber kullanmamiz gerekir. Bunu yapmak
+icinde, ikisini de yaziyoruz, ve arasina bir nokta isareti koyuyoruz.
+Oyleyse, tum degisken ismi olan "oglan.yas",  "oglan" degiskeninin "yas"
+sahasi oluyor.. Bu yapiyi, bu sahaya erismek istedigimiz heryerde
+kullanabiliriz. Hatta, sadece "oglan" yada "yas" dememiz, kabul
+edilmeyecektir. Tek baslarina, isimlerin bir manasi yoktur.
+
+
+DEGISKENLERE DEGER ATAMA
+
+Yukardaki tanimlamayi kullanarak, "oglan" ve "kiz" 'in her uc sahasina
+("bas_harf","yas","not") degerler ayabiliriz. Dikkat etmeniz gereken bir
+nokta, "oglan.bas_harf"'in bir "char" tipi oldugudur. Bu nedenle,
+programda karakter verisine atanmistir. "oglan" in geri kalan iki sahasi
+da, tanimlandiklari 'tiplerde', degerlere atanir.. Sonra, "kiz" isimli
+degiskenin 3 sahasi da, degerlere atanir. Burada atama sirasinin fark
+etmeyecegini gosterebilmek icin, farkli bir sira izlenmistir.
+
+BU DEGERLERI NASIL KULLANABILIRIZ??
+
+Alti basit degiskenimizin her elemanina veri atadiktan sonra, onlarla
+diledigimizi yapabiliriz. Bu ilk ornegi basit tutmak icin, biz sadece
+degerlerini ekrana yazdiriyoruz. "printf" satirinin alistigimizdan farkli
+olmadigini goreceksiniz.
+
+Structure'lar, programi daha kolay yazmak ve anlamak icin, cok faydali bir
+gruplama metodudur. Bu ilk ornek cok basit oldugundan, size structure'un
+gercek degerini gostermekten acizdir, fakat okumaya devam ederseniz,
+structure'un gercekten faydali oldugunu goreceksiniz..
+
+
+BIR STRUCTURE DIZISI
+
+STRUCT2.C:
+================================================================
+main()
+{
+struct {
+   char bas_harf;
+   int yas;
+   int not;
+   } cocuklar[12];
+
+int indeks;
+
+   for (indeks = 0;indeks < 12;indeks++) {
+      cocuklar[indeks].bas_harf = 'A' + indeks;
+      cocuklar[indeks].yas = 16;
+      cocuklar[indeks].not = 84;
+   }
+
+   cocuklar[3].yas = cocuklar[5].yas = 17;
+   cocuklar[2].not = cocuklar[6].not = 92;
+   cocuklar[4].not = 57;
+
+   for (indeks = 0;indeks < 12;indeks++)
+      printf("%c , %d yasindadir ve  notu %d dur.\n",
+             cocuklar[indeks].bas_harf, cocuklar[indeks].yas,
+             cocuklar[indeks].not);
+}
+================================================================
+
+Bu programda, bir oncekinin ayni structure tanimini kullaniyor. Fakat
+tanimladigi, 12 tane "cocuklar" isimli  degisken oluyor. Yani bu program
+12 * 3 = 36 tane basit degiskenden olusuyor. Bunlarin herbiri, kendi
+tiplerinde veri tasiyabilirler. Ayrica for dongulerinde kullanmak icin
+"indeks" isimli bir basit degisken de tanimliyoruz.
+
+Her sahaya bir deger atamak icin, bir for dongusu kullaniyoruz, ve
+donguden her gecis, bu 3 sahaya deger atanmasini sagliyor. Gercek hayatta
+bu metod, veri atanmasi icin pek uygun olmayacaktir. Ornegin veriler
+kutukten okunup, degerlerine atanabilir. Bunu basit bir veri tabani
+uygulamasi olarak gorebilirsiniz, gercekten de oyledir.
+
+Bundan sonra, birkac elemana, nasil atanacagini gostermek amaci ile,
+degerler atiyoruz. 
+
+PASCAL PROGRAMCILARINA NOT:
+
+Pascal dilinde bir butun RECORD'un tek bir komut ile kopyalayabilirsiniz. 
+Bu, C de mumkun degildir. Structure'un her elemanini tek tek kopyalamaniz
+lazimdir. Lisan gelismelere ugradikca, bu da degisecek bir noktadir.
+Hatta, bazi yeni derleyiciler, structure'un atanmasini yapabiliyor.
+Derleyicinizin kilavuzuna bir bakin..
+
+
+SONUNDA BUTUN NETICELERI GOSTERIYORUZ
+
+Son birkac satirda da, formatlanmis bir sekilde verilerin yazilmasini
+goruyorsunuz. 
+
+POINTER'LAR VE STRUCTURE'LARI BIR ARADA KULLANMAK
+
+STRUCT3.C:
+================================================================
+main()
+{
+struct {
+   char bas_harf;
+   int yas;
+   int not;
+   } cocuklar[12],*point;
+
+int index;
+
+   for (index = 0;index < 12;index++) {
+      point = cocuklar + index;
+      point->bas_harf = 'A' + index;
+      point->yas = 16;
+      point->not = 84;
+   }
+
+   cocuklar[3].yas = cocuklar[5].yas = 17;
+   cocuklar[2].not = cocuklar[6].not = 92;
+   cocuklar[4].not = 57;
+
+   for (index = 0;index < 12;index++) {
+      point = cocuklar + index;
+      printf("%c , %d yasindadir ve notu %d dur.\n",
+             (*point).bas_harf, cocuklar[index].yas,
+             point->not);
+   }
+}
+================================================================
+
+Bu program, bir once gordugumuz programin neredeyse aynisi, fakat bu, bazi
+islemler icin pointer'lardan yararlaniyor.
+
+Ilk fark, structure'un tanimlanmasindan sonraki degisken tanimlarinda goze
+carpiyor. Burada, "point" isimli bir pointer tanimliyoruz, ve tipine de,
+bu pointer'in tipi olarak veriyoruz. Bu pointer'in herhangi baska bir cins
+degisken tipini 'gostermesine' calismak, yalnis olur. C dilinde bu
+kisitlama icin cok yerinde bir neden vardir, ve bunu gelecek paragraflarda
+gorecegiz. 
+
+Daha sonraki degisiklik ise, veri sahalarina erismek icin pointer
+kullandigimiz dongude ortaya cikiyor. "cocuklar" kendi basina bir pointer
+gorevi yaptigindan, "point" i "kids" in adresine atayabiliriz. 
+
+POINTER ARITMETIGI
+
+"point" e bir ekledigimiz zaman, "cocuklar" dizisindeki ikinci elemanini
+gosteriyoruz. Sistem, bu structure'un 3 tane degiskenden olustugunu ve
+butun structure'u hafizada tutmak icin ne kadar yer gerektigini bilir. Bu
+sayede, "point"e bir ekle dedigimizde, dizideki bir sonraki elemana varmak
+icin kac hafiza elemani a$ilmasi gerekiyorsa, o kadar ekler. Ornegin,
+"point" e 4 ekleseydik, sistem, "point" e 4 kere structure'un boyu kadar
+yer adres atlatirdi. Bu sebeple, pointerlar, tanimlandiklari tipten baska
+bir tip icin kullanilamazlar.
+
+Simdi programimiza geri donelim. Bir onceki paragraftan da
+anlayabileceginiz gibi, dongunun icinde ilerledikce, pointer'in degeri
+artarak her dizi elemaninin baslangicini teker teker gosterecektir. Bu
+sayede, pointer ile bu structure'un degisik elemanlarina erisebiliriz. C
+dilinde bir structure'un elemanlarina pointer ile erismek o kadar cok
+kullanilir ki, bunu gostermek icin ozel bir metod gelistirilmistir.
+"point->bas_harf" metodunu kullanmak, "(*point).bas_harf" metodunu
+kullanmak ile ayni manadadir. "->" sembolu, bir eksi isareti ve bir
+buyuktur isareti ile elde edilir.
+
+Pointer, bir structure'u gosterdigine gore, kullanirken, o structure'un
+hangi degiskenine erismek istedigimizi belirtmemiz gereklidir. Gordugunuz
+gibi, bir structure'un elemanlarina erismek icin degisik yollar vardir, ve
+programin sonunda, ciktiyi saglayan "for" dongusunde, 3 degisik metod
+goruyorsunuz. Bu kotu bir programlama teknigi olarak kabul edilirdi, fakat
+burada size her ucunun de ayni neticeyi verdigini gostermek amaci ile
+yapilmistir. Bu program, tam olarak kavrayabilmeniz icin, herhalde bir
+sure incelemenizi gerektirecektir.
+
+IC ICE VE ISIMLI STRUCTURE'LAR
+
+ICICE.C:
+================================================================
+main()
+{
+struct insan {
+   char isim[25];
+   int yas;
+   char durum;        /* E = Evli , B = Bekar */
+} ;
+
+struct tumveri {
+   int not;
+   struct insan ozellikler;
+   char yemek[25];
+} ogrenci[53];
+
+struct tumveri hoca,asistan;
+
+hoca.not = 94;
+hoca.ozellikler.yas = 34;
+hoca.ozellikler.durum = 'E';
+strcpy(hoca.ozellikler.isim,"Mary Smith");
+strcpy(hoca.yemek,"Salamli sandvic");
+
+asistan.ozellikler.yas = 87;
+asistan.ozellikler.durum = 'E';
+strcpy(asistan.ozellikler.isim,"Old Lady Brown");
+asistan.not = 73;
+strcpy(asistan.yemek,"Yogurt ve ekmek");
+
+ogrenci[1].ozellikler.yas = 15;
+ogrenci[1].ozellikler.durum = 'B';
+strcpy(ogrenci[1].ozellikler.isim,"Billy Boston");
+strcpy(ogrenci[1].yemek,"Findik ezmesi");
+ogrenci[1].not = 77;
+
+ogrenci[7].ozellikler.yas = 14;
+ogrenci[12].not = 87;
+
+}
+================================================================
+
+Simdiye kadar gordugumuz structure'lar basit fakat kullanisli idi.
+Yuzlerce yada binlerce elemandan olusan structure'lar tanimlamak
+mumkundur, fakat butun hepsini siradan tanimlamak yerine hierarsik bir
+duzen kullanmak, programcinin lehine olur.
+
+Ilk structure'da 3 eleman vardir, fakat arkasindan bir degisken ismi
+gelmemektedir. Yani, biz sadece bir structure tanimladik, ve hicbir
+degisken tanimlamadik. Basina "insan" ismini koydugumuzdan, bu
+structure'un ismi de "insan" dir. Bu isim, bu structure duzenini kullanmak
+istedigimizde kullanilir, fakat bu structure degiskenlerinden biri, bu
+isimle kullanilamaz. Dolayisi ile, yeni bir tip tanimlamis olduk - ayni
+"char" yada "int" gibi, ve neredeyse ayni sekilde, bu yeni tipi
+kullanabiliriz. 
+
+Bundan sonraki structure tanimlamasi, 3 sahadan olusuyor. Ikinci sahasi,
+daha once tanimladigimiz "insan" structure'unu kullaniyor. "insan" tipi
+degiskenin ismine "ozellikler" ismini veriyoruz. Yeni structure, iki tane
+basit degisken de kullaniyor, "not" isimli tamsayi degiskeni, 
+"yemek[25]" isimli bir karakter dizisi, ve "ozellikler" isimli bir
+structure. "ozellikler" in icinde 3 degisken oldugu icin, bu structure 5
+degisken tanimlamis oluyor. Bu structure'a da, "tumveri" ismini veriyoruz,
+ki bu da bir baska tip tanimlanmasidir. Sonunda, 53 degiskenlik, ve
+"tumveri" tipinde bir dizi tanimliyoruz, ve buna "ogrenci" ismini
+veriyoruz. Sayet bunlar sizin icin anlasilir idi ise, her birine deger
+atanabilen toplam olarak 53 kere 5 degisken tanimladigimizi gorursunuz.
+
+IKI DEGISKEN DAHA
+
+Bir degisken tipi tanimimiz olduguna gore, onu iki degisken daha
+tanimlamada kullanabiliriz. "hoca" ve "assistan" isimli degiskenler de
+"tumveri" tipindedir, her birinin icine bilgi konulabilecegimiz , 5 er
+sahadan olusurlar.
+
+BU SAHALARIN BAZILARINI KULLANALIM
+
+Bundan sonraki bes satirda, "hoca" 'nin her sahasina bilgi yaziyoruz. Ilk
+saha olan "not", daha once gordugumuz diger structure'lar gibi kullanilir,
+cunku ic ice structure taniminda degildir. Daha sonra, bu hocanin yasini
+kaydetmek istiyoruz, ve bu ise ic ice structure'da bulunuyor. Bu sahaya
+erismek icin, "hoca" degiskeni ile baslayip, "ozellikler" grup ismini
+ekliyoruz, ve hangi sahasi ile ilgilendigimizi belirtmek icin, "yas"
+ismini de ekliyoruz. "durum" ise ayni "yas" gibi kullanilir, fakat son iki
+sahaya deger atama ise, karakter katari olduklarindan, "strcpy" fonksiyonu
+ile gerceklestirilir. 
+
+"strcpy" nin icindeki degisken isimlerinin, bircok parcadan olusmasina
+ragmen, hala degisken isimleri olduguna dikkat edin..
+
+"assistan" degiskeni ise, ayni sekilde rastgele bilgilere atanir, fakat
+degisik bir sirada. Son olarak bazi "ogrenci" degiskenlerine de atama
+yapilir, ve program sona erir. 
+
+Bu programi derlediginizde, "stack overflow" hatasi ile
+karsilasabilirsiniz. C dili, otomatik degiskenlikleri stack sahasina
+gecirerek kullanir, ve cogu derleyici (sayet belirtmezseniz) 2048 byte lik
+bir stack sahasi kullanir. Dolayisi ile, stack boyunu degistirmeniz
+gerekecektir. Nasil yapilacagi ise, derleyiciden derleyiciye degisir.
+
+
+STRUCTURE'LAR HAKKINDA DAHA BILGI
+
+Structure'lari, ta ki iyice kafaniz karisincaya kadar ic ice tanimlamak
+mumkundur. Duzgun bir sekilde tanimlarsaniz, bilgisayar karistirmaz -
+cunku C de buna bir SINIR yoktur. 
+
+Structure'lar, baska structure tanimlarindan olusabilir. Bu diger
+structure'lar ise, basit degiskenlerden olusmus olabilir. Structure
+kullanirken once tutucu, onlari kullanmaya alistikca, daha cesur davranin.
+ 
+UNION NEDIR?
+
+UNION1.C:
+================================================================
+main()
+{
+union {
+   int deger;     /* Union'un birinci parcasi   */
+   struct {
+      char ilk;   /* Bu iki deger ise, ikinci.. */
+      char ikinci;
+   } yarim;
+} rakam;
+
+long index;
+
+   for (index = 12;index < 300000;index += 35231) {
+      rakam.deger = index;
+      printf("%8x %6x %6x\n",rakam.deger, rakam.yarim.ilk,
+	      rakam.yarim.ikinci);
+   }
+}
+================================================================
+
+Basitce, bir union sayesinde ayni veriye degisik tipler ile, yada ayni
+veriye degisik isimlerle erismenize izin verir. 
+
+Bu ornekte, union'un iki parcasi var. Ilki, hafizada iki bytelik bir
+degisken olarak saklanan "deger" isimli bir tamsayidir. Ikinci eleman ise,
+"ilk" ve "ikinci" isimli iki karakter degiskeninden olusur. Bu iki
+degisken, "deger" in saklandigi ayni sahada tutulur - cunku union'un amaci
+budur. Bir union ile, hafizada ayni yerde, degisik tip veriler
+saklanabilmesini saglar. Bu durumda, "deger" in icine bir tamsayi
+koyabilirsiniz, ve bu degeri iki parca halinde "ilk" ve "ikinci" isimli
+degiskenler ile alabilirsiniz. Bu teknik genellikle veri bytelarini bir
+araya getirip beraber okumak icin kullanilir, ornegin, bir mikroislemcinin
+registerlerini beraber okumak icin.
+
+Bir union'daki sahalara erismek, bir structure'un sahalarina erismege cok
+benzer, ve bunu ornekten incelemeyi size birakiyoruz.
+
+Bu program calistiginda cogu derleyici, veriler iki tane f ile baslar
+gorunecektir. Bu da, heksadesimal ciktinin, karakter degiskeni integer'a
+degistirmesi ve +/- bitini sola kaydirmasi yuzunden olur. Ekrana
+gostermeden once "char" veri tiplerini "int" tiplerine degistirmek, "ff"
+lere mani olacaktir. Bunu yapmak icin, iki yeni "int" tipi degisken
+tanimlamaniz gerekecektir, ve onlara "char" tipi degisken degerleri
+atamaniz gerekecektir. 
+
+Calistirdiginizda, verinin "int" olarak ve iki tane "char" olarak
+yazildigini goreceksiniz. "char" tipi degiskenlerin sirasi
+degistirilmistir, cunku hafizada bu sekilde saklanmaktadir. Bu konuyu
+kendinize dert etmeyin, fakat incelemek isterseniz, cok ilginc bir konu
+olabilir.
+
+BIR UNION ORNEGI DAHA
+
+UNION2.C:
+================================================================
+#define OTO 1
+#define TEKNE 2
+#define UCAK 3
+#define GEMI 4
+
+main()
+{
+struct otomobil {  /* bir otomobil icin structure          */
+   int tekerlekler;
+   int camurluklar;
+   int kapilar;
+};
+
+typedef struct {     /* bir gemi yada tekne icin structure  */
+   int su_kesimi;
+   char boyu;
+} TEKNEDEF;
+
+struct {
+   char tasit;         /* ne cins tasit ?                   */
+   int agirlik;        /* tasitin gros agirligi             */
+   union {             /* tipe-bagimli bilgi                */
+      struct otomobil oto;      /* union'un birinci kismi   */
+      TEKNEDEF tekne;           /* union'un ikinci kismi    */
+      struct {
+	 char motorlar;
+	 int kanat_acikligi;
+      } ucak;                   /* union'un 3uncu kismi      */
+      TEKNEDEF ship;            /* union'un 4uncu kismi      */
+   } tasit_tip;
+   int deger;            /* tasitin bin TL olarak degeri     */
+   char sahibi[32];      /* sahibinin ismi                   */
+} ford, sun_fish, piper_cub;   /* 3 structure degiskeni      */
+
+       /* birkac sahayi tanimlayalim                         */
+
+   ford.tasit = OTO;
+   ford.agirlik = 2742;              /* deposu dolu iken      */
+   ford.tasit_tip.oto.tekerlekler = 5;  /* istepne dahil      */
+   ford.tasit_tip.oto.kapilar = 2;
+
+   sun_fish.deger = 3742;           /* trailer haric */
+   sun_fish.tasit_tip.tekne.boyu = 5;
+
+   piper_cub.tasit = UCAK;
+   piper_cub.tasit_tip.ucak.kanat_acikligi = 9;
+
+   if (ford.tasit == OTO) /* evet , oyle  */
+      printf("Ford'un %d tekerlegi var.\n",ford.tasit_tip.oto.tekerlekler);
+
+   if (piper_cub.tasit == OTO) /* hayir,degil */
+      printf("Ucagin %d tekerlegi var.\n",piper_cub.tasit_tip.
+	     oto.tekerlekler);
+}
+================================================================
+
+Bu ornekte, union'larin cok rastlanilan bir kullanim tarzini goruyorsunuz.
+Dusunun ki, bircok tip tasittan olusan bir veri bankasi (veri tabani)
+olusturmak istiyoruz. Bir arabadaki pervane sayisi yada bir teknedeki
+tekerlek sayisini koymak, komik olurdu. Verimli bir veri tabani olusturmak
+icin, bir kismi her cins tasit icin degisik, bir kismi ayni tip kalan
+verileri saklamaniz gerekecektir. 
+
+Burada, bir structure tanimliyoruz, ve bunun icine gidebilecek degisik
+tiplere karar veriyoruz. Ilk once #definelarla, bazi sabitler
+tanimliyoruz, daha sonra icindekilerin size hic te yabanci gelmeyecegi
+"otomobil" isimli bir structure tanimliyoruz, fakat degisken
+tanimlamiyoruz. 
+
+TYPEDEF KOMUTU
+
+Daha sonra, "typedef" ile yeni bir cins veri tanimliyoruz. Bu da, "int"
+yada "char" gibi kullanilabilecek tumuyle yeni bir tip tanimliyoruz.
+Structure'un ismi olmadigini, fakat degisken tanimlanacagi yerde,
+"TEKNEDEF" ismini goruyorsunuz. Artik, "TEKNEDEF" diye bir tipimiz vardir,
+ve bununla istedigimiz heryerde bir structure tanimlayabiliriz. Bu komut,
+degisken tanimlamasi yapmiyor, fakat sadece tipi tanimliyor.
+
+Buyuk harf kullanmak sadece sahsi tercih icindir, fakat bir C standarti
+degildir. Sadece, "typedef" i, bir degisken isiminden ayri tutmaktadir.
+
+Daha once yarattigimiz parcalari kullanan buyuk kesime geldik. Bu
+structure, 5 parcadan olusmustur, iki "tasit" ve "agirlik" isimli basit
+degisken, bir union, ve "deger" ve "sahibi" isimli iki basit degisken
+daha. Tabii ki, burada onemle bakmamiz gereken, union tanimlanmasidir. 
+
+Bakinca, bunun 4 parcadan olustugunu goreceksiniz. Ilk parcasi "oto"
+isimli, ve daha once tanimladigimiz bir tipte olan degiskendir. Ikinci
+kismi, "tekne" ismindedir, ve daha once tanimladigimiz "TEKNEDEF"
+tipindedir. Ucuncu kesimi ise, "ucak" isimli, ve union icinde tanimlanan
+bir structure'dur. Sonunda, union'un en son parcasi olan "gemi" isimli
+degisken de "TEKNEDEF" tipindedir. 
+
+Umarim bu dordunun gosterilen 3 mettoddan biri ile tanimlanabilecegi,
+sizin icin aciktir. Normalde, herhalde en "temiz" tanim, her birinin
+"typedef" ile tanimlanmasi sayesinde olacaktir. 
+
+SIMDI NE OLDU?
+
+Simdi, icine dort cins veri saklayabilecegimiz bir yapimiz var. Her
+kayitin uzunlugu, en buyuk union'u tasiyan kayitin uzunlugunda olacaktir.
+Bu durumda, birinci kesim, en buyugudur, cunku 3 tamsayi degiskeninden
+olusmaktadir. Digerleri ise, bir karakter ve bir tamsayidan
+olusmaktadirlar. Yani, bu union'un ilk parcasi, bu tipteki butun
+structure'larin boyunu belirleyecektir. Elde edilen structure, her dort
+tip veriden birini saklamasi icin kullanilabilir, fakat bu tip bir bir
+degiskenin icinde neler saklandigini kontrol etmek, programcinin isidir.
+"tasit" isimli degisken, orada ne tip bir tasit saklandigini belirtmek
+icin kullanilmistir. Programin basindaki dort #define satiri, "tasit" in
+icinde saklanabilecekleri belirtir. 
+
+Ortaya cikan yapinin kullanimini gostermek icin,  birkac ornek de vardir.
+Bazi degiskenlere degerler atanmis, birkac tanesinin degeri ekrana
+yazilmistir. 
+
+Union'lar, hele yeni programlamaya baslayanlar tarafindan, cok SIK
+kullanilmaz. Bazen rastlayabilirsiniz, ve ne ise yaradiklarini bilmenizde
+fayda vardir. Su an icin detaylarini ogrenmenize luzum yoktur, ve bu
+nedenle, bu ornekte fazla vakit harcamayin. Sayet bir gun saha tanimlari
+degisen bir yapiya ihtiyaciniz olursa, o zaman ogrenebilirsiniz. Fakat
+kendi igiliginiz icin, structure'lara alismaya bakin - onlar daha SIK
+kullanilirlar. 
+
+ODEV
+
+1. Icinde "isim" icin bir karakter dizisi, "ayaklar" icin bir tamsayi
+degiskeni, ve "kollar" icin bir baska tamsayi degiskeni olan ISIMLI bir
+structure tanimlayin. Bu structure ile, 6 elemanlik bir dizin tanimlayin.
+Bu sahanin icine, degisik bilgiler atayin, ve ekrana suna benzer bir cikti
+saglayin:
+
+Bir insanin 2 kolu ve 2 ayagi vardir.
+Bir kopegin 0 kolu ve 4 ayagi vardir.
+Bir televizyonun 0 kolu ve 4 ayagi vardir.
+Bir sandalyenin 2 kolu ve 4 ayagi vardir.
+vs.
+
+
+2. Birinci programi tekrar yazip, verileri ekrana yazmak icin bir
+pointer'dan yararlanin.
+
+<EOF>
+DINAMIK YER ACMA
+
+Dinamik yer acma, ilk karsilastiginizda korkutucu bir tanimdir, fakat
+aslinda o kadar zor degildir. Su ana kadar kullandigimiz tum degiskenler,
+statik degiskenler idiler. Yani, derleyici tarafindan, derleme yada link
+etabinda kendilerine yer ayrilmisti. (Aslinda bazilari "otomatik"
+degiskenler olduklarindan, derleyici tarafindan dinamik olarak yer
+ayrilmisti, fakat bu bize gorunmuyordu). Dinamik degiskenler, program
+yuklendiginde var olmayan, fakat gerektiginde kendilerine hafizada yer
+tahsis edilen degiskenlerdir. Bu metod ile, diledigimiz kadar degiskeni
+tanimlamak, kullanmak, ve baska degiskenlerin o sahayi kullanmasi icin,
+o sahayi tekrar serbest birakabiliriz. 
+
+DINLIST.C:
+================================================================
+main()
+{
+struct hayvan {
+   char ismi[25];
+   char cinsi[25];
+   int yasi;
+} *evcil1, *evcil2, *evcil3;
+
+   evcil1 = (struct hayvan *)malloc(sizeof(struct hayvan));
+   strcpy(evcil1->ismi,"General");
+   strcpy(evcil1->cinsi,"Karisik Birsey");
+   evcil1->yasi = 1;
+
+   evcil2 = evcil1;   /* evcil2 simdi yukaridaki veri
+                         yapisina karsilik geliyor */
+
+   evcil1 = (struct hayvan *)malloc(sizeof(struct hayvan));
+   strcpy(evcil1->ismi,"Bobi");
+   strcpy(evcil1->cinsi,"Labrador");
+   evcil1->yasi = 3;
+
+   evcil3 = (struct hayvan *)malloc(sizeof(struct hayvan));
+   strcpy(evcil3->ismi,"Kristal");
+   strcpy(evcil3->cinsi,"Alman Coban");
+   evcil3->yasi = 4;
+
+       /* Yukardaki bilgiyi yazalim */
+
+   printf("%s, bir %sdir ve %d yasindadir.\n", evcil1->ismi,
+           evcil1->cinsi, evcil1->yasi);
+
+   printf("%s, bir %sdir ve %d yasindadir.\n", evcil2->ismi,
+           evcil2->cinsi, evcil2->yasi);
+
+   printf("%s, bir %sdir ve %d yasindadir.\n", evcil3->ismi,
+           evcil3->cinsi, evcil3->yasi);
+
+   evcil1 = evcil3;   /* evcil1 simdi evcil3 un gosterdigi
+                         yapiyi gosteriyor              */
+
+   free(evcil3);    /* bir structure'u siliyor                 */
+   free(evcil2);    /* bu da bir baska structure'u siliyor     */
+/* free(evcil1);    bu yapilamaz - niye? anlatacagim!          */
+}
+================================================================
+
+"hayvan" isimli bir structure tanimlama ile basliyoruz. Bu tanimladigimiz
+tip ile bir degisken tanimlamiyoruz, sadece 3 tane pointer tanimliyoruz.
+Bu programin devamina da bakarsaniz, hicbir yerde bir degisken tanimina
+rastlayamazsiniz. Guzel. Veriyi saklayabilecegimiz hicbir yer yok.
+Elimizdeki yegane sey, 3 tane pointers dir. Birseyler yapabilmek icin,
+degiskenler tanimlamamiz gerekli, o zaman dinamik olarak tanimlayalim.
+
+DINAMIK DEGISKEN TANIMLAMAK
+
+Programin ilk satiri, "evcil1" isimli pointer'a birsey atayarak 3
+degiskenden olusan bir dinamik yapi tanimliyor. Programin kalbi, satirin
+ortasinda gomulu bulunan "malloc" fonksiyonudur. Bu, baska bilgilere
+ihtiyaci olan "hafiza ayir" fonksiyonudur. "malloc" fonksiyonu, normalde,
+hafizanin "heap" denilen kesiminde, "n" karakter boyunda, ve karakter
+tipinde bir yer ayiracaktir. "n", fonksiyona gecirilen yegane
+parametredir. "n" hakkinda birazdan konusacagiz, fakat ilk once "heap":
+
+HEAP NEDIR?
+
+Her derleyicinin calisacak kodun boyu, kac degisken
+kullanilabilecegi, kaynak kodun boyu gibi sinirlari vardir. IBM-PC ve
+uyumlular icin bu sinir cogu derleyici icin 64K lik bir calisacak kod
+boyudur. (Calisacak koddan kastim, ismi EXE yada COM ile biten
+kutuklerdir.) Bunun sebebi, IBM-PC nin 64K lik segman boyuna sahip bir
+mikroisleyiciye sahip olmasindandir. Daha "uzakta" yer alan veriye ise,
+ozel erisme yontemleri gerektirmektedir. Programi kucuk ve verimli tutmak
+icin, bu yontemler kullanilmamakta, ve program, cogu programlar icin
+yeterli olan 64K lik bir sahaya sigmak zorunlulugundadir.
+
+Heap sahasi, bu 64K lik sahanin disinda bulunan ve programlarin veri ve
+degisken saklamak icin kullanilabilecekleri bir yerdir. Veriler ve
+degiskenler, sistem tarafindan "malloc" cagirilinca heap'e konur. Sistem,
+verinin nereye kondugunu takip eder. Istedigimizde, bir degiskeni tanimsiz
+yaparak, heap de bosluklar yaratiriz. Sistem bu bosluklara, yeni "malloc"
+tanimlari oldugunda baska veriler koyarak kullanir. Yani, heap'in yapisi
+son derece dinamiktir - surekli degisir..
+
+SEGMANLAR HAKKINDA
+
+Daha pahalli derleyiciler, kullanmak istediginiz hafiza tipini secmenizi
+saglarlar. Lattice yada Microsoft'un derleyicileri ile, program boyunun
+64K nin altinda kalmasini, ve programin daha verimli calismasi ile
+programin 640K sinirinda kalmasi, daha uzun adresleme metodu ile daha az
+verimli calismasi arasinda bir secim yapabilirsiniz. Uzun adresleme,
+segmanlar arasi erisimi gerektireceginden, biraz daha yavas calisan
+programlara sebep olacaktir. Yavaslama, cogu programlar icin onemsiz
+olacaktir. 
+
+Sayet bir programin kodu ve hafiza gereksinimi toplam 64K yi asmiyorsa, ve
+stack'i kullanmiyorsa, bir .COM kutugu haline getirilebilir. Bir .COM
+kutugu hafizanin bir kopyasi seklinde oldugu icin, cok hizli bir sekilde
+yuklenebilir. Halbuki .EXE tipindeki bir kutugun adreslerinin hafizada
+yeniden yerlestirilmesi gereklidir. Dolayisi ile ufak hafiza modeli, daha
+hizli yuklenen programlar yaratabilir. Bunun hakkinda endiselenmeyin,
+birkac programcinin endiselendigi ufak bir detaydir.
+
+Dinamik tanimlama ile, verileri "heap" e saklamak mumkundur. Tabii, lokal
+degiskenleri, ve indeks sayaclari tipindeki degisenleri heap de saklamak
+istemezsiniz - sadece buyuk dizileri ve structure'lari..
+
+Kucuk hafiza modelinde kalmaktan daha onemli birsey, bilgisayarin
+hafizasinin sinirlarinda kalmaktir. Sayet programiniz cok buyuk birkac
+saha tanimliyorsa, fakat bunlari ayni zamanda kullanmiyorsa, bir parcasini
+dinamik olarak tanimlayip, kullanip, silebilirsiniz. Sonra, ayni sahayi
+bir baska veri parcasi icin kullanabilirsiniz. 
+
+"malloc" A GERI DONUS
+
+Umarim, "heap" hakkindaki parca, size "malloc" ile ne yaptigimizi
+gostermistir. Sadece, sisteme kendisine bir parca hafiza verilmesini talep
+edip, bu sahanin ilk elemanina (baslangicina) bir pointer dondurmektedir.
+Parantezler arasinda gerekli olan yegane parametre, istenilen blok'un
+boyudur. Bu programda, basinda tanimladigimiz structure'u saklayabilecek
+bir yere ihtiyacimiz vardir. "sizeof", yeni bir fonksiyondur, en azindan
+bize, ve parantezlerinin icindeki parametresinin boyunu byte cinsinden
+dondurmektedir. Yani, "hayvan" structure'unun boyunu byte olarak
+dondurmektedir. Bu deger "malloc" a dondurulur. Fonksiyonu cagirinca bize
+heap'de bir saha ayrilmis oluyor, ve "evcil1" bu sahanin baslangicini
+gosteriyor. 
+
+CAST NEDIR?
+
+Hala, "malloc" fonksiyonun onunde, tuhaf gorunuslu bir birsey var. Buna
+"cast" denir. "malloc" fonksiyonu normalde, ayrilan sahanin baslangicini
+gosteren "char" tipli bir pointer dondurur. Cogu zaman, "char" tipli bir
+pointer istemeyiz. Biz bu ornekte, "hayvan" structure'unu gosterecek bir
+pointer istiyoruz, ve bu nedenle, derleyiciye bu tuhaf yapi ile bunu
+belirtiyoruz. Cast'i koymazsaniz, cogu derleyici, pointer'i dogru bir
+sekilde dondurecektir, size bir uyari mesaji verip, gayet iyi calisan bir
+program yaratacaktir. Iyi programlama teknigi, derleyicinin uyari
+mesajlari vermesine mani olmaktir. 
+
+
+DINAMIK OLARAK TANIMLADIGIMIZ SAHAYI KULLANMAK
+
+
+Structure ve pointer konusu ile ilgili konusmamizi hatirlarsaniz, sayet
+bir structure'umuz ve onu gosteren bir pointer'imiz varsa, icindeki
+herhangi bir degiskene erisebiliriz. Denemek icin, programin bundan
+sonraki 3 satirinda, structure'a degerler atayacagiz. Bu komutlarin statik
+olarak tanimli atamalara benzedigini fark edeceksiniz. 
+
+Bundan sonraki satirda, "evcil1" in degerini "evcil2" ye atiyoruz. Bunu
+yapmak, yeni bir veri yaratmiyor, sadece ayni yeri gosteren iki tane
+pointer'imiz oluyor. "evcil2", simdi yarattigimiz structure'u gosterdigi
+icin, "evcil1", birbaska dinamik tanimli structure yaratmakta
+kullanilabilir. 
+
+  o  "evcil2" yi de yeni dinamik tanim icin kullanabilirdik. 
+
+Sonunda, bir baska saha tanimlayip, "evcil3" u bunun baslangicina
+atiyoruz. 
+
+DINAMIK TANIMLI SAHADAN KURTULMAK
+
+Birbaska yeni fonksiyon ise, "free" dir. Bu fonksiyon, ayirdigimiz hafiza
+parcasini tekrar sisteme iade etmekte kullanilir. Kullanimi icin, bloku
+gosteren bir pointer'i, parametre olarak gecirin.
+
+Dinamik tanimin bir baska ozelligini gostermek icin, bir baska sey daha
+yapiyoruz. "evcil1" in degeri, "evcil3" e ataniyor. Bunu yaparak, "evcil1"
+in tuttugu degeri kaybetmis oluyoruz - cunku artik "evcil3" un degerini
+tutmaktadir. Dolayisi ile, artik hicbir zaman kullanilamaz. Bu hafiza
+sahasi, bu noktadan sonra erisilemez, ve "ziyan" olmustur. Bu, bir
+programda normal olarak yapmayacaginiz birseydir - sadece dikkatinizi
+cekmek icin konulmustur.
+
+Ilk "free" fonksiyon cagirimi, "evcil1" ve "evcil3" un gosterdigi sahayi
+ortadan kaldirir, ikincisi de "evcil2" nin gosterdigi sahayi ortadan
+kaldirir. Dolayisi ile, daha once yarattigimiz verileri kaybetmis olduk.
+Heap'de bir parca daha bilgi vardir, fakat onun yerini gosteren bir
+pointer olmadigi icin, erisilemez. "evcil1" in sahasini tekrar "free"
+etmeye calismak, bir hata olacaktir, cunku zaten "evcil3" ile ayni yer
+ortadan kaldirilmistir. Fakat endiselenmeye luzum yoktur, cunku DOS a
+donunce, butun heap sahasi silinecektir.
+
+BAYAGI COK KONUSTUK
+
+Bu son program hakkinda nerdeyse 4 sayfa konustuk, fakat iyi harcanmis bir
+zaman idi bu. Sizin icin dinamik tanimlama hakkinda ogrenmediginiz hicbir
+seyin kalmadigini bilmek, sevindirici birsey olmali. Tabii ki, bu sahanin
+kullanimi hakkinda bircok sey orgenebilirsiniz, fakat dinamik tanimlama
+hakkinda daha fazla ogrenebileceginiz birsey yoktur.
+
+BIR POINTER DIZISI
+
+BUYUKDIN.C:
+================================================================
+
+main()
+{
+struct hayvan {
+   char ismi[25];
+   char cinsi[25];
+   int yasi;
+} *evcil[12], *point;       /* bu, 13 tane pointer ve
+                              0 degisken tanimliyor */
+	
+int index;
+
+  /* ilk once, dinamik sahayi ivir zivirla dolduralim. */
+	
+   for (index = 0;index < 12;index++) {
+      evcil[index] = (struct hayvan *)malloc(sizeof(struct hayvan));
+      strcpy(evcil[index]->ismi,"General");
+      strcpy(evcil[index]->cinsi,"Karisik cins");
+      evcil[index]->yasi = 4;
+   }
+
+   evcil[4]->yasi = 12;        /* Bu atamalar, bazi sahalara  */
+   evcil[5]->yasi = 15;        /*      nasil luzumsuz bilgi   */
+   evcil[6]->yasi = 10;        /*  yazilabilecegini gosterir. */
+
+       /* yukarda tanimladiklarimizi yazalim.   */
+
+   for (index = 0;index <12;index++) {
+      point = evcil[index];
+      printf("%s, bir %s, ve %d yasindadir.\n", point->ismi,
+              point->cinsi, point->yasi);
+   }
+
+   /* Iyi programlama teknigi, dinamik yaratilmis sahanin, */
+   /* sisteme iade edilmesini soyler..                     */
+
+   for (index = 0;index < 12;index++)
+      free(evcil[index]);
+}
+
+================================================================
+
+Bu program, bir oncekine cok benzer. Basit tutmak icin, 12 elemanlik bir
+pointer dizisi tanimliyoruz, ve bir "point" isimli bir pointer daha
+tanimliyoruz. 
+
+Size yeni olan "*evcil[12]" terimini biraz anlatmakta fayda var. Burada
+yaptigimiz 12 tane pointer'dan olusan bir dizi tanimladik. Ilki "evcil[0]"
+ve sonuncusu "evcil[11]". Aslinda, bir diziyi indekssiz kullanmak, o
+dizinin adresini verdiginden, kendi basina "evcil" demekle, pointerin
+pointerini tanimlamis oluyoruz. Bu C de tumuyle yasaldir, ve hatta daha
+ileri de gidebilirsiniz - fakat cabucak kafaniz karisir. Dolayisi ile,
+"int ****pt" demek, yasaldir, ve bu bir pointer'in pointer'inin
+pointer'inin pointer'ini tanimlar - sayet dogru saydiysam. Iyice C ye
+alisincaya kadar bu tip seylerden kacinmanizi tavsiye ederim.
+
+Simdi, 12 tane pointer'imiz var, ve biz bunlar herhangi bir pointer gibi
+kullanabiliriz. Bir dongu icinde kendimize dinamik yer acip, icine
+istedigimiz verileri yazabiliriz. Rastgele secilmis bazi sahalara yeniden
+bilgi atadiktan sonra, ekrana sonuclari yaziyoruz. "point" isimli pointer,
+sadece size gosterme amaci ile kullanilmistir. Veri, "evcil[n]" diyerek
+tanimlanabilirdi. Son olarak 12 veri bloku "free" ile serbest birakilir ve
+program sona erer.
+
+BUYUK VE KUCUK HARFLER
+
+BUY-KUC.C:
+================================================================
+#include <STDIO.H>
+#include <ctype.h>   /* Not: Derleyiciniz bunu gerektirmeyebilir */
+
+main()
+{
+FILE *fp;
+char satir[80], kutukismi[24];
+char *c;
+
+   printf("Kutuk ismini girin -> ");
+   scanf("%s",kutukismi);
+   fp = fopen(kutukismi,"r");
+
+   do {
+      c = fgets(satir,80,fp);   /* bir satir oku */
+      if (c != NULL) {
+         karistir_butun_karakterleri(satir);
+      }
+   } while (c != NULL);
+
+   fclose(fp);
+}
+
+karistir_butun_karakterleri(satir)
+
+/* Bu fonksiyon butun buyuk harfleri kucuge, butun kucukleri 
+de buyuge cevirir. Diger butun karakterleri etkilemez. */
+
+char satir[];
+{
+int index;
+
+   for (index = 0;satir[index] != 0;index++) {
+      if (isupper(satir[index]))     /* buyuk harfse,1 doner */
+         satir[index] = tolower(satir[index]);
+      else {
+         if (islower(satir[index]))  /* kucuk harfse,1 doner */
+            satir[index] = toupper(satir[index]);
+      }
+   }
+   printf("%s",satir);
+}
+================================================================
+
+Bu basit programdaki yeni fonksiyonlar sunlardir:
+
+isupper();            Karakter buyuk harfmidir?
+islower();            Karakter kucuk harfmidir?
+toupper();            Karakteri buyuk harf yap.
+tolower();            Karakteri kucuk harf yap.
+
+
+ilk fonksiyon, sayet parametresi olarak gecirilen deger, buyuk harf ise
+('A'-'Z'), 1 degerini dondurur, sayet baska bir karakter ise, 0 degeri doner.
+
+ikincisi, sayet parametresi kucuk harf ise, 1 degerini dondurur.
+
+3uncu ve son fonksiyonlar ise, parametre olarak gecirilen karakteri buyuk
+yada kucuk harfe degistirirler.
+
+KARAKTERLERIN SINIFLANDIRILMASI
+
+KARKLAS.C:
+================================================================
+#include <stdio.h>
+#include <ctype.h>  /* Derleyiciniz bunu gerektirmeyebilir */
+
+main()
+{
+FILE *fp;
+char satir[80], kutukismi[24];
+char *c;
+
+   printf("Kutukismi -> ");
+   scanf("%s",kutukismi);
+   fp = fopen(kutukismi,"r");
+
+   do {
+      c = fgets(satir,80,fp);   /* bir satir oku */
+      if (c != NULL) {
+         veriyi_say(satir);
+      }
+   } while (c != NULL);
+
+   fclose(fp);
+}
+
+satiri_say(satir)
+char satir[];
+{
+int beyazlar, kars, rakamlar;
+int index;
+
+   beyazlar = kars = rakamlar = 0; 
+
+   for (index = 0;satir[index] != 0;index++) {
+      if (isalpha(satir[index]))   /* 1 eger satir[] alfabetik ise   */
+          kars++;
+      if (isdigit(satir[index]))   /* 1 eger satir[] rakam ise     */
+          rakamlar++;
+      if (isspace(satir[index]))   /* 1 eger satir[] bosluk ise tab, */
+          beyazlar++;               /*           yada yeni satir ise */ 
+   }   /* sayan dongunun sonu */
+
+   printf("%3d%3d%3d %s",beyazlar,kars,rakamlar,satir);
+}
+================================================================
+
+Bircok yerde, \n yi, yeni bir satiri belirtmek icin kullandik, fakat cok
+kullanilan baska kontrol karakterleri de vardir. Bu sekilde tanimlidirlar:
+
+         \n        Yeni satir
+	    \t        Tab
+	    \b        Bir hane geri
+	    \"        Cift tirnak
+	    \\        Ters bolu
+	    \0        NULL (sifir)
+
+Gordugunuz program, bir karakterin tipini belirleyen fonksiyonlar
+kullanir. Kullandigi 3 fonksiyon sunlardir: 
+
+ isalpha();        Karakter alfabetik mi?
+ isdigit();        Karakter bir rakam mi?
+ isspace();        Karakter \n , \t yada bosluk mu?
+ 
+Program yeterince basit, bu nedenle daha fazla detaylara girmiyorum.. 
+Bu yeni fonksiyonlarin kullanimi da, ayni "isupper" yada "toupper"
+fonksiyonlari gibidir.
+
+<EOF>
+C Dili - 14. Konu
+
+Komut Satirinda Verilen Parametrelerin Okunmasi
+
+Parametre Nedir?
+
+Parametre kullancinin, program isminin yaninda yazdigi ek bilgilerdir.
+Parametreler, birbirinden bosluk ile ayrilirlar. Kullanici, herhangi bir
+komutun yaninda parametreler girebilir. SIMDINE.C de de gorebileceginiz gibi,
+bu parametreleri programa gecirmek son derece kolaydir. Bunu yapmak icin,
+
+main(adet,kelime) 
+int adet;
+char *kelime[];
+{
+
+seklinde tanimlanmalidir. 'adet' degiskeni, kac tane parametre girildigini
+sayar. Bu, sayet hic parametre girilmemisse, 1 dir, ve parametre
+girildikce, bu deger artar. Ornegin,
+
+rm -ie myfile.out
+
+orneginde, adet=3 dur, yani komut satirinda birbirinden boslukla ayrilmis
+3 sozcuk vardir.
+
+'Kelime' degiskeni ise, bir pointerlar dizisidir. Bu dizinin her elemani,
+bellekteki parametrelerin, baslangic adreselerini tutar. Yani,
+
+kelime[0] ----->>  rm.exe
+kelime[1] ----->>  -ie
+kelime[2] ----->>  myfile.out
+
+gibidir. Daima, 'kelime' nin 0 inci elemani, programin isminin baslangic
+adresini tutar, bundan sonra gelen diger 1,2 ve diger indeksler, diger
+parametrelerin baslangic adreselerini tutarlar. Kullanimlari, ornegin,
+normal bir char buffer[80] tipli bir diziye atamak icin, soyle olabilir: 
+
+strcpy(buffer,kelime[2]);
+
+tabii, isim kelime, ve adet olmak zorunda degildir, herhangi birsey
+olabilir. C de alisilmis tutum, 'adet' yerine 'argc' ve 'kelime' yerine
+'argv' sozcuklerinin kullanilmasidir. Kelimenin kac tane indeksi oldugu,
+'adet' degiskeninden bulunabilir: Kelime, daima (adet-1) tane indekse
+sahiptir.
+
+C-Dili 15. Konu
+
+C ve MS-DOS ile Ekran Duzeni
+
+Simdiye kadar kacindigim bir konu ise, ekrani silme, cursor'un yerini
+ogrenme yada degistirme, ekranin calisma modunu degistirme gibi konular
+iceren ekran duzenidir. Aslinda C nin bir parcasini olusturmamakla
+birlikte, bu konu programcilar icin cok onemlidir.
+
+C ye sonradan eklenen bir 'uzanti' oldugu, ve sadece MS yada PC-DOS ile
+calisan bilgisayarlarda kullanilabilecegi icin, burada gorecegimiz
+int86() fonksiyonu, su anda sadece Microsoft C, ve Turbo C tarafindan
+desteklenmektedir. Derleyiciniz baska ise, bu fonksiyon cagirilis
+metodunu degistirmeniz gerekebilir.
+
+Cok sayida degisik turde ekran tipleri ile kullanilabilecegi icin, C de
+tanimlanmis, hazir ekran fonksiyonlari yoktur. Bu fonksiyonlar,
+kullanilacak cihazin yapisina gore tanimlanabilir. Bu konu icerisinde,
+elimizdekinin bir IBM-PC yada uyumlu bilgisayar oldugunu kabul edecegiz.
+
+
+Ekrana Nasil Eriselim?
+
+Temelde, 3 cesit yoldan ekrana erisebiliriz:
+
+        1) bir BIOS interruptu ile,
+        2) DOS'un ANSI.SYS i ile,
+        3) Direk donanima 'karisarak'.
+
+Her bir metodun avantaj ve dezavantajlari vardir. Daha derine dalmadan
+once, dilerseniz bu 'interrupt' lafinin manasini cozelim:
+
+Interrupt
+
+IBM PC ailesi, donanim yada yazilim tarafindan yaratilabilecek
+interruptlar ile idare edilebilir. Bir interrupt olustugunda,
+bilgisayarin calismasi, bu interruptu halledebilecek bir rutine
+yollanir. Bu rutinlerin baslangic adresleri, 'interrupt vektor
+tablosu'nda saklanir. Bu tablo, bilgisayarin hafizasinin en alt
+kesiminde, ilk bir kilobytelik yerde bulunur. Bu sahada 255 ayri
+interrupt icin yer ayrilmistir.
+
+Ornegin, 5. interrupt olustugunda, sistem ilk olarak butun
+registerleri (birazdan anlatacagim) saklar, ve bu ilk 1K lik tablodan,
+5. "kutu" ya bakip buradaki adresi okur. Sonra, buradan ogrendigi
+adrese atlar ve orada ne islemler varsa yapar. Bunlar bitince, tekrar
+kaldigi isleme geri doner.
+
+Donanim Interruptlari (Hardware Interrupts): Bunlar, sistem tarafindan
+cagirilan rutinlerdir. Ornegin sistem, her saniyede 18.2 kere bir
+interrupt ile saatini ilerletmektedir. Bu cagirim, yada interrupt,
+donanim tarafindan yaratilmaktadir. Diger bir baska interrupt ise, 9.
+klavye interruptudur. Her tusa basildiginda, bu donanim interruptu
+olusur.
+
+Yazilim Interruptlari (Software Interrupts): Bunlar ise, herhangi bir
+programin cagirabilecegi bir rutinler kutuphanesidir. Ekrana birsey
+yazmak gerektigine, yada silmek gerektiginde, bunu bir interrupt
+cagirarak yapariz.
+
+BIOS nedir? (BIOS==Basic Input/Output System)
+
+BIOS'un gorevi, bilgisayarin yapmasi gereken temel servisleri yerine
+getirmektir. Genis anlamda, BIOS IBM'in icindeki yongalarda bulunan
+rutinler kutuphanesidir. BIOS, DOS ile donanim arasinda bir yerde
+bulunur. Bir taraftan, bir programdan yapilmasi gereken standart BIOS
+komutunu alir. Programimiz, BIOS a bu istegi, bir interrupt vasitasi
+ile bildirir. BIOS un diger tarafi ise, bilgisayarin donanim parcalari
+(ekran, disk drive, seri port, vs.) ile iliski kurar. BIOS'un bu
+tarafi ise, dikkati cekmek icin bir interrupt yaratan bir donanim ile
+konusur.
+
+DOS nedir?
+
+DOS ise, bir baska kutuphanedir. Ozellikle diske erisimde uzmanlasmis
+olan DOS, bundan baska ekrana yazma, yaziciya bilgi yollama, vs. gibi
+servisleri de kapsar.  DOS'un da ayni BIOS gibi interruptlari ve
+sagladigi bircok servis vardir. Aslinda DOS, cogu bu servisler icin
+BIOS'dan yardim gormektedir.
+
+Aklinizda bulunsun: BIOS yongalarda bulunur, DOS ise sonradan
+yuklenir.
+
+Simdi, BIOS ile nasil ekran kontrolu yapabilecegimizi gorelim. Bir
+kere, butun BIOS ekran fonksiyonlari, bir interrupt ile cagirilir,
+bunun da interrupt numarasi 16 dir. Herhangi bir BIOS fonksiyonunu
+kullanmak icin yapmamiz gerekenler, once bazi registerleri
+degistirmek, onaltinci interruptu cagirmak, ve sonuclari zevkle
+seyretmektir.
+
+Register?
+
+IBM-PC ailesinin kullandigi 8088 yongasinin, calismasinda kullandigi
+bazi ozel sahalar vardir. Bu sahalara "register" ismi verilir. IBM-PC
+de, toplam olarak ondort tane register vardir. PC bunlari, aritmetik
+islemler, karsilastirmalar gibi islerde kullanir. Bunlardan dort
+tanesini BIOS interruptlari ile kullanacagiz. Bu kullanacaklarimizin
+isimleri, AX,BX,CX ve DX dir. Bunlar ayni birer degisken gibi
+iclerinde degerler tasiyabilirler. Bu registerlerin bir ozelligi ise,
+ister tam olarak, yani butun AX'i birden, istersek de yarim yarim (AH
+ve AL yi) degerlerini degistirmemiz mumkundur.
+
+Yani, dilersek AX in icine bir 16 bitlik veri koyabiliriz, yada AL ve
+AH lerin iclerine sekizer bitlik veri koyabiliriz. Hep AX i
+kullandigima bakmayin, BX i BL ve BH, CX i CH ve CL diye, DX i DL ve
+DH diye ayirmamiz mumkun.
+
+Dilerseniz soyle dusunun: Sayet CX dersek, asagidaki butun yapiyi
+kastediyoruz:
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+ |                       |  |                       |
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+          CH                            CL
+Fakat, CH yada CL dersek yarisini kastediyoruz. Yani CX=5 desek,
+yukaridaki kutulara:
+
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+ | 0  0  0  0  0  0  0  0|  | 0  0  0  0  0  1  0  1|
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+          CH                            CL
+
+koymus oluruz.. (binary 101, 5 e esittir) Fakat CH=6 desek,
+
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+ | 0  0  0  0  0  1  1  0|  | 0  0  0  0  0  1  0  1|
+ +--+--+--+--+--+--+--+--+  +--+--+--+--+--+--+--+--+
+          CH                            CL
+
+CL nin eski degerine dokunmamis oluruz. Bir onceki ornekte icine '101'
+koydugumuz icin, CL hala o degerde kaldi. Aslinda butun bunlari
+bilmemize luzum yok, fakat ileride isinize yarayabilir.
+
+
+Cursor Pozisyonunu Ayarlamak:
+
+Dilerseniz ilk olarak ekranin istedigimiz bir yerine atlayip, oraya
+birseyler yazmayi deneyelim. Bunun icin cursor, yani, bundan sonra
+yazilacak noktanin degistirilmesi gereklidir. (Cursor, yanip sonen bir
+alt-cizgi gorumundedir, ve donanim ile kontrol edilir.)
+
+POSDEGIS.C:
+=========================================================
+#include <dos.h>
+
+void yerlestir(satir,kolon)     /* Bu fonksiyon, cursoru istedigimiz    */
+unsigned satir,kolon;           /* bir yere koyar */
+{
+    union REGS giris_register,cikis_register;
+
+    giris_register.h.ah = 2;        /* 2: set-cursor-position fonksiyonu*/
+    giris_register.h.dh = satir;
+    giris_register.h.dl = kolon;
+    giris_register.h.bh = 0;        /* hangi sayfayi degistirelim?      */
+
+    int86(16,&giris_register,&cikis_register);    /* cagiralim, yapsin  */
+}
+==========================================================
+
+Ilk satirda gordugunuz #include <dos.h>, bu programda sart. Cunku daha
+sonra gelen 'union' u tanimliyor. Bu union ile, iki tane degisken
+tanimliyoruz, bunlar giris_register ve cikis_register olarak. Daha
+sonra, bunlarin gereken elemanlarina verileri atiyoruz. Burada, hangi
+elemana hangi verinin konacagi, ve servis numarasi (bizde 2) gibi
+verileri, ya MS-DOS Technical Reference Manual'dan yada Peter
+Norton'un Programmer's Guide To the IBM-PC den bulabilirsiniz. En son
+olarak, int86 fonksiyonu ile, 16. interruptu cagiriyoruz. Sistem ilk
+olarak gidip o hafizanin ilk 1K sindaki tablodan 16. interruptun
+rutinlerinin baslangic adresini ogreniyor. Daha sonra o adrese
+atlayip, ikinci fonksiyonunun yerine geciyor, ve register degerlerine
+gore istedigimizi yerine getiriyor.
+
+Ozet:  Cursor'u Yerlestirme Fonksiyonu
+Interrupt no: 16    Servis No: 2
+Gereken Veriler:    AH=Servis numarasi, yani 2,
+                    DH=satir numarasi,
+                    DL=kolon numarasi,
+                    BH=Kullanilacak Sayfa Numarasi
+
+Bu sayfa numarasi parametresini merak edebilirsiniz. Normal bir
+monokrom ekranin, sadece bir sayfasi vardir. Fakat ornegin CGA (Color
+Graphics Adaptor), yani renkli adaptoru 'text' yada metin modunda
+calistiginda, sayet satira-40 karakter modundaysa 8 sayfa, sayet
+satira-80 karakter modundaysa, 4 sayfayi kullanabilir. Herhangi bir
+anda bu sayfalardan biri ekranda gosterilebilir. (Evet - sayfa
+degistirmek icin bir baska fonksiyon cagirmak gerekli.) Bazi
+programlar bu ozelligi, bir sayfayi kullaniciya gosterirken, bir
+digerini hazirlayarak, super-hizli ekran goruntuleri saglamakta
+kullanirlar. Ikinci merak edebileceginiz sey,
+
+Cursor Pozisyonunu Okumak
+
+olabilir. Bu da, yukaridaki yaziyi anladiysaniz, son derece kolaydir.
+Bu sefer, interrupt'u cagirdiktan sonra donen degerlerle de
+ilgilenmekteyiz:
+
+POSOGREN.C:
+=========================================================
+#include <dos.h>
+
+void posogren(satir, kolon)  /* Bu fonksiyon, cursorun yerini BIOS yardimi */
+unsigned *satir, *kolon;     /* ile ogrenir */
+{
+	union REGS giris,cikis;
+
+	giris.h.ah = 3;     /* fonksiyon 3 - cursorun yerini oku */
+	giris.h.bh = 0;     /* 0 inci sayfa.. */
+
+	int86(16,&giris,&cikis);
+
+    *satir = cikis.h.dh;    /* 3. fonksiyondan donen degerler:  */
+    *kolon = cikis.h.dl;    /* DH icinde, cursorun satir no su, */
+}                           /* ve DL icinde kolon numarasi..    */
+=================================================================
+
+Bu programi calistiran ana program, soyle olabilir:
+
+main()
+{
+	int a,b;
+	posogren(&a,&b);
+	printf(" Program calistiginda cursor %d. satir, %d. kolonda idi\n",a,b);
+}
+
+a ve b nin adreslerinin gecirildigine dikkatinizi cekerim.
+
+REGS Union'un Parcalari
+
+Iki programdir gordugunuz REGS isimli union'un parcalari, bize
+herhangi bir registerin herhangi bir parcasina erismemizi saglar.
+Sayet registerin yarisinin degerini degistirmek istiyorsak, yukaridaki
+gibi, degiskenden sonra 'h' koyariz, giris.h. gibi.. Bundan sonra ise,
+hangi registerin degismesini istedigimizi soyleriz: giris.h.cl gibi.
+Sayet bir registerin yarim yarim yerine tumden degistirmek istersek,
+'h' yerine 'x' kullanmamiz gerekir: giris.x.bx gibi..
+
+Ekran Tipini Ayarlamak
+
+Yazdiginiz program, sadece seksen kolonluk bir ekranda calismak icin
+duzenlenmis olabilir. Bilmeyen bir kullanici da, ekrani 40 kolona
+ayarli iken, programi calistirmayi deneyebilir. Bu tip olaylara mani
+olmak icin, programinizin basinda, ekrani istediginiz tipe
+ayarlayabilirsiniz. Bunun icin, sifirinci servisi kullanabilirsiniz:
+
+EKRANAYA.C:
+=============================================================
+#include <dos.h>
+
+ekranayar(tip)      /* Bu fonksiyon, ekrani istegimiz tipe ayarlar */
+short tip;
+{
+	union REGS giris,cikis;
+
+	giris.h.ah = 0;  /* 0 inci servis - mod degistirmek */
+    giris.h.al = tip;   /* CGA; 0: b/w text 40x25,  1: 16 renk 40x25
+                           2: b/w text 80x25        3: 16 renk 80x25
+                           4: 4 renk Gra 320x200    5: 4 gri Gra 320x200
+						   6: b/w Gra 640x200
+                     MONO: 7: b/w text 80x25    */
+
+	int86(16,&giris,&cikis); /* ayarlayalim */
+}
+==============================================================
+
+Burada, ekranin yeni tipini belirtmemiz gerekli. Bunun icin, 0 ila 15
+arasinda bir deger vermemiz gerekiyor. Bu degerlerin 0 ila 6
+arasindakiler, CGA (renkli) icin, 7, monokrom icin, ve 8-10 arasi PCJr
+icin, ve sonrasi EGA icindir. EGA, 8 ve 9 haric diger butun ekran
+modlarini destekler.
+
+
+Ekrani Silmek
+
+Gordunuz bile! Ekrani silmek, iki yoldan olabilir. Birincisi, ekranin
+modunu degistirmek. Degistirdiginiz mod, su anki mod bile olsa, yine
+de ekran silinir. Yegane dezavantaj, Compaq tipi makinelerde bu islem
+uzun zaman alir. Dolayisi ile, bu isi dogru yapmamiz gerekir:
+
+EKRANSIL.C:
+==============================================================
+
+
+#include <dos.h>
+void ekransil()          /* bu rutin, ekrani siler */
+{
+	union REGS gir;
+
+    gir.h.ah = 6;       /* ekrani yukari kaydir: servis no su 6
+                           ekrani asagi kaydir: servis no 7 dir. */
+    gir.h.al = 0;       /* kac satir scroll edecegi 'donecegi'
+                           sifir olunca, butun ekrani siler */
+	gir.h.ch = 0;       /* sol ust kosenin satir no su */
+	gir.h.cl = 0;       /* sol ust kosenin kolon no su */
+	gir.h.dh = 23;      /* sag alt kosenin satir no su */
+	gir.h.dl = 79;      /* sag alt kosenin kolon no su */
+	gir.h.bh = 7;       /* yeni yaratilacak satirlar icin renk degeri */
+
+	int86(16,&gir,&gir);
+}
+==============================================================
+
+Altinci BIOS servisi sayesinde, ekrani yukari kaydirma metodu ile
+silmekteyiz. Ayni servis sayesinde, CX ve DX de gordugunuz degerleri
+degistirerek, ekranin sadece bir parcasini 'scroll' etmek yani
+kaydirmak mumkundur. Kaydirma yonunu servis numarasini 6 yada 7
+yaparak degistirebilirsiniz. Burada gordugunu gir.h.bh deki deger ise,
+yeni acilacak satirlarin 'attribute' yani, rengi ve ozellikleri
+(parlak, yanip sonen, vs.) dir. Ayrica, yukaridaki ornekte,
+            gir.h.ch = 0;
+            gir.h.cl = 0;
+yerine, sadece
+            gir.x.cx = 0;
+diyebilirdik.
+
+
+Baska Interruptlar
+
+Bu orneklerde dikkat etmisinizdir - her int86() yi cagirisimizda, ilk
+parametre olarak 16 yi belirttik. Bu istedigimiz interrupt'un
+numarasidir. Daha once soyledigim gibi BIOS un ekran fonksiyonlarinin
+hepsi interrupt 16 ile cagirilir. Fakat tabi, programlarimiz bununla
+sinirli kalmak zorunda degildir, kullanabilecegimiz daha bircok
+interrupt vardir. Dilerseniz, su programa bir bakin:
+
+PRINTSCR.C:
+==========================================================
+#include <dos.h>
+main()
+{
+    union REGS in;      /* buna ihtiyacimiz yok, ama tanimlamamiz lazim */
+    int86(5,&in,&in);   /* print-screen yapalim */
+
+}
+==========================================================
+
+bu program, gorevi ekrani oldugu gibi yaziciya gondermek olan
+interrupt 5 i kullanmaktadir. Artik klavyeden PRINTSCREEN tusuna
+bastiginiza, sistemin ne yaptigini biliyorsunuz.
+
+DOS ve ANSI.SYS ile Ekran Duzeni
+
+Umarim simdi size tumuyle degisik bir ekrana erisme metodu gosterirsem
+bana kizmassiniz. Bu ikinci metodun birincisi ile neredeyse hicbir
+alakasi yok. Bu metod sayesinde, programiniz, modem ile bagli uzak bir
+terminalden calisabilir, DOS'un yonlendirme metodlarindan
+(TYPE A.TXT > PRN gibi) faydalanabilir. ANSI bir terminali olursa,
+herhangi bir Unix sisteminde calisabilir. Nasil mi? Cok kolay -
+yaptigimiz, DOS ekrana birsey gonderirken, ekran idarecisinin
+anlayabilecegi komutlari kullanmak. Yegane sorun, bu idarecinin siz
+yukleyinceye kadar calismaz olmasi. Peki, nasil yukleyebiliriz?
+Sistemi actiginiz diskte, CONFIG.SYS isimli bir kutuk olmasi lazim.
+Yoksa yaratin, ve icine:
+
+    DEVICE=ANSI.SYS
+
+satirini koyun.  Bundan sonra, DOS disketinde bulunan ANSI.SYS isimli
+kutugun, sistemi actiginiz diskte bulunmasini saglayin. Son olarak da,
+ANSI.SYS i yuklemek icin, CTRL-ALT-DEL e basin. Alet acildiginda, size
+fark ettirmeden bu idareci yuklenecektir. Bundan sonra, dilerseniz
+printf icinde, dilerseniz herhangi baska bir DOS u kullanan rutin ile
+ANSI yi kullanabilirsiniz. (Anafikir: printf, ekrana yazmak icin,
+diger bircok C fonksiyonu gibi, DOS'u kullanir.)
+
+ANSI ile cursorun yerini degistirmek:
+
+Ilk once, butun ANSI komutlari, bir ESC, yani ASCII 27 ile baslarlar.
+Ornegin, cursorun yerini degistirmek icin, gereken komut ESC [#;#h
+dir. Ilk # isaretinin yerine satir numarasi, ikincinin yerine de kolon
+konur. Bu, bir programda soyle gorunebilir:
+
+              printf("\x1b[%d;%dh",satir,kolon);
+
+(Ondalik 27 = Hex 1B )
+
+satiri dikkatle incelerseniz, ilk once \x1b ile ESC karakterini, daha
+sonra [, sonra ilk rakami, sonra ; ve ikinci rakami, ve son olarak da
+h isaretini gorebilirsiniz. ANSI nin komut yapisi son derece sabit
+oldugundan, araya bosluklar katarsaniz, programiniz calismayabilir.
+
+ANSI ile Ekrani Silmek
+
+Ekrani silmek kolay: ESC [2j  yi ekrana yollamaniz yeterli:
+        printf("\x1B[2j");
+araya bosluk koymamaya dikkat etmelisiniz. Ayrica kucuk ve buyuk
+harfler farklidir.
+
+Ekranin Rengini Ayarlamak
+
+Bunun icin ESC [#;#m komutunu vermeniz gerekiyor. Ilk #, ekrandaki
+yazilarin rengi, ikincisi ise arka planin rengidir. Bu renk kodlari
+sunlardir:
+
+30 siyah yazilar
+31 kirmizi yazilar
+32 yesil yazilar
+33 sari yazilar
+34 mavi yazilar
+35 magenta yazilar (kirmizimsi)
+36 cyan yazilar (mavimsi)
+37 Beyaz yazilar
+
+40 siyah arka plan
+41 kirmizi arka plan
+42 yesil arka plan
+43 sari arka plan
+44 mavi arka plan
+45 magenta arka plan
+46 cyan arka plan
+47 beyaz arka plan
+
+Diger ozellikler icin, ESC [#m girmeniz gerekli: # yerine,
+    0   normal
+    1   parlak
+    4   alt cizgi (monokrom da)
+    5   yanip sonen
+    7   ters renkler
+    8   gorunmez
+
+
+DOS mu, BIOS mu kullansak
+
+DOS, ve ekran idarecisi ANSI.SYS, BIOS a nazaran daha yavas calisir,
+fakat bircok ortamda kullanilabileceginden, kalici programlar icin
+daha uygun bir cozumdur. Ornegin oyunlar gibi yasam sureleri birkac ay
+olan urunler ise, BIOS yada hatta direk erisim metodlarini
+kullanabilirler. ANSI nin dezavantaji, kullanicinin ANSI.SYS i
+yuklemesinin gerektigidir. Bu da, yeni kullanicilari panige kaptiran
+bir durumdur.
+
+Diger Interruptlar
+
+Gordugunuz gibi BIOS ile ilgilenirken, sadece 2 interrupt kullandik.
+Ekran fonksiyonlarini saglayan 16. interrupt, ve ekranin kopyasini
+yaziciya gonderen 5. interrupt. Bunun gibi daha bircok interrupt
+vardir, ve bize cok cesitli servisler sunarlar.
+
+Ayrica, dilersek kendi interruptlarimizi da yazabiliriz. Bos olarak
+tanimlanmis bir interrupt vektorunu degistirip, kendi rutinimizin
+adresini ona verebiliriz. Yada, ornegin sidekick gibi programlarin
+yaptigi gibi klavyenin yarattigi interrupt sonucunda cagirilan rutini
+degistirebiliriz, ve diledigimiz baska birseyin yapilmasini
+saglayabiliriz. Bu tip programlar ilk olarak basilan tusun kendilerini
+harekete gecirecek tus olup olmadigini kontrol ederler, sayet degilse
+kontrolu eski interrupt rutinine gecirirler.
+

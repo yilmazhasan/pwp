@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="refresh" content="1;url=login.php"> -->
+    <script type="text/javascript">
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.opacity = "0";
+                setTimeout(function () { div.style.display = "none"; }, 600);
+            }
+        }
+
+        function continueClicked() {
+            window.location.href = "./user/login.php"
+        }
+    </script>
+    <title>Page Redirection</title>
+</head>
+
+<body>
+    <div class="alert info">
+        <span class="closebtn">&times;</span>
+        <strong>Note: </strong>
+        <p> This small app is written in one week from very junior times. </p>
+        <p> In order to login system, use these values: </p>
+
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td>Admin</td>
+                <td>hasanYilmaz</td>
+                <td>hasanYilmaz</td>
+            </tr>
+            <tr>
+                <td>Student Affairs</td>
+                <td>mehtapOlmez</td>
+                <td>mehtapOlmez</td>
+            </tr>
+            <tr>
+                <td>Faculty member</td>
+                <td>adnanYaman</td>
+                <td>adnanYaman</td>
+            </tr>
+            <tr>
+                <td>Student</td>
+                <td>hakanYilmaz</td>
+                <td>hakanYilmaz</td>
+            </tr>
+            <tr>
+                <td>No role</td>
+                <td>noRole</td>
+                <td>noRole</td>
+            </tr>
+        </table>
+
+    </div>
+    <button style="background-color: #4CAF50;  width: 8em; height: 2em; position: relative; left: 45%" id="continue"
+        onclick="continueClicked()"> Continue </button>
+    <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+    <!-- If you are not redirected automatically, follow the <a href="./user/login.php">link to example</a> -->
+</body>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    /* The alert message box */
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+    }
+
+    .alert.success {
+        background-color: #4CAF50;
+    }
+
+    .alert.info {
+        background-color: #2196F3;
+    }
+
+    .alert.warning {
+        background-color: #ff9800;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+</style>
+
+
+</html>

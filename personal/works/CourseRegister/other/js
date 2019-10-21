@@ -1,0 +1,123 @@
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function changeInner(serverPage, objID)
+{
+    var obj = document.getElementById(objID);
+    obj.innerHTML = httpGet(serverPage);
+}
+
+/*function makeRequest()
+{
+    var response = '';
+    $.ajax({ type: "GET",   
+             url: "http://localhost/CourseRegister/try.php",   
+             async: false,
+             success : function(text)
+             {
+                 response = text;
+             }
+    });
+alert("ok");
+    alert(response);
+}
+*/
+
+/*
+somefunction: function(callback){
+    var result = "";
+    myAjax = new Ajax.Request('try.php', {
+        method: 'post',
+        postBody: postData,
+        contentType: 'application/x-www-form-urlencoded',
+        onComplete: function(transport){
+            if (200 == transport.status) {
+                result = transport.responseText;
+                callback(result);
+            }
+        }
+    });
+
+}
+somefunction(function(result){
+  alert(result);
+});
+*/
+
+/*function reqListener () {
+  console.log(this.responseText);
+}
+*/
+/*var xmlhttp= null;
+if(window.XMLHttpRequest){
+    xmlhttp = new XMLHttpRequest();
+}else{
+    alert("You must be using a different browser.");
+}
+
+function makeRequest(serverPage,objID){
+    var obj = document.getElementById(objID);
+    xmlhttp.open("GET","try.php");
+
+ //   xmlhttp.open("GET", serverPage);
+    //xmlhttp.onreadystatechange = function()
+//    {
+//        if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+//{
+ //           obj.innerHTML = xmlhttp.responseText;
+            alert(xmlhttp.responseText());
+//        }
+//    }
+//    xmlhttp.send(null);
+}
+*/
+/*function changeContentContainer(link)
+{  
+    var xmlhttp= null;
+
+    if(window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest();
+    }else{
+        alert("You must be using a different browser.");
+    }
+
+    var oReq = new XMLHttpRequest(); //New request object
+    oReq.onload = function() {
+        //This is where you handle what to do with the response.
+        //The actual data is found on this.responseText
+//        alert(this.responseText); //Will alert: 42
+    };
+    oReq.open("get", "try.php", true);
+    //                               ^ Don't block the rest of the execution.
+    //                                 Don't wait until the request finishes to 
+    //                                 continue.
+    oReq.send();
+
+    document.getElementById("contentContainer").innerHTML = this.responseText;
+*/
+/*
+    $( ".time" ).each(function(index , elem) {
+        var sendTime=  $(this).attr("data-time");
+        dataString = "sendtime="+sendTime+"&q=convertTime";
+        $.ajax({
+            type: "POST",
+            url: "course/try.php",
+            data: dataString,                   
+            cache: true,
+            success: function(response) {
+                alert(response);
+                $(elem).html(response);
+            }
+        });
+    });
+    */
+//}
+</script>

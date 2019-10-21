@@ -1,0 +1,1 @@
+1-add course: if there is a error while inserting, error coming from db is written directly.

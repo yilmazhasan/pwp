@@ -1,0 +1,38 @@
+#include<stdio.h>
+
+int main()
+{
+
+    int *ptr = NULL;	//defined a pointer named ptr and initialized to NULL
+    int num = 75;	//defined an integer named num
+
+
+    printf("The value of num is: %d\n", num);
+
+    ptr = &num;		//Addres of num is assigned to ptr, now ptr is the address of num in the memory(points to num) 
+
+    printf("The value that is pointed by ptr is: %d\n", *ptr);
+
+
+
+    printf("The address of the variable num is: %p\n", &num);
+    printf("The value of ptr (The integer(address) in the box of the variable ptr) is: %p\n", ptr);
+    if(ptr == &num)
+	printf("You see that ptr and &num is now point the same place in memory\n");
+
+//Now let's change the value of num with the address of it not with the variable num
+
+    *ptr = 250;
+
+    printf("Now the value of num is: %d\n", num);
+    printf("The value that is pointed by ptr is: %d\n", *ptr);
+
+//Now change the value of num with the variable num
+
+    num = 500;
+    printf("Now the value of num is: %d\n", num);
+    printf("The value that is pointed by ptr is: %d\n", *ptr);
+
+
+return 0;
+}

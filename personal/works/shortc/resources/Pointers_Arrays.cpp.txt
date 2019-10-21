@@ -1,0 +1,39 @@
+#include<stdio.h>
+
+int main()
+{
+    char *c_ptr = NULL;				//char pointer
+    char c_arr[] = "We defined an array!";	//char array
+
+    int i;
+
+    printf("the elements in the c_arr (array of characters):\n");
+
+    for(i = 0; c_arr[i] != '\0'; i++)
+	printf("%c", c_arr[i]);
+	printf("\n");
+
+    c_ptr = c_arr;	//the address of the first element of c_arr is assigned to c_ptr. c_ptr points to 'W'. Please print (*c_ptr) and see it.
+
+    printf("the elements from the where c_ptr points to the null character:\n");
+
+    for(i = 0; c_ptr[i] != '\0'; i++)
+	printf("%c", c_ptr[i]); // we can also use *(c_ptr+i) instead of c_ptr[i]. Please try it.
+	printf("\n");
+
+//Let's change the where c_ptr points to.
+
+    c_ptr += 3; // now c_ptr points 3 characters after 'W', that is 'd'. Please print (*c_ptr) and see it.
+
+    printf("the elements from the where c_ptr points to the null character:\n");
+
+    for(i = 0; c_ptr[i] != '\0'; i++)
+	printf("%c", c_ptr[i]); // we can also use *(c_ptr+i) instead of c_ptr[i]. Please try it.
+	printf("\n");
+
+//We know that arrays are also pointers but constant pointer. Taht is we can not change where they points.
+//c_arr += 3; -> gives an error!
+//c_ptr += 3; -> no error! it is okay.
+
+return 0;
+}
