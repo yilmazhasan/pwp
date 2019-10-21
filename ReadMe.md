@@ -1,16 +1,18 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Usage](#usage)
+* [Content](#usage)
 
 ## General info
 This is a open source (personal) web page
 
 ## Technologies
-HTML, CSS, PHP, Javascript
+Website is written with HTML, CSS, Javascript and PHP
 
-## Usage
+## Content
+- Resume (Short and long)
+- Old and up-to-date works
+- Contact form
 
-```javascript
-
+```
 ```
