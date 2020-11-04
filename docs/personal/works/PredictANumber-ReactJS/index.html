@@ -1,0 +1,147 @@
+<html>
+
+<!-- 
+    - For Avena job interview -
+    @author: https://github.com/yilmazhasan
+    @date: 04.11.2020
+ -->
+
+<head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Page extends React.Component {
+            oldPredictions = [];
+            number = 0;
+            constructor(props) {
+                super(props);
+                this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+                this.reset = this.reset.bind(this);
+                this.produceNumber();
+                this.newPredictionRef = React.createRef();
+            }
+
+            reset() {
+                this.oldPredictions = [];
+
+                // re-produce the number to be predicted
+                this.produceNumber();
+                this.forceUpdate();
+                this.clearInput();
+            }
+
+            clearInput() {
+                this.newPredictionRef.current.clearInput();
+            }
+
+            produceNumber() {
+                this.number = Math.round(Math.random() * 9999)
+                console.log(this.number, 'is pred')
+
+                if (this.number < 1000 || this.number >= 10000) {
+                    this.produceNumber();
+                }
+            }
+
+            rerenderParentCallback() {
+                this.forceUpdate();
+            }
+
+            render() {
+                const predList = this.oldPredictions.map((pred, i) =>
+                    <OldPrediction key={'old-prediction-'+i} pred={pred} />
+                );
+
+                return (
+                    <div>
+                        <button onClick={this.reset}> Reset </button>
+                        <NewPrediction key='new-prediction' ref={this.newPredictionRef} rerenderParentCallback={this.rerenderParentCallback} number={this.number} oldPredictions={this.oldPredictions} />
+                        <ul> {predList} </ul>
+                    </div>
+                );
+            }
+        }
+
+        class OldPrediction extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h3>{this.props.pred.predNum + ' ' + this.props.pred.match}</h3>
+                    </div>);
+            }
+        }
+
+        class NewPrediction extends React.Component {
+            constructor(props) {
+                super(props);
+                this.pred = {};
+                this.predNum = 0;
+                this.onSubmit = this.onSubmit.bind(this);
+            }
+
+            clearInput() {
+                // delete old value
+                let inp = document.getElementsByName("new-prediction");
+                inp[0].value = "";
+            }
+
+            onSubmit() {
+                let predNum = this.predNum;
+
+                if (!predNum || predNum < 1000 || predNum >= 10000) {
+                    alert('Invalid! Enter 4 digit!');
+                } else if (this.props.oldPredictions.map(x => x.predNum).indexOf(predNum) >= 0) {
+                    alert('You have already tried!');
+                } else {
+                    let match = this.getMatch(predNum, this.props.number)
+                    this.props.oldPredictions.unshift({ predNum, match });
+                    this.props.rerenderParentCallback();
+                    this.pred = '';
+                }
+
+                this.clearInput();
+            }
+
+            getMatch(num1, num2) {
+                let res = '';
+                let str1 = String(num1);
+                let str2 = String(num2);
+
+                for (let i = 0; i < str1.length; i++) {
+                    if (str1[i] == str2[i]) {
+                        res += '+';
+                    } else {
+                        res += '-';
+                    }
+                }
+
+                return res;
+            }
+
+            render() {
+                this.predNum = 0;
+                this.pred = {};
+                return (
+                    <form>
+                        <input type="number" placeholder="Enter" className="form-control" onChange={e => this.predNum = e.target.value} ref={(c) => this.pred = c} name="new-prediction" />
+                        <button type="button" onClick={this.onSubmit} className="btn">Try</button>
+                    </form>
+
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Page />,
+            document.getElementById("root")
+        );
+
+    </script>
+</body>
+
+</html>
