@@ -3,145 +3,287 @@
 <!-- 
     - For Avena job interview -
     @author: https://github.com/yilmazhasan
-    @date: 04.11.2020
+    @date: 06.11.2020
  -->
 
 <head>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-</head>
 
-<body>
-    <div id="root"></div>
-    <script type="text/babel">
-        class Page extends React.Component {
-            oldPredictions = [];
-            number = 0;
-            constructor(props) {
-                super(props);
-                this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-                this.reset = this.reset.bind(this);
-                this.produceNumber();
-                this.newPredictionRef = React.createRef();
-            }
-
-            reset() {
-                this.oldPredictions = [];
-
-                // re-produce the number to be predicted
-                this.produceNumber();
-                this.forceUpdate();
-                this.clearInput();
-            }
-
-            clearInput() {
-                this.newPredictionRef.current.clearInput();
-            }
-
-            produceNumber() {
-                this.number = Math.round(Math.random() * 9999)
-                console.log(this.number, 'is pred')
-
-                if (this.number < 1000 || this.number >= 10000) {
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            class Page extends React.Component {
+                oldPredictions = [];
+                number = 0;
+                constructor(props) {
+                    super(props);
+                    this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+                    this.reset = this.reset.bind(this);
                     this.produceNumber();
+                    this.newPredictionRef = React.createRef();
                 }
-            }
-
-            rerenderParentCallback() {
-                this.forceUpdate();
-            }
-
-            render() {
-                const predList = this.oldPredictions.map((pred, i) =>
-                    <OldPrediction key={'old-prediction-'+i} pred={pred} />
-                );
-
-                return (
-                    <div>
-                        <button onClick={this.reset}> Reset </button>
-                        <NewPrediction key='new-prediction' ref={this.newPredictionRef} rerenderParentCallback={this.rerenderParentCallback} number={this.number} oldPredictions={this.oldPredictions} />
-                        <ul> {predList} </ul>
-                    </div>
-                );
-            }
-        }
-
-        class OldPrediction extends React.Component {
-            render() {
-                return (
-                    <div>
-                        <h3>{this.props.pred.predNum + ' ' + this.props.pred.match}</h3>
-                    </div>);
-            }
-        }
-
-        class NewPrediction extends React.Component {
-            constructor(props) {
-                super(props);
-                this.pred = {};
-                this.predNum = 0;
-                this.onSubmit = this.onSubmit.bind(this);
-            }
-
-            clearInput() {
-                // delete old value
-                let inp = document.getElementsByName("new-prediction");
-                inp[0].value = "";
-            }
-
-            onSubmit() {
-                let predNum = this.predNum;
-
-                if (!predNum || predNum < 1000 || predNum >= 10000) {
-                    alert('Invalid! Enter 4 digit!');
-                } else if (this.props.oldPredictions.map(x => x.predNum).indexOf(predNum) >= 0) {
-                    alert('You have already tried!');
-                } else {
-                    let match = this.getMatch(predNum, this.props.number)
-                    this.props.oldPredictions.unshift({ predNum, match });
-                    this.props.rerenderParentCallback();
-                    this.pred = '';
+    
+                reset() {
+                    this.oldPredictions = [];
+    
+                    // re-produce the number to be predicted
+                    this.produceNumber();
+                    this.forceUpdate();
+                    this.clearInput();
                 }
-
-                this.clearInput();
-            }
-
-            getMatch(num1, num2) {
-                let res = '';
-                let str1 = String(num1);
-                let str2 = String(num2);
-
-                for (let i = 0; i < str1.length; i++) {
-                    if (str1[i] == str2[i]) {
-                        res += '+';
-                    } else {
-                        res += '-';
+    
+                clearInput() {
+                    this.newPredictionRef.current.clearInput();
+                }
+    
+                produceNumber() {
+                    this.number = Math.round(Math.random() * 9999)
+                    console.log(this.number, 'is pred')
+    
+                    if (this.number < 1000 || this.number >= 10000) {
+                        this.produceNumber();
                     }
                 }
-
-                return res;
+    
+                rerenderParentCallback() {
+                    this.forceUpdate();
+                }
+    
+                render() {
+                    const predList = this.oldPredictions.map((pred, i) =>
+                        <OldPrediction key={'old-prediction-' + i} pred={pred} />
+                    );
+    
+                    return (
+                        <div>
+                            <button className="btn btn-rst" onClick={this.reset}> Reset </button>
+                            <NewPrediction key='new-prediction' ref={this.newPredictionRef} rerenderParentCallback={this.rerenderParentCallback} number={this.number} oldPredictions={this.oldPredictions} />
+                            <ul> {predList} </ul>
+                        </div>
+                    );
+                }
             }
-
-            render() {
-                this.predNum = 0;
-                this.pred = {};
-                return (
-                    <form>
-                        <input type="number" placeholder="Enter" className="form-control" onChange={e => this.predNum = e.target.value} ref={(c) => this.pred = c} name="new-prediction" />
-                        <button type="button" onClick={this.onSubmit} className="btn">Try</button>
-                    </form>
-
-                );
+    
+            class OldPrediction extends React.Component {
+                render() {
+                    return (
+                        <div>
+                            <h3>{this.props.pred.predNum + ' ' + this.props.pred.match}</h3>
+                        </div>);
+                }
             }
+    
+            class NewPrediction extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.pred = {};
+                    this.predNum = 0;
+                    this.onSubmit = this.onSubmit.bind(this);
+                }
+    
+                clearInput() {
+                    // delete old value
+                    let inp = document.getElementsByName("new-prediction");
+                    inp[0].value = "";
+                }
+    
+                playAudio(uri, ms) {
+                    const audio = new Audio(uri);
+                    audio.play();
+                    setTimeout(() => {
+                        audio.pause();
+                    }, ms);
+                }
+    
+                playApplauseAudio() {
+                    this.playAudio('https://www.pacdv.com/sounds/applause-sounds/app-6.mp3', 5000);
+                }
+    
+                playSuccessAudio() { 
+                    this.playAudio('https://freesound.org/data/previews/521/521949_311243-lq.mp3', 5000);
+                }
+    
+                playMissionSuccessAudio() {
+                    this.playAudio('https://freesound.org/data/previews/406/406371_7873941-lq.mp3', 4000);
+                }
+    
+                playFailAudio() {                
+                    this.playAudio('https://freesound.org/data/previews/175/175409_1326576-lq.mp3', 3500);
+                }
+    
+                playWrongAnswerAudio() {                
+                    this.playAudio('https://freesound.org/data/previews/341/341732_5155959-lq.mp3', 4000);
+                }
+    
+                playTryAudio() {
+                    this.playAudio('https://tonejs.github.io/audio/drum-samples/loops/ominous.mp3', 1000);
+                }
+    
+                onSubmit() {
+                    this.playTryAudio();
+                    let predNum = this.predNum;
+    
+                    if (!predNum || predNum < 1000 || predNum >= 10000) {
+                        alert('Invalid! Enter 4 digit!');
+                    } else if (this.props.oldPredictions.map(x => x.predNum).indexOf(predNum) >= 0) {
+                        alert('You have already tried!');
+                    } else {
+                        let match = this.getMatch(this.props.number, predNum);
+    
+                        if (match == '++++') {
+                            const trial = this.props.oldPredictions.length;
+                            let msg = '';
+                            
+                            if(trial > 10) {
+                                msg = 'You have wasted some of your chances, so you got -' + (trial-10)*10, + ' points.';
+                            } else {
+                                msg = 'You are lucky! You have found less than average needed trial, so you got ' + (10-trial)*10 + ' points.';
+                            }
+    
+                            this.playMissionSuccessAudio();
+                            setTimeout(() => {
+                                this.playApplauseAudio();
+                                alert('Congratulations! You have succeeded at ' + trial + ' times! ' + msg); // to make async
+                            }, 500);
+    
+                        } else if(match.indexOf('+') >= 0){
+                            this.playWrongAnswerAudio();
+                        } else {
+                            this.playFailAudio();
+                        }
+    
+                        this.props.oldPredictions.unshift({ predNum, match });
+                        this.props.rerenderParentCallback();
+                        this.pred = '';
+                    }
+    
+                    this.clearInput();
+                }
+    
+                getMatch(numToFind, numToTry) {
+                    let res = '';
+                    let strToFind = String(numToFind);
+                    let strToTry = String(numToTry);
+    
+                    for (let i = 0; i < strToFind.length; i++) {
+                        if (strToFind.indexOf(strToTry[i]) >= 0) {
+                            if(strToTry[i] == strToFind[i]) {
+                                res += '+';
+                            } else {
+                                res += '-';
+                            }
+                        }
+                    }
+    
+                    return res;
+                }
+    
+                render() {
+                    this.predNum = 0;
+                    this.pred = {};
+                    return (
+                        <form>
+                            <input className="inp" type="number" placeholder="Enter a 4-digit number" onChange={e => this.predNum = e.target.value} ref={(c) => this.pred = c} name="new-prediction" />
+                            <br/>
+                            <button className="btn btn-try" type="button" onClick={this.onSubmit}><span>Try</span></button>
+                        </form>
+    
+                    );
+                }
+            }
+    
+            ReactDOM.render(
+                <Page />,
+                document.getElementById("root")
+            );
+    
+        </script>
+    </body>
+    
+    <style>
+        #root {
+            width: 50%;
+            margin: 10% 25%;
+            zoom:2;
         }
-
-        ReactDOM.render(
-            <Page />,
-            document.getElementById("root")
-        );
-
-    </script>
-</body>
-
+    
+        .inp {
+            padding: 8px;
+            display: block;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            font: inherit;
+        }
+    
+        .btn {
+            left: 35%;
+            position: relative;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-rst {
+            background-color: #e7e7e7;
+            color: black;
+            /* background-color: #4CAF50;  */
+            /* Green */
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+        }
+        
+        .btn-rst:hover {
+          box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        
+        .btn-try {
+            display: inline-block;
+            border-radius: 4px;
+            /* background-color: #f4511e; */
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            /* width: 200px; */
+            transition: all 0.5s;
+            margin: 5px;
+            background-color: #4CAF50;
+            border-radius: 32px !important;
+        }
+        
+        .btn span {
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          transition: 0.5s;
+        }
+        
+        .btn span:after {
+          content: '\00bb';
+          position: absolute;
+          opacity: 0;
+          top: 0;
+          right: -20px;
+          transition: 0.5s;
+        }
+        
+        .btn:hover span {
+          padding-right: 25px;
+        }
+        
+        .btn:hover span:after {
+          opacity: 1;
+          right: 0;
+        }
+    </style>
+    
 </html>
