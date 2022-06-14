@@ -600,9 +600,10 @@ form input.clear_btn:hover {
 	background-position:-40px 0;
 	background-color:#e37769;
 }
+
 .social_icons a.linkedin_icon {
 	background-position:-160px 0;
-	background-color:#4875B4; /*7ec0a3;*/	
+	background-color:#000; /*4875B4, 7ec0a3;*/	
 }
 
 .social_icons a.aft_icon {
